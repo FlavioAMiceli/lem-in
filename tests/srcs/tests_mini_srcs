@@ -1,1 +1,1 @@
-TESTS_MINI_SOURCES :=
+TESTS_MINI_SOURCES := test_ft_is_int

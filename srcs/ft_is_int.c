@@ -1,0 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_isnumber.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/02/26 18:03:46 by mmarcell       #+#    #+#                */
+/*   Updated: 2020/02/26 18:44:55 by mmarcell      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+int		ft_is_int(char *str)
+{
+	int				idx;
+	long int		nbr;
+	unsigned int	count_zero;
+
+	idx = 0;
+	while (str[idx] != 0)
+	{
+		if (!(ft_isdigit(str[idx]) ||
+			((str[idx] == '-' || str[idx] == '+') && ft_isdigit(str[idx + 1]) &&
+			idx == 0)))
+			return (0);
+		++idx;
+	}
+	count_zero = (str[0] == '-' || str[0] == '+');
+	while (str[count_zero] == '0')
+		++count_zero;
+	if (idx - count_zero > 11)
+		return (0);
+	nbr = ft_atoi(str);
+	return (-2147483648 <= nbr && nbr <= 2147483647);
+}

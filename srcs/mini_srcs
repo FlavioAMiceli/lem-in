@@ -1,1 +1,1 @@
-MINI_SOURCES :=
+MINI_SOURCES := ft_is_int
