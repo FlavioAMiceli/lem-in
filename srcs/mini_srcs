@@ -1,1 +1,1 @@
-MINI_SOURCES := ft_is_int ft_strarrdel create_room
+MINI_SOURCES := ft_is_int ft_strarrdel create_free

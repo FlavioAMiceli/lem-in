@@ -1,1 +1,1 @@
-TESTS_MINI_SOURCES := test_ft_is_int test_create_room
+TESTS_MINI_SOURCES := test_ft_is_int test_create_free
