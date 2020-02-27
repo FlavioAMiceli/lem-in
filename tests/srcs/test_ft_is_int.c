@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:12:50 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/02/27 13:33:58 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/02/27 13:40:36 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,18 +124,3 @@ Test(ft_is_int, invalid_double_sign4)
 {
 	cr_assert_eq(ft_is_int("--432"), 0, "incorrect return for non numerical char in the beginning");
 }
-
-// Test(ft_is_int, invalid_non_num_char_beg)
-// {
-// 	cr_assert_eq(ft_is_int("h432"), 0, "incorrect return for non numerical char in the beginning");
-// }
-
-// Test(ft_is_int, invalid_non_num_char_beg)
-// {
-// 	cr_assert_eq(ft_is_int("h432"), 0, "incorrect return for non numerical char in the beginning");
-// }
-
-// Test(ft_is_int, invalid_non_num_char_beg)
-// {
-// 	cr_assert_eq(ft_is_int("h432"), 0, "incorrect return for non numerical char in the beginning");
-// }
