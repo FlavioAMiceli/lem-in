@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/07 18:47:20 by mmarcell       #+#    #+#                 #
-#    Updated: 2020/02/24 19:12:00 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/02/27 13:18:24 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ include srcs/mini_srcs
 
 NAME := lem-in
 
-OBJS := $(MINI_SOURCES:%=objs/%.o) objs/main.o
+OBJS := $(MINI_SOURCES:%=objs/%.o) #objs/main.o
 
 CFLAGS := -Wall -Wextra -Werror
 
@@ -60,7 +60,7 @@ re: fclean all
 
 lre: lfclean all
 
-test:
+test: $(LIBFT) $(OBJS) $(HDRS)
 	@make -C tests
 
 FORCE:
