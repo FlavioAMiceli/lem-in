@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:48:16 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/02/26 16:48:36 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/02/27 14:31:20 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ Test(create_room, valid_pos)
 	room = create_room(room_info);
 	cr_expect_eq(room->x_coord, 21, "incorrect x_coord for room, it is %d and it should be %d", room->x_coord, 21);
 	cr_expect_eq(room->y_coord, 42, "incorrect y_coord for room, it is %d and it should be %d", room->y_coord, 42);
-	cr_expect_eq(room->name, 42, "incorrect name for room, it is %s and it should be %s", room->name, "donaudampfschifffahrtsgesellschaft");
+	cr_expect_str_eq(room->name, "donaudampfschifffahrtsgesellschaft", "incorrect name for room, it is %s and it should be %s", room->name, "donaudampfschifffahrtsgesellschaft");
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
-	cr_expect_eq(room->link_count, -1, "link_count not initialized to -1");
+	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
 }
 
@@ -37,11 +37,11 @@ Test(create_room, valid_neg)
 
 	room_info = ft_strsplit("0 -21 -42", ' ');
 	room = create_room(room_info);
-	cr_expect_eq(room->x_coord, 21, "incorrect x_coord for room, it is %d and it should be %d", room->x_coord, -21);
-	cr_expect_eq(room->y_coord, 42, "incorrect y_coord for room, it is %d and it should be %d", room->y_coord, -42);
-	cr_expect_eq(room->name, 42, "incorrect name for room, it is %s and it should be %s", room->name, "0");
+	cr_expect_eq(room->x_coord, -21, "incorrect x_coord for room, it is %d and it should be %d", room->x_coord, -21);
+	cr_expect_eq(room->y_coord, -42, "incorrect y_coord for room, it is %d and it should be %d", room->y_coord, -42);
+	cr_expect_str_eq(room->name, "0", "incorrect name for room, it is %s and it should be %s", room->name, "0");
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
-	cr_expect_eq(room->link_count, -1, "link_count not initialized to -1");
+	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
 }
 
@@ -53,10 +53,10 @@ Test(create_room, valid_mix)
 	room_info = ft_strsplit("xyz 21 -42", ' ');
 	room = create_room(room_info);
 	cr_expect_eq(room->x_coord, 21, "incorrect x_coord for room, it is %d and it should be %d", room->x_coord, 21);
-	cr_expect_eq(room->y_coord, 42, "incorrect y_coord for room, it is %d and it should be %d", room->y_coord, -42);
-	cr_expect_eq(room->name, 42, "incorrect name for room, it is %s and it should be %s", room->name, "xyz");
+	cr_expect_eq(room->y_coord, -42, "incorrect y_coord for room, it is %d and it should be %d", room->y_coord, -42);
+	cr_expect_str_eq(room->name, "xyz", "incorrect name for room, it is %s and it should be %s", room->name, "xyz");
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
-	cr_expect_eq(room->link_count, -1, "link_count not initialized to -1");
+	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
 }
 
@@ -69,9 +69,9 @@ Test(create_room, valid_multiple_spaces)
 	room = create_room(room_info);
 	cr_expect_eq(room->x_coord, 21, "incorrect x_coord for room, it is %d and it should be %d", room->x_coord, 21);
 	cr_expect_eq(room->y_coord, 42, "incorrect y_coord for room, it is %d and it should be %d", room->y_coord, 42);
-	cr_expect_eq(room->name, 42, "incorrect name for room, it is %s and it should be %s", room->name, "ladida");
+	cr_expect_str_eq(room->name, "ladida", "incorrect name for room, it is %s and it should be %s", room->name, "ladida");
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
-	cr_expect_eq(room->link_count, -1, "link_count not initialized to -1");
+	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
 }
 
@@ -84,9 +84,9 @@ Test(create_room, valid_int_max)
 	room = create_room(room_info);
 	cr_expect_eq(room->x_coord, 2147483647, "incorrect x_coord for room, it is %d and it should be %d", room->x_coord, 2147483647);
 	cr_expect_eq(room->y_coord, 2147483647, "incorrect y_coord for room, it is %d and it should be %d", room->y_coord, 2147483647);
-	cr_expect_eq(room->name, 42, "incorrect name for room, it is %s and it should be %s", room->name, "ladida");
+	cr_expect_str_eq(room->name, "ladida", "incorrect name for room, it is %s and it should be %s", room->name, "ladida");
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
-	cr_expect_eq(room->link_count, -1, "link_count not initialized to -1");
+	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
 }
 
@@ -97,11 +97,11 @@ Test(create_room, valid_int_min)
 
 	room_info = ft_strsplit("ladida -2147483648 42", ' ');
 	room = create_room(room_info);
-	cr_expect_eq(room->x_coord, -2147483648, "incorrect x_coord for room, it is %d and it should be %d", room->x_coord, -2147483648);
+	cr_expect_eq(room->x_coord, -2147483648, "incorrect x_coord for room, it is %d and it should be %ld", room->x_coord, -2147483648);
 	cr_expect_eq(room->y_coord, 42, "incorrect y_coord for room, it is %d and it should be %d", room->y_coord, 42);
-	cr_expect_eq(room->name, 42, "incorrect name for room, it is %s and it should be %s", room->name, "ladida");
+	cr_expect_str_eq(room->name, "ladida", "incorrect name for room, it is %s and it should be %s", room->name, "ladida");
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
-	cr_expect_eq(room->link_count, -1, "link_count not initialized to -1");
+	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
 }
 
@@ -114,9 +114,9 @@ Test(create_room, valid_L_in_name)
 	room = create_room(room_info);
 	cr_expect_eq(room->x_coord, 21, "incorrect x_coord for room, it is %d and it should be %d", room->x_coord, 21);
 	cr_expect_eq(room->y_coord, 42, "incorrect y_coord for room, it is %d and it should be %d", room->y_coord, 42);
-	cr_expect_eq(room->name, 42, "incorrect name for room, it is %s and it should be %s", room->name, "donau#gesellschaft");
+	cr_expect_str_eq(room->name, "donau#gesellschaft", "incorrect name for room, it is %s and it should be %s", room->name, "donau#gesellschaft");
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
-	cr_expect_eq(room->link_count, -1, "link_count not initialized to -1");
+	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
 }
 
@@ -129,9 +129,9 @@ Test(create_room, valid_hash_in_name)
 	room = create_room(room_info);
 	cr_expect_eq(room->x_coord, 21, "incorrect x_coord for room, it is %d and it should be %d", room->x_coord, 21);
 	cr_expect_eq(room->y_coord, 42, "incorrect y_coord for room, it is %d and it should be %d", room->y_coord, 42);
-	cr_expect_eq(room->name, 42, "incorrect name for room, it is %s and it should be %s", room->name, "s#thing");
+	cr_expect_str_eq(room->name, "s#thing", "incorrect name for room, it is %s and it should be %s", room->name, "s#thing");
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
-	cr_expect_eq(room->link_count, -1, "link_count not initialized to -1");
+	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
 }
 

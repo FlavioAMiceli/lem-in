@@ -6,11 +6,12 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/27 14:05:52 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/02/27 14:12:46 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/02/27 14:24:33 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 void	ft_strarrdel(char ***arr)
 {
@@ -21,7 +22,7 @@ void	ft_strarrdel(char ***arr)
 	i = 0;
 	while ((*arr)[i] != 0)
 	{
-		ft_strdel((*arr)[i]);
+		ft_strdel(&((*arr)[i]));
 		++i;
 	}
 	free(*arr);

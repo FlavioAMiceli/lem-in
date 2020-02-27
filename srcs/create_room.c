@@ -6,11 +6,13 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:46:04 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/02/27 14:13:30 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/02/27 14:20:12 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
+#include "libft.h"
+#include <stdlib.h>
 
 t_room		*create_room(char **room_info)
 {
@@ -23,7 +25,7 @@ t_room		*create_room(char **room_info)
 		room_info[2] == 0 || ft_is_int(room_info[2]) == 0 ||
 		room_info[3] != 0)
 		return (0);
-	room->name = ft_strcpy(room_info[0]);
+	room->name = ft_strdup(room_info[0]);
 	room->x_coord = ft_atoi(room_info[1]);
 	room->y_coord = ft_atoi(room_info[2]);
 	room->distance = -1;
