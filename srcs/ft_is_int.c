@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_isnumber.c                                      :+:    :+:            */
+/*   ft_is_int.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:03:46 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/02/26 18:44:55 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/02/27 16:29:20 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int		ft_is_int(char *str)
 	long int		nbr;
 	unsigned int	count_zero;
 
+	if (str == 0)
+		return (0);
 	idx = 0;
 	while (str[idx] != 0)
 	{

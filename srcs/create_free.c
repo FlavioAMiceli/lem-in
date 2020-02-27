@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:46:04 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/02/27 15:42:58 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/02/27 18:01:48 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_room		*create_room(char **room_info)
 	room->distance = -1;
 	room->link_count = 0;
 	room->links = 0;
+	room->next = 0;
 	ft_strarrdel(&room_info);
 	return (room);
 }
@@ -42,6 +43,7 @@ void	free_room(t_room **room)
 	(*room)->x_coord = 0;
 	(*room)->y_coord = 0;
 	(*room)->distance = 0;
+	(*room)->next = 0;
 	if ((*room)->links != 0)
 	{
 		ft_bzero((*room)->links, (*room)->link_count);
