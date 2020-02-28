@@ -1,1 +1,13 @@
-MINI_SOURCES := ft_is_int ft_strarrdel create_free
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    mini_srcs                                          :+:    :+:             #
+#                                                      +:+                     #
+#    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2020/02/28 18:56:22 by mmarcell       #+#    #+#                 #
+#    Updated: 2020/02/28 18:56:27 by mmarcell      ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
+MINI_SOURCES := ft_is_int ft_strarrdel create_free_graph create_free_input

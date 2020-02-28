@@ -1,1 +1,13 @@
-TESTS_MINI_SOURCES := test_ft_is_int test_create_free
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    tests_mini_srcs                                    :+:    :+:             #
+#                                                      +:+                     #
+#    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2020/02/28 18:56:18 by mmarcell       #+#    #+#                 #
+#    Updated: 2020/02/28 18:56:33 by mmarcell      ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
+TESTS_MINI_SOURCES := test_ft_is_int test_create_free_graph create_free_input
