@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_is_int.c                                        :+:    :+:            */
+/*   ft_isint.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:03:46 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/02/27 16:29:20 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/02 18:33:03 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_is_int(char *str)
+int		ft_isint(char *str)
 {
 	int				idx;
 	long int		nbr;

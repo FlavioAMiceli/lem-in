@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/02/28 17:44:33 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/02 18:36:45 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,22 @@ typedef struct	s_input_info
 {
 	int				room_count;
 	int				ant_no;
-	char			*start_room;
-	char			*end_room;
+	char			*start;
+	char			*end;
 	t_input_line	*list;
 	t_input_line	*rooms;
 	t_input_line	*links;
 }				t_input_info;
 
-int		ft_is_int(char *str);
-void	ft_strarrdel(char ***arr);
-int		read_input(t_input_info *input);
-void	free_graph(t_room ***graph);
-t_room	*create_room(char **room_info);
+int				ft_isint(char *str);
+void			ft_strarrdel(char ***arr);
+int				strdel_and_return(int ret, char **str);
+int				strarrdel_and_return(int ret, char ***strarr);
+int				free_graph_input_and_return(int ret, t_room ***graph,
+				t_input_info *input);
+int				read_input(t_input_info *input);
+int				add_input_line(t_input_info *input, char *line);
+void			free_graph(t_room ***graph);
+t_room			*create_room(char **room_info);
 
 #endif

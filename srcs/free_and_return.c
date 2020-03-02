@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   input_create_free.c                                :+:    :+:            */
+/*   free_and_return.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/28 17:38:18 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/02 16:30:31 by mmarcell      ########   odam.nl         */
+/*   Created: 2020/03/02 16:34:08 by mmarcell       #+#    #+#                */
+/*   Updated: 2020/03/02 18:09:30 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
-#include "libft.h"
-#include <stdlib.h>
 
-int		add_input_line(t_input_info *input, char *line)
+int	strdel_and_return(int ret, char **str)
 {
-	t_input_line	*new_line;
-	t_input_line	**walk;
+	ft_strdel(str);
+	return (ret);
+}
 
-	new_line = (t_input_line*)malloc(sizeof(t_input_line));
-	if (new_line == 0)
-		return (0);
-	ft_bzero(new_line, sizeof(t_input_info));
-	new_line->line = ft_strdup(line);
-	walk = &(input->list);
-	while (*walk != 0)
-		(*walk) = (*walk)->next_line;
-	*walk = new_line;
-	return (1);
+int	free_graph_input_and_return(int ret, t_room ***graph, t_input_info *input)
+{
+	free_graph(graph);
+	free_input(input);
+	return (ret);
+}
+
+int	strarrdel_and_return(int ret, char ***strarr)
+{
+	ft_strarrdel(strarr);
+	return (ret);
 }
