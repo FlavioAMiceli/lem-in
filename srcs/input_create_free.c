@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/28 17:38:18 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/02 16:30:31 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/02 20:55:22 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-int		add_input_line(t_input_info *input, char *line)
+t_input_line	*add_input_line(t_input_info *input, char *line)
 {
 	t_input_line	*new_line;
 	t_input_line	**walk;
@@ -26,7 +26,7 @@ int		add_input_line(t_input_info *input, char *line)
 	new_line->line = ft_strdup(line);
 	walk = &(input->list);
 	while (*walk != 0)
-		(*walk) = (*walk)->next_line;
+		walk = &((*walk)->next_line);
 	*walk = new_line;
-	return (1);
+	return (new_line);
 }

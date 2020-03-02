@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/02 18:36:45 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/02 21:04:56 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ typedef struct	s_room
 
 typedef struct	s_input_line
 {
-	char				*line;
 	struct s_input_line	*next_line;
 	struct s_input_line	*next_room;
 	struct s_input_line	*next_link;
+	char				*line;
+	char				*room_name;
 }				t_input_line;
 
 typedef struct	s_input_info
@@ -51,7 +52,7 @@ int				strarrdel_and_return(int ret, char ***strarr);
 int				free_graph_input_and_return(int ret, t_room ***graph,
 				t_input_info *input);
 int				read_input(t_input_info *input);
-int				add_input_line(t_input_info *input, char *line);
+t_input_line	*add_input_line(t_input_info *input, char *line);
 void			free_graph(t_room ***graph);
 t_room			*create_room(char **room_info);
 
