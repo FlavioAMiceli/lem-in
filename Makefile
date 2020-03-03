@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/07 18:47:20 by mmarcell       #+#    #+#                 #
-#    Updated: 2020/03/03 12:21:25 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/03/03 18:24:41 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ MINUS := \033[38;5;160m-\033[0;00m
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) -o $(CFLAGS) $@ $^ $(LIBFT)
+	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
 	@echo " ${PLUS} $@"
 
 objs/%.o: srcs/%.c $(HDRS) | objs

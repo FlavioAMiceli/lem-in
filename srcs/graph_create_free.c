@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   create_free_graph.c                                :+:    :+:            */
+/*   graph_create_free.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:46:04 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/02/28 17:42:43 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/03 18:23:32 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 #include "libft.h"
 #include <stdlib.h>
 
@@ -21,8 +21,8 @@ t_room		*create_room(char **room_info)
 	room = (t_room*)malloc(sizeof(t_room));
 	if (room == 0 || room_info == 0 || *room_info == 0 ||
 		room_info[0][0] == 'L' || room_info[0][0] == '#' ||
-		room_info[1] == 0 || ft_is_int(room_info[1]) == 0 ||
-		room_info[2] == 0 || ft_is_int(room_info[2]) == 0 ||
+		room_info[1] == 0 || ft_isint(room_info[1]) == 0 ||
+		room_info[2] == 0 || ft_isint(room_info[2]) == 0 ||
 		room_info[3] != 0)
 		return (0);
 	room->name = ft_strdup(room_info[0]);
@@ -31,17 +31,16 @@ t_room		*create_room(char **room_info)
 	room->distance = -1;
 	room->link_count = 0;
 	room->links = 0;
-	room->next = 0;
 	ft_strarrdel(&room_info);
 	return (room);
 }
 
-void		free_room(t_room **room)
+static void	free_room(t_room **room)
 {
 	if (room == 0 || *room == 0)
 		return ;
 	if ((*room)->name != 0)
-		ft_strdel((*room)->name);
+		ft_strdel(&((*room)->name));
 	if ((*room)->links != 0)
 	{
 		ft_bzero((*room)->links, (*room)->link_count);
@@ -50,4 +49,17 @@ void		free_room(t_room **room)
 	ft_bzero(*room, sizeof(t_room));
 	free(*room);
 	*room = 0;
+}
+
+void		free_graph(t_graph *graph)
+{
+	int		i;
+
+	i = 0;
+	while (i < graph->room_count)
+	{
+		free_room(&((graph->rooms)[i]));
+		++i;
+	}
+	ft_bzero(graph, sizeof(t_graph));
 }

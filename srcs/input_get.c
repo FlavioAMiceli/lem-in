@@ -6,17 +6,37 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:30:44 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/02 21:32:20 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/03 18:11:11 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
+#include "libft.h"
+
+/*
+** -------------------------------------------------------------------------- **
+** checks if both rooms for the link are in fact room names
+**
+** params
+**
+** return
+**	0			in case of error
+**	1			when everything went fine
+*/
+
+static int	add_link(t_input_info *input, t_input_line *input_line)
+{
+	if (input->rooms == 0)
+		return (0);
+	input_line->next_link = input->links;
+	input->links = input_line;
+	return (1);
+}
 
 /*
 ** -------------------------------------------------------------------------- **
 ** adds the new input_line - link to the room list,
 ** counts the rooms,
-** checks for duplicate room names,
 ** saves the start and end room
 **
 ** params
@@ -28,28 +48,19 @@
 
 static int	add_room(t_input_info *input, t_input_line *input_line, char *name)
 {
-	t_input_line	**walk;
-
 	++(input->room_count);
-	walk = &(input->rooms);
-	while ((*walk) != 0)
-	{
-		if (ft_strequ((*walk)->room_name, name) == 1)
-			return (0);
-		walk = &((*walk)->next_room);
-	}
-	*walk = input_line;
-	input_line->room_name = ft_strdup(name);
 	if (input_line == 0)
 		return (0);
+	input_line->next_room = input->rooms;
+	input->rooms = input_line;
 	if (input->start != 0 && input->start[0] == '#')
 	{
-		ft_strdel(input->start);
+		ft_strdel(&(input->start));
 		input->start = ft_strdup(name);
 	}
 	if (input->end != 0 && input->end[0] == '#')
 	{
-		ft_strdel(input->end);
+		ft_strdel(&(input->end));
 		input->end = ft_strdup(name);
 	}
 	return (1);
@@ -57,10 +68,11 @@ static int	add_room(t_input_info *input, t_input_line *input_line, char *name)
 
 /*
 ** -------------------------------------------------------------------------- **
-** skips comments,
-** marks if the following room is a start or end room
-** checks if the input is for a room or a link
-** returns error if there is input for a room after a link has been added
+** - appends every input line to the input struct
+** - marks if the following room is a start or end room
+** - checks if the input is for a room or a link calls the appropriate function
+**   to add room or link
+** - returns error if there is input for a room after a link has been added
 **
 ** params
 **
@@ -96,7 +108,7 @@ static int	create_input_list(t_input_info *input, char **line,
 	if (line[0][0] != '#' && line[1] == 0 && ft_strchr(line[0], '-') != 0 &&
 		input->rooms != 0 && add_link(input, input_line) == 1)
 		strarrdel_and_return(1, &line);
-	strarrdel_and_return(0, &line);
+	return(strarrdel_and_return(0, &line));
 }
 
 /*
@@ -117,14 +129,14 @@ int			read_input(t_input_info *input)
 	char			*line;
 	t_input_line	*input_line;
 
-	ret = get_next_line(&line);
+	ret = get_next_line(0, &line);
 	if (ret == 0)
 		return (0);
 	while (ret != 0)
 	{
 		if (ret == -1)
 			return (strdel_and_return(-1, &line));
-		if (ft_isint(&line) &&
+		if (ft_isint(line) &&
 			input->ant_no == -1 && input->rooms == 0 && input->links == 0)
 			input->ant_no = ft_atoi(line);
 		else
@@ -135,8 +147,7 @@ int			read_input(t_input_info *input)
 				return (strdel_and_return(-1, &line));
 		}
 		ft_strdel(&line);
-		ret = get_next_line(&line);
+		ret = get_next_line(0, &line);
 	}
-	return (strdel_and_return(1, &line));
+	return (strdel_and_return(1, &line) && input->ant_no >= 0);
 }
-
