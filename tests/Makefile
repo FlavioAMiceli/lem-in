@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 13:03:52 by mmarcell       #+#    #+#                 #
-#    Updated: 2020/02/27 13:02:14 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/03/04 14:56:28 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LIBFT := $(LIBFT_PATH)/libft.a
 
 HDRS_PATH := ../hdrs
 INCLUDES := -I $(HDRS_PATH) -I $(LIBFT_PATH)
-HDRS := $(HDRS_PATH)/$(NAME).h
+HDRS := $(HDRS_PATH)/lem_in.h
 
 PLUS = \033[38;5;40m+\033[0;00m
 MINUS = \033[38;5;160m-\033[0;00m

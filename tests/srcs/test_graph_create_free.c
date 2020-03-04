@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   test_create_free.c                                 :+:    :+:            */
+/*   test_graph_create_free.c                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:48:16 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/02/27 18:01:06 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/04 14:58:01 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <criterion/criterion.h>
 #include <criterion/assert.h>
-#include "lem-in.h"
+#include "lem_in.h"
 #include "libft.h"
 
 Test(create_room, valid_pos)
@@ -28,7 +28,6 @@ Test(create_room, valid_pos)
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
 	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
-	cr_expect_eq(room->next, 0, "next room pointer not initialized to 0");
 }
 
 Test(create_room, valid_neg)
@@ -44,7 +43,6 @@ Test(create_room, valid_neg)
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
 	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
-	cr_expect_eq(room->next, 0, "next room pointer not initialized to 0");
 }
 
 Test(create_room, valid_mix)
@@ -60,7 +58,6 @@ Test(create_room, valid_mix)
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
 	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
-	cr_expect_eq(room->next, 0, "next room pointer not initialized to 0");
 }
 
 Test(create_room, valid_multiple_spaces)
@@ -76,7 +73,6 @@ Test(create_room, valid_multiple_spaces)
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
 	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
-	cr_expect_eq(room->next, 0, "next room pointer not initialized to 0");
 }
 
 Test(create_room, valid_int_max)
@@ -92,7 +88,6 @@ Test(create_room, valid_int_max)
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
 	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
-	cr_expect_eq(room->next, 0, "next room pointer not initialized to 0");
 }
 
 Test(create_room, valid_int_min)
@@ -108,7 +103,6 @@ Test(create_room, valid_int_min)
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
 	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
-	cr_expect_eq(room->next, 0, "next room pointer not initialized to 0");
 }
 
 Test(create_room, valid_L_in_name)
@@ -124,7 +118,6 @@ Test(create_room, valid_L_in_name)
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
 	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
-	cr_expect_eq(room->next, 0, "next room pointer not initialized to 0");
 }
 
 Test(create_room, valid_hash_in_name)
@@ -140,7 +133,6 @@ Test(create_room, valid_hash_in_name)
 	cr_expect_eq(room->distance, -1, "distance not initialized to -1");
 	cr_expect_eq(room->link_count, 0, "link_count not initialized to 0");
 	cr_expect_eq(room->links, 0, "*links not initialized to 0");
-	cr_expect_eq(room->next, 0, "next room pointer not initialized to 0");
 }
 
 Test(create_room, invalid_empty1)

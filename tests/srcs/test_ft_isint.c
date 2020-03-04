@@ -6,13 +6,13 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:12:50 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/02 18:32:37 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/04 14:56:45 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <criterion/criterion.h>
 #include <criterion/assert.h>
-#include "lem-in.h"
+#include "lem_in.h"
 #include "libft.h"
 
 Test(ft_isint, valid_pos)

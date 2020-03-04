@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:30:44 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/03 18:11:11 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/04 17:52:47 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	add_link(t_input_info *input, t_input_line *input_line)
 
 /*
 ** -------------------------------------------------------------------------- **
-** adds the new input_line - link to the room list,
+** adds the new input_line - link to the room list in the input struct,
 ** counts the rooms,
 ** saves the start and end room
 **
@@ -85,30 +85,32 @@ static int	create_input_list(t_input_info *input, char **line,
 			t_input_line *input_line)
 {
 	if (line == 0 || *line == 0 || line[0][0] == 'L')
-		strarrdel_and_return(0, &line);
+		return (strarrdel_and_return(0, &line));
 	if (ft_strequ(line[0], "##start") && line[1] == 0 && input->start == 0)
 	{
-		if (ft_strdup(input->start) == 0)
-			strarrdel_and_return(0, &line);
-		strarrdel_and_return(1, &line);
+		input->start = ft_strdup("#");
+		if (input->start == 0)
+			return (strarrdel_and_return(0, &line));
+		return (strarrdel_and_return(1, &line));
 	}
 	if (ft_strequ(line[0], "##end") && line[1] == 0 && input->end == 0)
 	{
-		if (ft_strdup(input->end) == 0)
-			strarrdel_and_return(0, &line);
-		strarrdel_and_return(1, &line);
+		input->end = ft_strdup("#");
+		if (input->end == 0)
+			return (strarrdel_and_return(0, &line));
+		return (strarrdel_and_return(1, &line));
 	}
 	if (line[0][0] == '#' && !(ft_strequ(line[0], "##end") &&
 		ft_strequ(line[0], "##start") && line[1] == 0))
-		strarrdel_and_return(1, &line);
+		return (strarrdel_and_return(1, &line));
 	if (line[0][0] != '#' && line[1] != 0 && ft_isint(line[1]) && line[2] != 0
 		&& ft_isint(line[2]) && input->ant_no >= 0 && input->links == 0 &&
 		add_room(input, input_line, line[0]) == 1)
-		strarrdel_and_return(1, &line);
+		return (strarrdel_and_return(1, &line));
 	if (line[0][0] != '#' && line[1] == 0 && ft_strchr(line[0], '-') != 0 &&
 		input->rooms != 0 && add_link(input, input_line) == 1)
-		strarrdel_and_return(1, &line);
-	return(strarrdel_and_return(0, &line));
+		return (strarrdel_and_return(1, &line));
+	return (strarrdel_and_return(0, &line));
 }
 
 /*
@@ -135,16 +137,16 @@ int			read_input(t_input_info *input)
 	while (ret != 0)
 	{
 		if (ret == -1)
-			return (strdel_and_return(-1, &line));
+			return (strdel_and_return(0, &line));
+		input_line = add_input_line(input, line);
 		if (ft_isint(line) &&
 			input->ant_no == -1 && input->rooms == 0 && input->links == 0)
 			input->ant_no = ft_atoi(line);
 		else
 		{
-			input_line = add_input_line(input, line);
 			if (input_line == 0 ||
 			create_input_list(input, ft_strsplit(line, ' '), input_line) == 0)
-				return (strdel_and_return(-1, &line));
+				return (strdel_and_return(0, &line));
 		}
 		ft_strdel(&line);
 		ret = get_next_line(0, &line);

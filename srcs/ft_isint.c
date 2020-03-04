@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:03:46 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/02 18:33:03 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/04 14:59:39 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_isint(char *str)
 	long int		nbr;
 	unsigned int	count_zero;
 
-	if (str == 0)
+	if (str == 0 || str[0] == 0)
 		return (0);
 	idx = 0;
 	while (str[idx] != 0)
