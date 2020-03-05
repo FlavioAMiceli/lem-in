@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/03 18:21:01 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/05 17:07:37 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct	s_graph
 	char	*end;
 }				t_graph;
 
+// TODO add room name
 typedef struct	s_input_line
 {
 	struct s_input_line	*next_line;
@@ -56,12 +57,12 @@ int				ft_isint(char *str);
 void			ft_strarrdel(char ***arr);
 int				strdel_and_return(int ret, char **str);
 int				strarrdel_and_return(int ret, char ***strarr);
+void			free_graph(t_graph *graph);
+void			free_input(t_input_info *input);
 int				free_graph_input_and_return(int ret, t_graph *graph,
 				t_input_info *input);
 int				read_input(t_input_info *input);
 t_input_line	*add_input_line(t_input_info *input, char *line);
-void			free_graph(t_graph *graph);
-void			free_input(t_input_info *input);
 t_room			*create_room(char **room_info);
 
 #endif

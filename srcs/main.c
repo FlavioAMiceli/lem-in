@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:09:39 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/04 17:21:35 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/05 13:30:19 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@ int		main(void)
 	t_graph			graph;
 	t_input_info	input;
 
+	int fd = open("tests/maps/01", O_RDONLY);
+	dup2(fd, 0);
 	ft_bzero(&graph, sizeof(graph));
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	int fd = open("tests/maps/01", O_RDONLY);
-	dup2(fd, 0);
 	if (read_input(&input) == 0)
 	{
 		ft_dprintf(2, "Error\n");
 		return (free_graph_input_and_return(0, &graph, &input));
 	}
+	ft_printf("map is valid\n");
 	return (free_graph_input_and_return(0, &graph, &input));
 }

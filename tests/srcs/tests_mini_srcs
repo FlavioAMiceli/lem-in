@@ -6,9 +6,8 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/28 18:56:18 by mmarcell       #+#    #+#                 #
-#    Updated: 2020/03/04 15:44:33 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/03/05 11:42:21 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-TESTS_MINI_SOURCES := test_ft_isint test_graph_create_free\
-test_input_create_free test_input_get
+TESTS_MINI_SOURCES := test_ft_isint test_graph_create_free test_input_get
