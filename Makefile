@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/07 18:47:20 by mmarcell       #+#    #+#                 #
-#    Updated: 2020/03/04 17:23:19 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/03/05 19:54:03 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,18 +25,18 @@ HDRS_PATH := hdrs
 INCLUDES := -I $(HDRS_PATH) -I $(LIBFT_PATH)
 HDRS := $(HDRS_PATH)/lem_in.h
 
-PLUS := \033[38;5;40m+\033[0;00m
-MINUS := \033[38;5;160m-\033[0;00m
+PLUS := \033[0;32m+\033[0;00m
+MINUS := \033[0;31m-\033[0;00m
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
-	@echo " ${PLUS} $@"
+	@echo -e " $(PLUS) $@"
 
 objs/%.o: srcs/%.c $(HDRS) | objs
 	@$(CC) -c $(CFLAGS) -o $@ $(INCLUDES) $<
-	@echo " ${PLUS} $@"
+	@echo -e " $(PLUS) $@"
 
 objs:
 	@mkdir -p $@
