@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:30:44 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/07 16:16:49 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/07 16:24:46 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,10 +144,9 @@ int			read_input(t_input_info *input)
 		{
 			if (input_line == 0 ||
 			create_input_list(input, ft_strsplit(line, ' '), input_line) == 0)
-				return (strdel_and_return(0, &line));
+				return (0);
 		}
-		ft_strdel(&line);
 		ret = get_next_line(0, &line);
 	}
-	return (strdel_and_return(1, &line) && input->ant_no >= 0);
+	return (1 && input->ant_no >= 0);
 }

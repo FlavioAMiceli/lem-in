@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/28 17:38:18 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/07 16:17:06 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/07 16:24:11 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_input_line	*add_input_line(t_input_info *input, char *line)
 	new_line = (t_input_line*)ft_memalloc(sizeof(t_input_line));
 	if (new_line == 0)
 		return (0);
-	new_line->line = ft_strdup(line);
+	new_line->line = line;
 	if (input->list == 0)
 		input->list = new_line;
 	if (input->last_line != 0)
