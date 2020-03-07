@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:30:44 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/05 17:07:36 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/07 16:16:49 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static int	add_link(t_input_info *input, t_input_line *input_line)
 */
 
 
-// TODO save input_line and not room name for start and end
 static int	add_room(t_input_info *input, t_input_line *input_line, char *name)
 {
 	++(input->room_count);
@@ -55,16 +54,13 @@ static int	add_room(t_input_info *input, t_input_line *input_line, char *name)
 		return (0);
 	input_line->next_room = input->rooms;
 	input->rooms = input_line;
-	if (input->start != NULL && input->start[0] == '#')
-	{
-		ft_strdel(&(input->start));
-		input->start = ft_strdup(name);
-	}
-	if (input->end != NULL && input->end[0] == '#')
-	{
-		ft_strdel(&(input->end));
-		input->end = ft_strdup(name);
-	}
+	if (input->start != NULL && input->start != 0 && input_line->room_name == 0)
+		input->start = input_line;
+	if (input->end != NULL && input->end != 0 && input_line->room_name == 0)
+		input->end = input_line;
+	input_line->room_name = ft_strdup(name);
+	if (input_line == 0)
+		return (0);
 	return (1);
 }
 
@@ -90,14 +86,14 @@ static int	create_input_list(t_input_info *input, char **line,
 		return (strarrdel_and_return(0, &line));
 	else if (ft_strequ(line[0], "##start") && line[1] == 0 && input->start == 0)
 	{
-		input->start = ft_strdup("#");
+		input->start = input_line;
 		if (input->start == 0)
 			return (strarrdel_and_return(0, &line));
 		return (strarrdel_and_return(1, &line));
 	}
 	else if (ft_strequ(line[0], "##end") && line[1] == 0 && input->end == 0)
 	{
-		input->end = ft_strdup("#");
+		input->end = input_line;
 		if (input->end == 0)
 			return (strarrdel_and_return(0, &line));
 		return (strarrdel_and_return(1, &line));

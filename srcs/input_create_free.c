@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/28 17:38:18 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/05 17:17:02 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/07 16:17:06 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_input_line	*add_input_line(t_input_info *input, char *line)
 static void		free_input_line(t_input_line **input_line)
 {
 	ft_strdel(&((*input_line)->line));
+	ft_strdel(&((*input_line)->room_name));
 	ft_bzero((*input_line), sizeof(t_input_line));
 	free(*input_line);
 	*input_line = 0;

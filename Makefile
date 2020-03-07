@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/07 18:47:20 by mmarcell       #+#    #+#                 #
-#    Updated: 2020/03/05 19:54:03 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/03/07 16:01:12 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME := lem-in
 
 OBJS := $(MINI_SOURCES:%=objs/%.o) objs/main.o
 
-CFLAGS := -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS := -Wall -Wextra -Werror -g
 
 LIBFT_PATH := libft
 LIBFT := $(LIBFT_PATH)/libft.a
