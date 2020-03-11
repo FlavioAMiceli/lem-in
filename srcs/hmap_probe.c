@@ -13,8 +13,8 @@
 #include "hashtable.h"
 
 /*
-**	params:
-**	return:
+**	params: pointer to hmap, key to find, original hash to key.
+**	return: Index where the key was found.
 */
 int	hmap_probe(t_dict *hmap, char *key, unsigned long hash)
 {

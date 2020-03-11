@@ -1,1 +1,7 @@
-MINI_SOURCES :=
+MINI_SOURCES := hmap_del.c \
+	hmap_hash.c \
+	hmap_probe.c \
+	hmap_clear.c \
+	hmap_get.c \
+	hmap_new.c \
+	hmap_set.c
