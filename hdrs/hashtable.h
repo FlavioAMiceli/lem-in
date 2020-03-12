@@ -22,7 +22,7 @@ typedef struct		s_hmap
 {
     t_slot			**slots;
     void			(*del)(void *);
-    int				n;
+    unsigned int	n;
 }					t_hmap;
 
 typedef struct		s_slot
@@ -40,6 +40,5 @@ void			*hmap_get(t_hmap *hmap, char *key);
 void			hmap_del(t_hmap *hmap, char *key);
 
 unsigned long	hmap_hash(char *key);
-int     		hmap_probe(t_dict *hmap, char *key, unsigned long hash);
 
 #endif

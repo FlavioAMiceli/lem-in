@@ -19,12 +19,20 @@
 void	hmap_set(t_hmap *hmap, char *key, void *value)
 {
 	unsigned long	hash;
+	unsigned int	checked;
 	int				i;
 
 	hash = hmap_hash(key, hmap->n);
 	i = hash % hmap->n;
-	if (hmap->slots[i] != NULL && !ft_strequ(hmap->slots[i]->key, key))
-		i = hmap_probe(hmap, key, hash);
+	checked = 0;
+	while (hmap->slots[i] != NULL &&
+		!ft_strequ(hmap->slots[i]->key, key) && checked <= hmap->n)
+	{
+		i = ((5 * i) + 1) + hash;
+		hash >>= PERTURB_SHIFT;
+		if (hash == 0)
+			checked++;
+	}
 	if (ft_strequ(hmap->slots[i]->key, key))
 		hmap->del(hmap->slots[i]->val);
 	else if (hmap->slots[i] == NULL)

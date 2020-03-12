@@ -25,5 +25,15 @@ void    *hmap_get(t_hmap *hmap, char *key)
 	i = hash % hmap->n;
 	if (!ft_strequ(hmap->slots[i]->key, key))
 		i = hmap_probe(hmap, key, hash);
+	checked = 0;
+	while (!ft_strequ(hmap->slots[i]->key, key) && checked <= hmap->n)
+	{
+		i = ((5 * i) + 1) + hash;
+		hash >>= PERTURB_SHIFT;
+		if (hash == 0)
+			checked++;
+	}
+	if (!ft_strequ(hmap->slots[i]->key, key))
+		return (NULL);
 	return (hmap->slots[i]->val);
 }
