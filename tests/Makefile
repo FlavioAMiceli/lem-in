@@ -6,14 +6,14 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 13:03:52 by mmarcell       #+#    #+#                 #
-#    Updated: 2020/02/24 19:06:55 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/03/04 14:56:28 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 include ../srcs/mini_srcs
 include ./srcs/tests_mini_srcs
 
-NAME :=
+NAME := lem-in
 
 OBJS := $(MINI_SOURCES:%=../objs/%.o)
 TESTS_OBJS := $(TESTS_MINI_SOURCES:%=objs/%.o)
@@ -25,26 +25,29 @@ LIBFT := $(LIBFT_PATH)/libft.a
 
 HDRS_PATH := ../hdrs
 INCLUDES := -I $(HDRS_PATH) -I $(LIBFT_PATH)
-HDRS := $(HDRS_PATH)/$(NAME)
+HDRS := $(HDRS_PATH)/lem_in.h
 
 PLUS = \033[38;5;40m+\033[0;00m
 MINUS = \033[38;5;160m-\033[0;00m
 
-all: $(NAME)
+all: test
 
 test: $(OBJS) $(TESTS_OBJS)
 	@$(CC) -o $@ $^ -lcriterion $(LIBFT)
 	@echo " ${PLUS} $@"
 
-objs/%.o: srcs/%.c $(HDRS)
+objs/%.o: srcs/%.c $(HDRS) | objs
 	@$(CC) -c $(CFLAGS) -o $@ $(INCLUDES) $<
 	@echo " ${PLUS} $@"
+
+objs:
+	@mkdir -p $@
 
 clean:
 	@rm -fv $(TESTS_OBJS) | sed -e $$'s/^/ $(MINUS) /'
 
 fclean: clean
-	@rm -fv $(NAME) | sed -e $$'s/^/ $(MINUS) /'
+	@rm -fv test | sed -e $$'s/^/ $(MINUS) /'
 
 re: fclean all
 

@@ -2,3 +2,4 @@ lem-in
 *.o
 *json*
 *.c~
+tests/test

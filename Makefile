@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/07 18:47:20 by mmarcell       #+#    #+#                 #
-#    Updated: 2020/02/24 19:12:00 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/03/09 19:28:31 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,27 +16,27 @@ NAME := lem-in
 
 OBJS := $(MINI_SOURCES:%=objs/%.o) objs/main.o
 
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -g
 
 LIBFT_PATH := libft
 LIBFT := $(LIBFT_PATH)/libft.a
 
 HDRS_PATH := hdrs
 INCLUDES := -I $(HDRS_PATH) -I $(LIBFT_PATH)
-HDRS := $(HDRS_PATH)/$(NAME).h
+HDRS := $(HDRS_PATH)/lem_in.h
 
-PLUS := \033[38;5;40m+\033[0;00m
-MINUS := \033[38;5;160m-\033[0;00m
+PLUS := \033[0;32m+\033[0;00m
+MINUS := \033[0;31m-\033[0;00m
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) -o $(CFLAGS) $@ $^ $(LIBFT)
-	@echo " ${PLUS} $@"
+	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
+	@echo " $(PLUS) $@"
 
 objs/%.o: srcs/%.c $(HDRS) | objs
 	@$(CC) -c $(CFLAGS) -o $@ $(INCLUDES) $<
-	@echo " ${PLUS} $@"
+	@echo " $(PLUS) $@"
 
 objs:
 	@mkdir -p $@
@@ -60,7 +60,7 @@ re: fclean all
 
 lre: lfclean all
 
-test:
+test: $(LIBFT) $(OBJS) $(HDRS)
 	@make -C tests
 
 FORCE:

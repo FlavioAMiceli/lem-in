@@ -1,4 +1,20 @@
-MINI_SOURCES := hmap_del.c \
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    mini_srcs                                          :+:    :+:             #
+#                                                      +:+                     #
+#    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2020/02/28 18:56:22 by mmarcell       #+#    #+#                 #
+#    Updated: 2020/03/03 18:27:11 by mmarcell      ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
+MINI_SOURCES := ft_isint ft_strarrdel\
+	input_create_free input_get input_validate\
+	graph_create_free\
+	free_and_return\
+	hmap_del.c \
 	hmap_hash.c \
 	hmap_probe.c \
 	hmap_clear.c \
