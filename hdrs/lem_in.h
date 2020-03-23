@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/07 16:08:59 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/23 11:39:44 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ typedef struct	s_input_line
 
 typedef struct	s_input_info
 {
-	int				room_count;
 	int				ant_no;
+	int				room_count;
+	int				link_count;
 	t_input_line	*start;
 	t_input_line	*end;
 	t_input_line	*list;
