@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:46:04 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/03 18:23:32 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/24 15:45:45 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_room		*create_room(char **room_info)
 		room_info[1] == 0 || ft_isint(room_info[1]) == 0 ||
 		room_info[2] == 0 || ft_isint(room_info[2]) == 0 ||
 		room_info[3] != 0)
-		return (0);
+		return (NULL);
 	room->name = ft_strdup(room_info[0]);
 	room->x_coord = ft_atoi(room_info[1]);
 	room->y_coord = ft_atoi(room_info[2]);

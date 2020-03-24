@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:09:39 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/05 13:30:19 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/24 15:58:41 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(void)
 	ft_bzero(&graph, sizeof(graph));
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	if (read_input(&input) == 0)
+	if (read_input(&input) == ERROR)
 	{
 		ft_dprintf(2, "Error\n");
 		return (free_graph_input_and_return(0, &graph, &input));

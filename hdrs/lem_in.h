@@ -6,12 +6,17 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/23 11:39:44 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/24 16:26:00 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
+
+# define TRUE 1
+# define FALSE 0
+# define OK 1
+# define ERROR 0
 
 typedef struct	s_room
 {
@@ -19,17 +24,25 @@ typedef struct	s_room
 	int				y_coord;
 	int				distance;
 	int				link_count;
-	int				*links;
+	struct s_room	*links;
 	char			*name;
 }				t_room;
 
+typedef struct	s_link
+{
+	t_room	*src;
+	t_room	*dst;
+	int		flow;
+}				t_link;
+
 typedef struct	s_graph
 {
-	t_room	**rooms;
-	int		room_count;
 	int		ant_count;
-	char	*start;
-	char	*end;
+	int		room_count;
+	int		link_count;
+	t_room	**rooms;
+	char	*source;
+	char	*sink;
 }				t_graph;
 
 typedef struct	s_input_line

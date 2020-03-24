@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/28 17:38:18 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/07 16:26:43 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/24 16:26:30 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ t_input_line	*add_input_line(t_input_info *input, char *line)
 
 	new_line = (t_input_line*)ft_memalloc(sizeof(t_input_line));
 	if (new_line == 0)
-		return (0);
+		return (NULL);
 	new_line->line = line;
-	if (input->list == 0)
+	if (input->list == NULL)
 		input->list = new_line;
-	if (input->last_line != 0)
+	if (input->last_line != NULL)
 		input->last_line->next_line = new_line;
 	input->last_line = new_line;
 	return (new_line);
@@ -36,7 +36,7 @@ static void		free_input_line(t_input_line **input_line)
 	ft_strdel(&((*input_line)->room_name));
 	ft_bzero((*input_line), sizeof(t_input_line));
 	free(*input_line);
-	*input_line = 0;
+	*input_line = NULL;
 }
 
 void			free_input(t_input_info *input)
