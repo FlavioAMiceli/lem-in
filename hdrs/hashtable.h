@@ -35,7 +35,7 @@ t_hmap			*hmap_new(int n, void (*del)(void *));
 void			hmap_clear(t_hmap **hmap);
 
 
-void			hmap_set(t_hmap *hmap, char *key, void *value);
+int				hmap_set(t_hmap *hmap, char *key, void *value);
 void			*hmap_get(t_hmap *hmap, char *key);
 void			hmap_del(t_hmap *hmap, char *key);
 

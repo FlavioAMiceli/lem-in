@@ -14,9 +14,10 @@
 
 /*
 **	params:	pointer to hmap struct, key and value to store.
-**	return:
+**	return:	0 if key didn't exist yet, 1 if value for key was replaced.
+**			-1 if hmap is full
 */
-void	hmap_set(t_hmap *hmap, char *key, void *value)
+int	hmap_set(t_hmap *hmap, char *key, void *value)
 {
 	unsigned long	hash;
 	unsigned int	checked;
@@ -34,13 +35,17 @@ void	hmap_set(t_hmap *hmap, char *key, void *value)
 			checked++;
 	}
 	if (ft_strequ(hmap->slots[i]->key, key))
+	{
 		hmap->del(hmap->slots[i]->val);
+		hmap->slots[i]->val = value;
+		return (1);
+	}
 	else if (hmap->slots[i] == NULL)
 	{
 		hmap->slots[i] = (t_slot*)ft_memalloc(sizeof(t_slot));
 		hmap->slots[i]->key = ft_strdup(key);
+		hmap->slots[i]->val = value;
+		return (0);
 	}
-	else
-		return ;
-	hmap->slots[i]->val = value;
+	return (-1);
 }
