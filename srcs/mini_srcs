@@ -20,3 +20,4 @@ MINI_SOURCES := ft_isint ft_strarrdel\
 	hmap_get \
 	hmap_new \
 	hmap_set
+	
