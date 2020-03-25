@@ -28,13 +28,52 @@ Test(hashtable, set_and_get)
 {
 	t_hmap	*hmap;
 	int		*i;
+	int		r;
 
 	hmap = hmap_new(100, free);
 	i = (int*)ft_memalloc(sizeof(int*));
 	*i = 5;
-	hmap_set(hmap, "Some key", i);
+	r = hmap_set(hmap, "Some key", i);
 	i = hmap_get(hmap, "Some key");
 	cr_expect_eq(*i, 5, "incorrect value, it is %d and it should be %d", i, 5);
+	cr_expect_eq(r, 0, "incorrect return value, it is %d and it should be %d", i, 0);
+}
+
+Test(hashtable, set_overwrite)
+{
+	t_hmap	*hmap;
+	int		*i;
+	int		*j;
+	int		r;
+
+	hmap = hmap_new(100, free);
+	i = (int*)ft_memalloc(sizeof(int*));
+	*i = 5;
+	r = hmap_set(hmap, "Some key", i);
+	cr_expect_eq(r, 0, "incorrect return value, it is %d and it should be %d", i, 0);
+	j = (int*)ft_memalloc(sizeof(int*));
+	*j = 7;
+	r = hmap_set(hmap, "Some key", j);
+	cr_expect_eq(i, 0, "Original value was not safely freed");
+	i = hmap_get(hmap, "Some key");
+	cr_expect_eq(*i, 7, "incorrect value, it is %d and it should be %d", i, 7);
+}
+
+Test(hashtable, set_on_full_hmap)
+{
+	t_hmap	*hmap;
+	int		*i;
+	int		r;
+
+	hmap = hmap_new(1, free);
+	i = (int*)ft_memalloc(sizeof(int*));
+	*i = 5;
+	r = hmap_set(hmap, "Some key", i);
+	cr_expect_eq(r, 0, "incorrect return value, it is %d and it should be %d", i, 0);
+	r = hmap_set(hmap, "Some other key", i);
+	cr_expect_eq(r, 0, "incorrect return value, it is %d and it should be %d", i, 0);
+	r = hmap_set(hmap, "Yet some other key", i);
+	cr_expect_eq(r, -1, "incorrect return value, it is %d and it should be %d", i, -1);
 }
 
 Test(hashtable, set_and_overwrite)
