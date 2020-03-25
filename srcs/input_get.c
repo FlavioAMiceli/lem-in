@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:30:44 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/24 16:01:15 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/25 18:07:37 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	add_room(t_input_info *input, t_input_line *input_line, char *name)
 		ft_strequ(input->start->line, "##start") == 1)
 		input->start = input_line;
 	if (input->end != NULL &&
-		ft_strequ(input->start->line, "##end") == 1)
+		ft_strequ(input->end->line, "##end") == 1)
 		input->end = input_line;
 	input_line->room_name = ft_strdup(name);
 	if (input_line == NULL)
@@ -141,12 +141,13 @@ int			read_input(t_input_info *input)
 			input->ant_no = ft_atoi(line);
 		else
 		{
-			if (input_line == 0 ||
+			if (input_line == 0 || line[0] == 'L' ||
 			create_input_list(input, ft_strsplit(line, ' '), input_line) ==
 			ERROR)
 				return (ERROR);
 		}
 		ret = get_next_line(0, &line);
 	}
-	return (OK && input->ant_no >= 0);
+	return (input->ant_no >= 0 && input->start != NULL && input->end != NULL
+		&& input->start->room_name != NULL && input->end->room_name != NULL);
 }

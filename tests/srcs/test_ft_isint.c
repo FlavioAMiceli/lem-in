@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:12:50 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/04 14:56:45 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/25 17:14:40 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ Test(ft_isint, invalid_st_int_min2)
 
 Test(ft_isint, invalid_non_num_char_beg)
 {
-	cr_assert_eq(ft_isint("h432"), 0, "incorrect return for non numerical char in the beginning");
+	cr_assert_eq(ft_isint("L432"), 0, "incorrect return for non numerical char in the beginning");
 }
 
 Test(ft_isint, invalid_non_num_char_mid)
