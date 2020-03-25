@@ -19,12 +19,11 @@
 void    *hmap_get(t_hmap *hmap, char *key)
 {
 	unsigned long	hash;
+	unsigned int	checked;
 	int				i;
 
 	hash = hmap_hash(key, hmap->n);
 	i = hash % hmap->n;
-	if (!ft_strequ(hmap->slots[i]->key, key))
-		i = hmap_probe(hmap, key, hash);
 	checked = 0;
 	while (!ft_strequ(hmap->slots[i]->key, key) && checked <= hmap->n)
 	{

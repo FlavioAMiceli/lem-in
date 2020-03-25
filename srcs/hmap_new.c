@@ -18,6 +18,8 @@
 */
 t_hmap  *hmap_new(int n, void (*del)(void *))
 {
+	t_hmap	*hmap;
+
 	if (n <= 0 || del == NULL)
 		return (NULL);
 	hmap = (t_hmap*)ft_memalloc(sizeof(t_hmap));
@@ -26,7 +28,7 @@ t_hmap  *hmap_new(int n, void (*del)(void *))
 	hmap->slots = (t_slot**)ft_memalloc(sizeof(t_slot*) * ((n * 3) / 2));
 	if (!hmap->slots)
 	{
-		ft_memdel(hmap);
+		free(hmap);
 		return (NULL);
 	}
 	hmap->del = del;

@@ -37,7 +37,7 @@ void	hmap_set(t_hmap *hmap, char *key, void *value)
 		hmap->del(hmap->slots[i]->val);
 	else if (hmap->slots[i] == NULL)
 	{
-		hmap->slots[i] = (t_slot)ft_memalloc(sizeof(t_slot));
+		hmap->slots[i] = (t_slot*)ft_memalloc(sizeof(t_slot));
 		hmap->slots[i]->key = ft_strdup(key);
 	}
 	else

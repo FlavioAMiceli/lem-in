@@ -18,8 +18,8 @@
 */
 void	hmap_clear(t_hmap **hmap)
 {
-	int		i;
-	t_hmap	mp;
+	unsigned int	i;
+	t_hmap			*mp;
 
 	i = 0;
 	mp = *hmap;
@@ -27,11 +27,13 @@ void	hmap_clear(t_hmap **hmap)
 	{
 		mp->del(mp->slots[i]->val);
 		ft_strdel(&(mp->slots[i]->key));
-		ft_memdel(&(mp->slots[i]));
+		free(mp->slots[i]);
+		mp->slots[i] = NULL;
 		i++;
 	}
 	mp->slots = NULL;
 	mp->del = NULL;
 	mp->n = 0;
-	ft_memdel(hmap);
+	free(*hmap);
+	hmap = NULL;
 }
