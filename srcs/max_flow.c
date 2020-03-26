@@ -31,11 +31,37 @@ static t_list	*bfs(t_room *source, t_room *sink, t_hmap *rooms)
 }
 
 /*
-**	Params:	path, list containing names of edges used
-**			e, hmap that stores flow and namesof edges in opposite direction
+**	Params: edge, to find rooms that have modified flow
+**			e, hmap that stores flow
+**			v, hmap containing room information
 **	Return:
 */
-static void	update_flow(t_list *path, t_hmap *e)
+static void		update_visited_status(t_list *edge, t_hmap *e, t_hmap *v)
+{
+	t_room	*room;
+	char	*key;
+	char	*separator;
+	int		visited;
+
+	visited = hmap_get(e, edge->content)->flow != 0 ? TRUE : FALSE;
+	separator = ft_strchr(edge->content, ROOM_SEPARATOR);
+	key = ft_memdup(edge->content, separator - edge->content);
+	room = hmap_get(v, key);
+	room->visited = visited;
+	free(key);
+	key = ft_strdup(separator + 1);
+	room = hmap_get(v, key);
+	room->visited = visited;
+	free(key);
+}
+
+/*
+**	Params:	path, list containing names of edges used
+**			e, hmap that stores flow and names of edges in opposite direction
+**			v, hmap that stores room information. Used to track visited rooms.
+**	Return:
+*/
+static void		update_flow(t_list *path, t_hmap *e, t_hmap *v)
 {
 	t_edge	*edge;
 	t_list	*tmp;
@@ -46,6 +72,7 @@ static void	update_flow(t_list *path, t_hmap *e)
 		edge->flow += 1;
 		edge = edge->opposite;
 		edge->flow -= 1;
+		update_visited_status(path, e, v);
 		tmp = path;
 		path = path->next;
 		ft_strdel(tmp->content);
@@ -62,10 +89,10 @@ static void	update_flow(t_list *path, t_hmap *e)
 **	return:
 **
 */
-void	edmonds_karp(t_hmap *e, t_hmap *v, t_room *s, t_room, *t)
+void			edmonds_karp(t_hmap *e, t_hmap *v, t_room *s, t_room, *t)
 {
-	t_list		*path;
-	int			path_found;
+	t_list	*path;
+	int		path_found;
 
 	max_flow = 0;
 	path_found = TRUE;
@@ -75,7 +102,7 @@ void	edmonds_karp(t_hmap *e, t_hmap *v, t_room *s, t_room, *t)
 		path = bfs(s, t, v);
 		if (path)
 		{
-			update_flow(path, e);
+			update_flow(path, e, v);
 			path_found = TRUE;
 		}
 	}
