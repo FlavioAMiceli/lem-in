@@ -6,7 +6,11 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 13:03:52 by mmarcell       #+#    #+#                 #
+<<<<<<< HEAD
 #    Updated: 2020/03/22 13:29:14 by moana         ########   odam.nl          #
+=======
+#    Updated: 2020/03/26 10:19:27 by moana         ########   odam.nl          #
+>>>>>>> hashtable
 #                                                                              #
 # **************************************************************************** #
 

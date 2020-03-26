@@ -13,4 +13,15 @@
 MINI_SOURCES := ft_isint ft_strarrdel\
 	input_create_free input_get input_validate\
 	graph_create_free\
+<<<<<<< HEAD
 	free_and_return
+=======
+	free_and_return\
+	hmap_del \
+	hmap_hash \
+	hmap_clear \
+	hmap_get \
+	hmap_new \
+	hmap_set
+	
+>>>>>>> hashtable
