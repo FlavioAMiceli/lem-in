@@ -38,6 +38,7 @@ static t_list	*bfs(t_room *source, t_room *sink, t_hmap *rooms)
 static void	update_flow(t_list *path, t_hmap *e)
 {
 	t_edge	*edge;
+	t_list	*tmp;
 
 	while (path)
 	{
@@ -45,7 +46,10 @@ static void	update_flow(t_list *path, t_hmap *e)
 		edge->flow += 1;
 		edge = edge->opposite;
 		edge->flow -= 1;
+		tmp = path;
 		path = path->next;
+		ft_strdel(tmp->content);
+		free(tmp);
 	}
 }
 
