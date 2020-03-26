@@ -28,10 +28,11 @@ typedef struct		s_hmap
 {
 	t_slot			**slots;
 	void			(*del)(void *);
+	unsigned int	len;
 	unsigned int	n;
 }					t_hmap;
 
-t_hmap			*hmap_new(int n, void (*del)(void *));
+t_hmap			*hmap_new(int max_len, void (*del)(void *));
 void			hmap_clear(t_hmap **hmap);
 
 int				hmap_set(t_hmap *hmap, char *key, void *value);

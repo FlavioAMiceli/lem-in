@@ -20,19 +20,15 @@
 int	hmap_set(t_hmap *hmap, char *key, void *value)
 {
 	unsigned long	hash;
-	unsigned int	checked;
 	int				i;
 
 	hash = hmap_hash(key, hmap->n);
 	i = hash % hmap->n;
-	checked = 0;
 	while (hmap->slots[i] != NULL &&
-		!ft_strequ(hmap->slots[i]->key, key) && checked <= hmap->n)
+		!ft_strequ(hmap->slots[i]->key, key) && hmap->len < hmap->n)
 	{
 		i = ((5 * i) + 1) + hash;
 		hash >>= PERTURB_SHIFT;
-		if (hash == 0)
-			checked++;
 	}
 	if (ft_strequ(hmap->slots[i]->key, key))
 	{
@@ -45,6 +41,7 @@ int	hmap_set(t_hmap *hmap, char *key, void *value)
 		hmap->slots[i] = (t_slot*)ft_memalloc(sizeof(t_slot));
 		hmap->slots[i]->key = ft_strdup(key);
 		hmap->slots[i]->val = value;
+		hmap->len = hmap->len + 1;
 		return (0);
 	}
 	return (-1);

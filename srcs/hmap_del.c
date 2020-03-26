@@ -42,5 +42,6 @@ void    hmap_del(t_hmap *hmap, char *key)
 		ft_strdel(&(slot->key));
 		free(slot);
 		hmap->slots[i] = NULL;
+		hmap->len = hmap->len - 1;
 	}
 }

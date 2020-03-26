@@ -17,7 +17,7 @@
 **	params:	number of expected keys, pointer to deletion function for values.
 **	return:	Pointer to newly allocated hmap struct.
 */
-t_hmap  *hmap_new(int n, void (*del)(void *))
+t_hmap  *hmap_new(int max_len, void (*del)(void *))
 {
 	t_hmap	*hmap;
 
@@ -26,7 +26,7 @@ t_hmap  *hmap_new(int n, void (*del)(void *))
 	hmap = (t_hmap*)ft_memalloc(sizeof(t_hmap));
 	if (!hmap)
 		return (NULL);
-	hmap->slots = (t_slot**)ft_memalloc(sizeof(t_slot*) * ((n * 3) / 2));
+	hmap->slots = (t_slot**)ft_memalloc(sizeof(t_slot*) * ((max_len * 3) / 2));
 	if (!hmap->slots)
 	{
 		free(hmap);
@@ -34,5 +34,6 @@ t_hmap  *hmap_new(int n, void (*del)(void *))
 	}
 	hmap->del = del;
 	hmap->n = (n * 3) / 2;
+	hmap->len = 0;
 	return (hmap);
 }
