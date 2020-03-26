@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/28 17:38:18 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/07 16:26:43 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/26 18:08:39 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,32 @@
 #include "libft.h"
 #include <stdlib.h>
 
-t_input_line	*add_input_line(t_input_info *input, char *line)
+t_input_line	*input_line_add(t_input_info *input, char *line)
 {
 	t_input_line	*new_line;
 
 	new_line = (t_input_line*)ft_memalloc(sizeof(t_input_line));
 	if (new_line == 0)
-		return (0);
+		return (NULL);
 	new_line->line = line;
-	if (input->list == 0)
+	if (input->list == NULL)
 		input->list = new_line;
-	if (input->last_line != 0)
+	if (input->last_line != NULL)
 		input->last_line->next_line = new_line;
 	input->last_line = new_line;
 	return (new_line);
 }
 
-static void		free_input_line(t_input_line **input_line)
+static void		input_line_del(t_input_line **input_line)
 {
 	ft_strdel(&((*input_line)->line));
 	ft_strdel(&((*input_line)->room_name));
 	ft_bzero((*input_line), sizeof(t_input_line));
 	free(*input_line);
-	*input_line = 0;
+	*input_line = NULL;
 }
 
-void			free_input(t_input_info *input)
+void			input_del(t_input_info *input)
 {
 	t_input_line	*tmp;
 	t_input_line	*to_free;
@@ -48,7 +48,7 @@ void			free_input(t_input_info *input)
 	while (to_free != 0)
 	{
 		tmp = to_free->next_line;
-		free_input_line(&to_free);
+		input_line_del(&to_free);
 		to_free = tmp;
 	}
 	ft_bzero(input, sizeof(t_input_info));

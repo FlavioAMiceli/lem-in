@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:03:46 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/04 14:59:39 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/24 15:44:53 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ int		ft_isint(char *str)
 	unsigned int	count_zero;
 
 	if (str == 0 || str[0] == 0)
-		return (0);
+		return (FALSE);
 	idx = 0;
 	while (str[idx] != 0)
 	{
 		if (!(ft_isdigit(str[idx]) ||
-			((str[idx] == '-' || str[idx] == '+') && ft_isdigit(str[idx + 1]) &&
-			idx == 0)))
-			return (0);
+			((str[idx] == '-' || str[idx] == '+') && idx == 0 &&
+			ft_isdigit(str[idx + 1]))))
+			return (FALSE);
 		++idx;
 	}
 	count_zero = (str[0] == '-' || str[0] == '+');
 	while (str[count_zero] == '0')
 		++count_zero;
 	if (idx - count_zero > 11)
-		return (0);
+		return (FALSE);
 	nbr = ft_atoi(str);
-	return (-2147483648 <= nbr && nbr <= 2147483647);
+	return (TRUE && -2147483648 <= nbr && nbr <= 2147483647);
 }
