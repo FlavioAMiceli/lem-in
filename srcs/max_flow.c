@@ -15,7 +15,7 @@
 /*
 **	Params: vertex, name of
 */
-static t_list	*bfs(t_room *source, t_room *sink, t_hmap *rooms)
+static t_list	*bfs(t_vert *source, t_vert *sink, t_hmap *rooms)
 {
 	t_list	*queue;
 	t_list	*path;
@@ -38,7 +38,7 @@ static t_list	*bfs(t_room *source, t_room *sink, t_hmap *rooms)
 */
 static void		update_visited_status(t_list *edge, t_hmap *e, t_hmap *v)
 {
-	t_room	*room;
+	t_vert	*room;
 	char	*key;
 	char	*separator;
 	int		visited;
@@ -89,7 +89,7 @@ static void		update_flow(t_list *path, t_hmap *e, t_hmap *v)
 **	return:
 **
 */
-void			edmonds_karp(t_hmap *e, t_hmap *v, t_room *s, t_room, *t)
+void			edmonds_karp(t_hmap *e, t_hmap *v, t_vert *s, t_vert, *t)
 {
 	t_list	*path;
 	int		path_found;
