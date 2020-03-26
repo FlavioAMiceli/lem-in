@@ -5,12 +5,13 @@
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/09 20:03:13 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/03/09 20:03:13 by fmiceli       ########   odam.nl         */
+/*   Created: 2020/03/09 20:03:13 by fmiceli        #+#    #+#                */
+/*   Updated: 2020/03/26 10:21:14 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hashtable.h"
+#include <stdlib.h>
 
 /*
 **	params:	number of expected keys, pointer to deletion function for values.

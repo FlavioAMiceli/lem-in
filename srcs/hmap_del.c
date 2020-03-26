@@ -5,12 +5,13 @@
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/09 21:26:51 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/03/09 21:26:51 by fmiceli       ########   odam.nl         */
+/*   Created: 2020/03/09 21:26:51 by fmiceli        #+#    #+#                */
+/*   Updated: 2020/03/26 10:20:13 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hashtable.h"
+#include <stdlib.h>
 
 /*
 **	params:	pointer to hmap struct, key of slot to remove.

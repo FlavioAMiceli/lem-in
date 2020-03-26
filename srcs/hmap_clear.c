@@ -5,12 +5,13 @@
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/09 20:18:54 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/03/09 20:18:54 by fmiceli       ########   odam.nl         */
+/*   Created: 2020/03/09 20:18:54 by fmiceli        #+#    #+#                */
+/*   Updated: 2020/03/26 10:20:53 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hashtable.h"
+#include <stdlib.h>
 
 /*
 **	params:	addr of hmap pointer

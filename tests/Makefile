@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 13:03:52 by mmarcell       #+#    #+#                 #
-#    Updated: 2020/03/04 14:56:28 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/03/26 10:19:27 by moana         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,11 @@ all: test
 
 test: $(OBJS) $(TESTS_OBJS)
 	@$(CC) -o $@ $^ -lcriterion $(LIBFT)
-	@echo " ${PLUS} $@"
+	@echo -e " ${PLUS} $@"
 
 objs/%.o: srcs/%.c $(HDRS) | objs
 	@$(CC) -c $(CFLAGS) -o $@ $(INCLUDES) $<
-	@echo " ${PLUS} $@"
+	@echo -e " ${PLUS} $@"
 
 objs:
 	@mkdir -p $@
