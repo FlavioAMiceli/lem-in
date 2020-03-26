@@ -13,18 +13,53 @@
 #include "lem_in.h"
 
 /*
-**	Params:	graph, struct containing e and v;
-				e, adress of hmap storing edges
-**					(every edge should have a counterpart in opposite direct)
-**				v, adress of hmap storing vertices
-**					(used to find every edge for that vertex)
-**				s, t source and sink adresses
+**	Params: vertex, name of
+*/
+static t_list	*bfs(t_room *source, t_room *sink, t_hmap *rooms)
+{
+	t_list	*queue;
+	t_list	*path;
+
+	qeueu = (t_list*)ft_memalloc(sizeof(t_list));
+	qeueu->content = source;
+	while (queue)
+	{
+		// expand all neighbours, look for shortest path to reach sink
+		// return path, or NULL if sink is not reachable
+	}
+	return (path);
+}
+
+/*
+**	Params:	path, list containing names of edges used
+**			e, hmap that stores flow and namesof edges in opposite direction
+**	Return:
+*/
+static void	update_flow(t_list *path, t_hmap *e)
+{
+	t_edge	*edge;
+
+	while (path)
+	{
+		edge = hmap_get(e, path->content);
+		edge->flow += 1;
+		edge = edge->opposite;
+		edge->flow -= 1;
+		path = path->next;
+	}
+}
+
+/*
+**	Params:	e, adress of hmap storing edges
+**				(every edge should have a counterpart in opposite direct)
+**			v, adress of hmap storing vertices
+**				(used to find every edge for that vertex)
+**			s, t source and sink adresses
 **	return:
 **
 */
-void	edmonds_karp(t_graph *graph)
+void	edmonds_karp(t_hmap *e, t_hmap *v, t_room *s, t_room, *t)
 {
-	t_list		*q;
 	t_list		*path;
 	int			path_found;
 
@@ -32,17 +67,12 @@ void	edmonds_karp(t_graph *graph)
 	path_found = TRUE;
 	while (path_found)
 	{
-		q = (t_list*)ft_memalloc(sizeof(t_list));
-		q->content = s;
 		path_found = FALSE;
-		while (q)
+		path = bfs(s, t, v);
+		if (path)
 		{
-			path = bfs(ft_lstdequeue(&q), graph);
-			if (path)
-			{
-				update_flow(path, graph);
-				path_found = TRUE;
-			}
+			update_flow(path, e);
+			path_found = TRUE;
 		}
 	}
 }
