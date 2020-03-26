@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:34:08 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/03 18:27:38 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/03/26 17:56:43 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	strdel_and_return(int ret, char **str)
 
 int	free_graph_input_and_return(int ret, t_graph *graph, t_input_info *input)
 {
-	free_graph(graph);
-	free_input(input);
+	graph_del(graph);
+	input_del(input);
 	return (ret);
 }
 

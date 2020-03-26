@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:30:44 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/25 18:07:37 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/26 18:28:04 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ static int	create_input_list(t_input_info *input, char **line,
 **	ERROR
 */
 
-int			read_input(t_input_info *input)
+int			input_read(t_input_info *input)
 {
 	int				ret;
 	char			*line;
@@ -135,7 +135,7 @@ int			read_input(t_input_info *input)
 	{
 		if (ret == -1)
 			return (ERROR);
-		input_line = add_input_line(input, line);
+		input_line = input_line_add(input, line);
 		if (ft_isint(line) && input->ant_no == -1 && input->rooms == NULL
 			&& input->links == NULL)
 			input->ant_no = ft_atoi(line);

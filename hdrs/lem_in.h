@@ -6,44 +6,19 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/24 16:26:00 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/26 18:15:27 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
+# include "hashtable.h"
+
 # define TRUE 1
 # define FALSE 0
 # define OK 1
 # define ERROR 0
-
-typedef struct	s_room
-{
-	int				x_coord;
-	int				y_coord;
-	int				distance;
-	int				link_count;
-	struct s_room	*links;
-	char			*name;
-}				t_room;
-
-typedef struct	s_link
-{
-	t_room	*src;
-	t_room	*dst;
-	int		flow;
-}				t_link;
-
-typedef struct	s_graph
-{
-	int		ant_count;
-	int		room_count;
-	int		link_count;
-	t_room	**rooms;
-	char	*source;
-	char	*sink;
-}				t_graph;
 
 typedef struct	s_input_line
 {
@@ -67,16 +42,50 @@ typedef struct	s_input_info
 	t_input_line	*links;
 }				t_input_info;
 
+typedef struct	s_vert
+{
+	int				x_coord;
+	int				y_coord;
+	int				distance;
+	int				visited;
+	int				conn_count;
+	struct s_vert	**connections;
+	char			*name;
+}				t_vert;
+
+typedef struct	s_edge
+{
+	int				flow;
+	t_vert			*tail;
+	t_vert			*head;
+	struct s_edge	*edge_invert;
+}				t_edge;
+
+typedef struct	s_graph
+{
+	int				ant_count;
+	int				vert_count;
+	int				edge_count;
+	t_input_line	*room_list;
+	t_input_line	*link_list;
+	t_hmap			*vertices;
+	t_hmap			*edges;
+	char			*source;
+	char			*sink;
+}				t_graph;
+
 int				ft_isint(char *str);
 void			ft_strarrdel(char ***arr);
 int				strdel_and_return(int ret, char **str);
 int				strarrdel_and_return(int ret, char ***strarr);
-void			free_graph(t_graph *graph);
-void			free_input(t_input_info *input);
+void			graph_del(t_graph *graph);
+void			vert_del(t_vert **vert);
+void			input_del(t_input_info *input);
 int				free_graph_input_and_return(int ret, t_graph *graph,
 				t_input_info *input);
-int				read_input(t_input_info *input);
-t_input_line	*add_input_line(t_input_info *input, char *line);
-t_room			*create_room(char **room_info);
+int				input_read(t_input_info *input);
+int				input_validate(t_input_info *input, t_graph *graph);
+t_input_line	*input_line_add(t_input_info *input, char *line);
+t_vert			*vert_create(char **room_info);
 
 #endif
