@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 16:48:34 by moana          #+#    #+#                */
-/*   Updated: 2020/03/27 17:46:28 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/27 18:19:50 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 
 //TODO when setting the graph make sure to also add edge_invert
 //which is not being returned explicitly
+
+//TODO think about the key for the edges hashmap
+//TODO add new edge to graph->edge_list
+//TODO add connections in graph->vertices
 t_edge  *edge_new(char **input_line, t_graph *graph)
 {
     t_edge  *edge;

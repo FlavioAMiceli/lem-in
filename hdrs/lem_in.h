@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/27 17:07:53 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/27 18:31:01 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ typedef struct	s_vert
 	int				distance;
 	int				visited;
 	int				conn_count;
-	struct s_vert	**connections;
+	struct s_edge	*connections;
+	struct s_vert	*next_vert;
 	char			*name;
 }				t_vert;
 
@@ -59,6 +60,9 @@ typedef struct	s_edge
 	t_vert			*tail;
 	t_vert			*head;
 	struct s_edge	*invert;
+	struct s_edge	*next_edge;
+	struct s_edge	*next_conn;
+	char			*name;
 }				t_edge;
 
 typedef struct	s_graph
@@ -66,8 +70,8 @@ typedef struct	s_graph
 	int				ant_count;
 	int				vert_count;
 	int				edge_count;
-	t_input_line	*room_list;
-	t_input_line	*link_list;
+	t_vert			*vert_list;
+	t_edge			*edge_list;
 	t_hmap			*vertices;
 	t_hmap			*edges;
 	char			*source;
