@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/26 18:15:27 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/27 17:07:53 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct	s_edge
 	int				flow;
 	t_vert			*tail;
 	t_vert			*head;
-	struct s_edge	*edge_invert;
+	struct s_edge	*invert;
 }				t_edge;
 
 typedef struct	s_graph
@@ -76,16 +76,22 @@ typedef struct	s_graph
 
 int				ft_isint(char *str);
 void			ft_strarrdel(char ***arr);
+
 int				strdel_and_return(int ret, char **str);
 int				strarrdel_and_return(int ret, char ***strarr);
+
+int				graph_set(t_graph *graph, t_input_info *input);
 void			graph_del(t_graph *graph);
+
+t_vert			*vert_new(char **input_line);
 void			vert_del(t_vert **vert);
+t_edge			*edge_new(char **input_line, t_graph *graph);
+void			edge_del(t_edge **edge);
 void			input_del(t_input_info *input);
 int				free_graph_input_and_return(int ret, t_graph *graph,
 				t_input_info *input);
 int				input_read(t_input_info *input);
 int				input_validate(t_input_info *input, t_graph *graph);
 t_input_line	*input_line_add(t_input_info *input, char *line);
-t_vert			*vert_create(char **room_info);
 
 #endif
