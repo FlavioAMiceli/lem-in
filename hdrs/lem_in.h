@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/27 18:31:01 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/28 11:36:21 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,9 @@ typedef struct	s_graph
 {
 	int				ant_count;
 	int				vert_count;
-	int				edge_count;
 	t_vert			*vert_list;
 	t_edge			*edge_list;
 	t_hmap			*vertices;
-	t_hmap			*edges;
 	char			*source;
 	char			*sink;
 }				t_graph;
