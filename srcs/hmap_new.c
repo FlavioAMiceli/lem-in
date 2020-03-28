@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/09 20:03:13 by fmiceli        #+#    #+#                */
-/*   Updated: 2020/03/26 10:21:14 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/28 13:21:49 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	params:	number of expected keys, pointer to deletion function for values.
 **	return:	Pointer to newly allocated hmap struct.
 */
-t_hmap  *hmap_new(int n, void (*del)(void *))
+t_hmap  *hmap_new(int n, void (*del)(void **))
 {
 	t_hmap	*hmap;
 
