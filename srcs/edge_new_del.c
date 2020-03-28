@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 16:48:34 by moana          #+#    #+#                */
-/*   Updated: 2020/03/28 11:42:59 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/28 11:53:42 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,23 @@ void		edge_del(t_edge **edge)
 	ft_memdel(&((*edge)->invert));
 	ft_memdel(edge);
 }
+
+/* 
+// depending on the algorithm, this might not be necessary
+static void	is_duplicate(t_edge *new_edge, t_vert *vert)
+{
+	t_edge	**walk;
+
+	*walk = vert->connections;
+	while ((*walk) != NULL)
+	{
+		if ((*walk)->head == new_edge->head)
+			return (TRUE);
+		(*walk) = (*walk)->next_conn;
+	}
+	return (FALSE);
+}
+ */
 
 static void	edge_set(t_edge *edge, t_graph *graph)
 {
@@ -52,7 +69,7 @@ t_edge  	*edge_new(char **input_line, t_graph *graph)
 	edge->tail = hmap_get(graph->vertices, input_line[0]);
 	edge->head = hmap_get(graph->vertices, input_line[1]);
 	if (edge->tail == NULL || edge->head == NULL
-		|| is_duplicate(edge, edge->tail) == TRUE)
+		/* || is_duplicate(edge, edge->tail) == TRUE */)
 	{
 		edge_del(&edge);
 		return (NULL);
