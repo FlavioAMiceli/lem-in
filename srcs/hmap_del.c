@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/09 21:26:51 by fmiceli        #+#    #+#                */
-/*   Updated: 2020/03/26 10:20:13 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/29 12:12:40 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void    hmap_del(t_hmap *hmap, char *key)
 	slot = hmap->slots[i];
 	if (ft_strequ(slot->key, key))
 	{
-		hmap->del(slot->val);
+		hmap->del(&(slot->val));
 		ft_strdel(&(slot->key));
 		free(slot);
 		hmap->slots[i] = NULL;
