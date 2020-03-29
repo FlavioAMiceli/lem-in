@@ -70,7 +70,7 @@ static void		update_flow(t_list *path, t_hmap *e, t_hmap *v)
 	{
 		edge = hmap_get(e, path->content);
 		edge->flow += 1;
-		edge = edge->opposite;
+		edge = edge->invert;
 		edge->flow -= 1;
 		update_visited_status(path, e, v);
 		tmp = path;
