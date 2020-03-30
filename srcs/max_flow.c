@@ -12,22 +12,52 @@
 
 #include "lem_in.h"
 
-/*
-**	Params: vertex, name of
-*/
+static void		bfs_clear_queue(t_list *queue)
+{
+	while (queue)
+	{
+		ft_lstdel(&(queue->content), ft_strdel);
+		queue = queue->next;
+	}
+}
+
+static t_list	*bfs_expand(rev_path, end_queue, used, sink, rooms)
+{
+	t_room	*current;
+	char	**neighbours;
+
+	neighbours = rev_path->content->neighbours;
+	while (neighbours)
+	{
+		// copy path, add each neighbour to front, append to end_queue
+		// free old path
+		// test if sink reached -> return path
+	}
+	return (NULL);
+}
+
 static t_list	*bfs(t_vert *source, t_vert *sink, t_hmap *rooms)
 {
 	t_list	*queue;
-	t_list	*path;
+	t_list	*end_queue;
+	t_list	*rev_path;
+	t_hmap	*used;
 
-	qeueu = (t_list*)ft_memalloc(sizeof(t_list));
-	qeueu->content = source;
+	used = hmap_new((((rooms->n) / 3) * 2), free);
+	queue = (t_list*)ft_memalloc(sizeof(t_list));
+	end_queue = queue;
+	queue->content = source;
 	while (queue)
 	{
-		// expand all neighbours, look for shortest path to reach sink
-		// return path, or NULL if sink is not reachable
+		rev_path = ft_dequeue(queue);
+		rev_path = bfs_expand(rev_path, end_queue, used, sink, rooms);
+		if (rev_path)
+		{
+			bfs_clear_queue(queue);
+			return (ft_lstrev(rev_path));
+		}
 	}
-	return (path);
+	return (NULL);
 }
 
 /*
@@ -66,6 +96,7 @@ static void		update_flow(t_list *path, t_hmap *e, t_hmap *v)
 	t_edge	*edge;
 	t_list	*tmp;
 
+	// right now written for edges, probably will rewrite for vertices
 	while (path)
 	{
 		edge = hmap_get(e, path->content);
