@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/09 21:18:24 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/03/09 21:18:25 by fmiceli       ########   odam.nl         */
+/*   Created: 2020/03/09 21:18:24 by fmiceli        #+#    #+#                */
+/*   Updated: 2020/03/30 17:51:58 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void    *hmap_get(t_hmap *hmap, char *key)
 	checked = 0;
 	while (!ft_strequ(hmap->slots[i]->key, key) && checked <= hmap->n)
 	{
-		i = ((5 * i) + 1) + hash;
+		i = (((5 * i) + 1) + hash) % hmap->n;
 		hash >>= PERTURB_SHIFT;
 		if (hash == 0)
 			checked++;

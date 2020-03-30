@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   hmap_clear.c                                       :+:    :+:            */
+/*   hmap_hash.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/09 20:18:54 by fmiceli        #+#    #+#                */
-/*   Updated: 2020/03/30 16:34:30 by moana         ########   odam.nl         */
+/*   Created: 2020/03/09 21:35:44 by fmiceli       #+#    #+#                 */
+/*   Updated: 2020/03/09 21:35:45 by fmiceli       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
-#include <stdlib.h>
-
 /*
-**	params:	addr of hmap pointer
-**	return:
+**	djb2, hash function for strings
+**	source: http://www.cse.yorku.ca/~oz/hash.html @ March 9th, 2020
+**
+**	parms: key to hash
+**	return: hash
 */
-void	hmap_clear(t_hmap **hmap)
+unsigned long	hmap_hash(char *key)
 {
-	unsigned int	i;
-	t_hmap			*mp;
+	unsigned long 	hash;
+	int				i;
 
+	hash = 5381;
 	i = 0;
-	mp = *hmap;
-	while (i < mp->n)
+	while (key[i] != '\0')
 	{
-		ft_strdel(&(mp->slots[i]->key));
-		free(mp->slots[i]);
-		mp->slots[i] = NULL;
+		hash = ((hash << 5) + hash) + key[i];
 		i++;
 	}
-	mp->slots = NULL;
-	mp->n = 0;
-	free(*hmap);
-	hmap = NULL;
+	return (hash);
 }

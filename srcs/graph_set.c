@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 17:47:58 by moana          #+#    #+#                */
-/*   Updated: 2020/03/28 13:22:29 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/30 17:49:59 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int		graph_set(t_graph *graph, t_input_info *input)
 
 	if (graph == NULL || input == NULL)
 		return (ERROR);
-	graph->vertices = hmap_new(input->room_count, vert_del);
+	graph->vertices = hmap_new(input->room_count);
 	if (graph->vertices == NULL)
 		return (ERROR);
 	walk = input->rooms;
@@ -111,6 +111,8 @@ int		graph_set(t_graph *graph, t_input_info *input)
 			return (ERROR);
 		walk = walk->next_room;
 	}
+	graph->source = hmap_get(graph->vertices, input->start->room_name);
+	graph->sink = hmap_get(graph->vertices, input->end->room_name);
 	walk = input->links;
 	while (walk != NULL)
 	{

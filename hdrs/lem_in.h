@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/28 12:49:13 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/30 18:04:21 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ typedef struct	s_graph
 	t_vert			*vert_list;
 	t_edge			*edge_list;
 	t_hmap			*vertices;
-	char			*source;
-	char			*sink;
+	t_vert			*source;
+	t_vert			*sink;
 }				t_graph;
 
 int				ft_isint(char *str);

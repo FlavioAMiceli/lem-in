@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/09 21:08:55 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/03/09 21:08:56 by fmiceli       ########   odam.nl         */
+/*   Created: 2020/03/09 21:08:55 by fmiceli        #+#    #+#                */
+/*   Updated: 2020/03/30 17:22:15 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,22 @@ int	hmap_set(t_hmap *hmap, char *key, void *value)
 	while (hmap->slots[i] != NULL &&
 		!ft_strequ(hmap->slots[i]->key, key) && checked <= hmap->n)
 	{
-		i = ((5 * i) + 1) + hash;
+		i = (((5 * i) + 1) + hash) % hmap->n;
 		hash >>= PERTURB_SHIFT;
 		if (hash == 0)
 			checked++;
 	}
-	if (ft_strequ(hmap->slots[i]->key, key))
-	{
-		hmap->del(hmap->slots[i]->val);
-		hmap->slots[i]->val = value;
-		return (1);
-	}
-	else if (hmap->slots[i] == NULL)
+	if (hmap->slots[i] == NULL)
 	{
 		hmap->slots[i] = (t_slot*)ft_memalloc(sizeof(t_slot));
 		hmap->slots[i]->key = ft_strdup(key);
 		hmap->slots[i]->val = value;
 		return (0);
+	}
+	else if (ft_strequ(hmap->slots[i]->key, key))
+	{
+		hmap->slots[i]->val = value;
+		return (1);
 	}
 	return (-1);
 }
