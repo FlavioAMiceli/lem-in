@@ -23,6 +23,9 @@ static void		bfs_clear_queue(t_list *queue)
 
 static t_list	*bfs_expand(rev_path, end_queue, used, sink, rooms)
 {
+	t_list	*new_path;
+	t_list	*new_path_end;
+	t_list	*path_current;
 	t_room	*current;
 	char	**neighbours;
 
@@ -30,6 +33,16 @@ static t_list	*bfs_expand(rev_path, end_queue, used, sink, rooms)
 	while (neighbours)
 	{
 		// copy path, add each neighbour to front, append to end_queue
+		new_path = ft_lstnew(rev_path->content, rev_path->content_size);
+		new_path_end = new_path;
+		path_current = rev_path->next;
+		while (path_current)
+		{
+			new_path_end->next = ft_lstnew(path_current->content, path_current->content_size);
+			new_path_end = new_path_end->next;
+		}
+		ft_lstadd(&new_path, ft_lstnew(*neighbours), ft_strlen(*neighbours));
+		(*neighbours)++;
 		// free old path
 		// test if sink reached -> return path
 	}
