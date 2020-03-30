@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/09 21:26:51 by fmiceli        #+#    #+#                */
-/*   Updated: 2020/03/30 15:46:30 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/30 18:23:59 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    hmap_del(t_hmap *hmap, char *key)
 	while (hmap->slots[i] != NULL &&
 		!ft_strequ(hmap->slots[i]->key, key) && checked <= hmap->n)
 	{
-		i = ((5 * i) + 1) + hash;
+		i = (((5 * i) + 1) + hash) % hmap->n;
 		hash >>= PERTURB_SHIFT;
 		if (hash == 0)
 			checked++;
