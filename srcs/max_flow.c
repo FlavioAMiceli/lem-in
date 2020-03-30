@@ -38,13 +38,14 @@ static t_list	*bfs_expand(rev_path, end_queue, used, sink, rooms)
 		path_current = rev_path->next;
 		while (path_current)
 		{
-			new_path_end->next = ft_lstnew(path_current->content, path_current->content_size);
+			new_path_end->next = ft_lstnew(path_current->content->name,
+				ft_strlen(path_current->content->name));
 			new_path_end = new_path_end->next;
 		}
 		ft_lstadd(&new_path, ft_lstnew(*neighbours), ft_strlen(*neighbours));
 		(*neighbours)++;
 		// free old path
-		// test if sink reached -> return path
+		// test if sink reached -> free other paths and return path
 	}
 	return (NULL);
 }
