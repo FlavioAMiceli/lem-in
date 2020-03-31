@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 17:47:58 by moana          #+#    #+#                */
-/*   Updated: 2020/03/30 17:49:59 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/31 16:21:26 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 /* 
 // depending on the algorithm, this might not be necessary
-static void	is_duplicate(t_edge *new_edge, t_vert *vert)
+static void	edge_is_duplicate(t_edge *new_edge, t_vert *vert)
 {
 	t_edge	**walk;
 
-	*walk = vert->connections;
+	walk = &(vert->connections);
 	while ((*walk) != NULL)
 	{
 		if ((*walk)->head == new_edge->head)
@@ -63,7 +63,7 @@ static int	edge_new(char **input_line, t_graph *graph)
 	edge->tail = hmap_get(graph->vertices, input_line[0]);
 	edge->head = hmap_get(graph->vertices, input_line[1]);
 	if (edge->tail == NULL || edge->head == NULL
-		/* || is_duplicate(edge, edge->tail) == TRUE */)
+		/* || edge_is_duplicate(edge, edge->tail) == TRUE */)
 	{
 		edge_del(&edge);
 		return (ERROR);
