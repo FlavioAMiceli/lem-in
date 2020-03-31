@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 15:09:27 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/26 18:20:33 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/31 18:27:37 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@
 #include "lem_in.h"
 #include "libft.h"
 
-Test(input_read, valid_map_01)
+Test(input_read, valid_flow_one)
 {
 	int				fd;
 	t_input_info	input;
-	int				ant_no = 79;
-	int				room_count = 6;
-	int				link_count = 5;
-	char			*source = "blu";
-	char			*sink = "3";
+	int				ant_no = 1;
+	int				room_count = 276;
+	int				link_count = 277;
+	char			*source = "Ucf5";
+	char			*sink = "Tgr7";
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/01", O_RDONLY);
+	fd = open("tests/maps/valid_flow_one", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -41,9 +41,88 @@ Test(input_read, valid_map_01)
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
 	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
 	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
+	input_del(&input);
 }
 
-Test(input_read, valid_map_02)
+Test(input_read, valid_flow_ten)
+{
+	int				fd;
+	t_input_info	input;
+	int				ant_no = 10;
+	int				room_count = 738;
+	int				link_count = 749;
+	char			*source = "Fog1";
+	char			*sink = "Gll7";
+
+	ft_bzero(&input, sizeof(input));
+	input.ant_no = -1;
+	fd = open("tests/maps/valid_flow_ten", O_RDONLY);
+	if (fd == -1)
+   		ft_printf ("Error: %s\n", strerror(errno));
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_expect_eq(input_read(&input), 1, "reading valid map 01 returns error");
+	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
+	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
+	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
+	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
+	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
+	input_del(&input);
+}
+
+Test(input_read, valid_big)
+{
+	int				fd;
+	t_input_info	input;
+	int				ant_no = 280;
+	int				room_count = 2494;
+	int				link_count = 3284;
+	char			*source = "J_m1";
+	char			*sink = "Zhw2";
+
+	ft_bzero(&input, sizeof(input));
+	input.ant_no = -1;
+	fd = open("tests/maps/valid_big", O_RDONLY);
+	if (fd == -1)
+   		ft_printf ("Error: %s\n", strerror(errno));
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_expect_eq(input_read(&input), 1, "reading valid map 01 returns error");
+	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
+	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
+	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
+	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
+	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
+	input_del(&input);
+}
+
+Test(input_read, valid_big_2)
+{
+	int				fd;
+	t_input_info	input;
+	int				ant_no = 312;
+	int				room_count = 4628;
+	int				link_count = 4700;
+	char			*source = "Tag4";
+	char			*sink = "Xxq8";
+
+	ft_bzero(&input, sizeof(input));
+	input.ant_no = -1;
+	fd = open("tests/maps/valid_big_2", O_RDONLY);
+	if (fd == -1)
+   		ft_printf ("Error: %s\n", strerror(errno));
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_expect_eq(input_read(&input), 1, "reading valid map 01 returns error");
+	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
+	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
+	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
+	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
+	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
+	input_del(&input);
+}
+
+Test(input_read, valid_normal)
 {
 	int				fd;
 	t_input_info	input;
@@ -55,7 +134,33 @@ Test(input_read, valid_map_02)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/02", O_RDONLY);
+	fd = open("tests/maps/valid_normal", O_RDONLY);
+	if (fd == -1)
+   		ft_printf ("Error: %s\n", strerror(errno));
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_expect_eq(input_read(&input), 1, "reading valid map 01 returns error");
+	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
+	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
+	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
+	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
+	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
+	input_del(&input);
+}
+
+Test(input_read, valid_comment_after_start_indicator)
+{
+	int				fd;
+	t_input_info	input;
+	int				ant_no = 79;
+	int				room_count = 6;
+	int				link_count = 5;
+	char			*source = "blu";
+	char			*sink = "3";
+
+	ft_bzero(&input, sizeof(input));
+	input.ant_no = -1;
+	fd = open("tests/maps/valid_comment_after_start_indicator", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -66,9 +171,10 @@ Test(input_read, valid_map_02)
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
 	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
 	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
+	input_del(&input);
 }
 
-Test(input_read, valid_map_03)
+Test(input_read, valid_same_start_end)
 {
 	int				fd;
 	t_input_info	input;
@@ -80,7 +186,7 @@ Test(input_read, valid_map_03)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/03", O_RDONLY);
+	fd = open("tests/maps/valid_same_start_end", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -91,9 +197,10 @@ Test(input_read, valid_map_03)
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
 	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
 	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_04)
+Test(input_read, valid_many_comments)
 {
 	int				fd;
 	t_input_info	input;
@@ -105,7 +212,7 @@ Test(input_read, invalid_map_04)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/04", O_RDONLY);
+	fd = open("tests/maps/valid_many_comments", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -116,11 +223,12 @@ Test(input_read, invalid_map_04)
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
 	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
 	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
+	input_del(&input);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Test(input_read, invalid_map_11)
+Test(input_read, invalid_missing_ant_count)
 {
 	int				fd;
 	t_input_info	input;
@@ -130,7 +238,7 @@ Test(input_read, invalid_map_11)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/11", O_RDONLY);
+	fd = open("tests/maps/invalid_missing_ant_count", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -139,9 +247,10 @@ Test(input_read, invalid_map_11)
 	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_12)
+Test(input_read, invalid_empty_line_1)
 {
 	int				fd;
 	t_input_info	input;
@@ -151,7 +260,7 @@ Test(input_read, invalid_map_12)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/12", O_RDONLY);
+	fd = open("tests/maps/invalid_empty_line_1", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -160,9 +269,10 @@ Test(input_read, invalid_map_12)
 	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_13)
+Test(input_read, invalid_empty_line_2)
 {
 	int				fd;
 	t_input_info	input;
@@ -173,7 +283,7 @@ Test(input_read, invalid_map_13)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/13", O_RDONLY);
+	fd = open("tests/maps/invalid_empty_line_2", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -183,9 +293,10 @@ Test(input_read, invalid_map_13)
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
 	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_14)
+Test(input_read, invalid_first_line_start_with_L_1)
 {
 	int				fd;
 	t_input_info	input;
@@ -195,7 +306,7 @@ Test(input_read, invalid_map_14)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/14", O_RDONLY);
+	fd = open("tests/maps/invalid_start_with_L_1", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -204,21 +315,20 @@ Test(input_read, invalid_map_14)
 	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_15)
+Test(input_read, invalid_start_with_L_1)
 {
 	int				fd;
 	t_input_info	input;
-	int				ant_no = 79;
-	int				room_count = 6;
-	int				link_count = 4;
-	char			*source = "blu";
-	char			*sink = "3";
+	int				ant_no = -1;
+	int				room_count = 0;
+	int				link_count = 0;
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/15", O_RDONLY);
+	fd = open("tests/maps/invalid_start_with_L_1", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -227,11 +337,10 @@ Test(input_read, invalid_map_15)
 	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
-	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
-	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_16)
+Test(input_read, invalid_start_with_L_3)
 {
 	int				fd;
 	t_input_info	input;
@@ -242,7 +351,7 @@ Test(input_read, invalid_map_16)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/16", O_RDONLY);
+	fd = open("tests/maps/invalid_start_with_L_3", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -252,9 +361,10 @@ Test(input_read, invalid_map_16)
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
 	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_17)
+Test(input_read, invalid_start_with_L_4)
 {
 	int				fd;
 	t_input_info	input;
@@ -264,7 +374,7 @@ Test(input_read, invalid_map_17)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/17", O_RDONLY);
+	fd = open("tests/maps/invalid_start_with_L_4", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -273,9 +383,10 @@ Test(input_read, invalid_map_17)
 	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_18)
+Test(input_read, invalid_start_with_L_5)
 {
 	int				fd;
 	t_input_info	input;
@@ -285,7 +396,7 @@ Test(input_read, invalid_map_18)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/18", O_RDONLY);
+	fd = open("tests/maps/invalid_start_with_L_5", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -294,9 +405,10 @@ Test(input_read, invalid_map_18)
 	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_19)
+Test(input_read, invalid_incorrect_order_1)
 {
 	int				fd;
 	t_input_info	input;
@@ -308,7 +420,7 @@ Test(input_read, invalid_map_19)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/19", O_RDONLY);
+	fd = open("tests/maps/invalid_incorrect_order_1", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -319,9 +431,10 @@ Test(input_read, invalid_map_19)
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
 	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
 	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_20)
+Test(input_read, invalid_incorrect_order_2)
 {
 	int				fd;
 	t_input_info	input;
@@ -331,7 +444,7 @@ Test(input_read, invalid_map_20)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/20", O_RDONLY);
+	fd = open("tests/maps/invalid_incorrect_order_2", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -340,9 +453,10 @@ Test(input_read, invalid_map_20)
 	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_21)
+Test(input_read, invalid_missing_start_mark)
 {
 	int				fd;
 	t_input_info	input;
@@ -353,7 +467,7 @@ Test(input_read, invalid_map_21)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/21", O_RDONLY);
+	fd = open("tests/maps/invalid_missing_start_mark", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -363,9 +477,10 @@ Test(input_read, invalid_map_21)
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
 	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_22)
+Test(input_read, invalid_missing_end_mark)
 {
 	int				fd;
 	t_input_info	input;
@@ -376,7 +491,7 @@ Test(input_read, invalid_map_22)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/22", O_RDONLY);
+	fd = open("tests/maps/invalid_missing_end_mark", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -386,9 +501,10 @@ Test(input_read, invalid_map_22)
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
 	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_23)
+Test(input_read, invalid_incorrect_order_3)
 {
 	int				fd;
 	t_input_info	input;
@@ -399,7 +515,7 @@ Test(input_read, invalid_map_23)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/23", O_RDONLY);
+	fd = open("tests/maps/invalid_incorrect_order_3", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -409,9 +525,10 @@ Test(input_read, invalid_map_23)
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
 	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
+	input_del(&input);
 }
 
-Test(input_read, invalid_map_24)
+Test(input_read, invalid_incorrect_order_4)
 {
 	int				fd;
 	t_input_info	input;
@@ -422,7 +539,7 @@ Test(input_read, invalid_map_24)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/24", O_RDONLY);
+	fd = open("tests/maps/invalid_incorrect_order_4", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
@@ -432,4 +549,27 @@ Test(input_read, invalid_map_24)
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
 	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
+	input_del(&input);
+}
+
+Test(input_read, invalid_empty)
+{
+	int				fd;
+	t_input_info	input;
+	int				ant_no = -1;
+	int				room_count = 0;
+	int				link_count = 0;
+
+	ft_bzero(&input, sizeof(input));
+	input.ant_no = -1;
+	fd = open("tests/maps/invalid_empty", O_RDONLY);
+	if (fd == -1)
+   		ft_printf ("Error: %s\n", strerror(errno));
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_expect_eq(input_read(&input), 0, "empty map doesn't return error");
+	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
+	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
+	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
+	input_del(&input);
 }
