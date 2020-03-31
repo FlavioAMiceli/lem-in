@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/09 21:26:51 by fmiceli        #+#    #+#                */
-/*   Updated: 2020/03/30 18:23:59 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/31 10:29:37 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	params:	pointer to hmap struct, key of slot to remove.
 **	return:
 */
-void    hmap_del(t_hmap *hmap, char *key)
+void    hmap_del_slot(t_hmap *hmap, char *key)
 {
 	unsigned long	hash;
 	unsigned int	checked;
@@ -42,4 +42,18 @@ void    hmap_del(t_hmap *hmap, char *key)
 		free(slot);
 		hmap->slots[i] = NULL;
 	}
+}
+
+void	hmap_del_map(t_hmap **hmap)
+{
+	if (hmap == NULL || *hmap == NULL)
+		return ;
+	if ((*hmap)->slots != NULL)
+	{
+		ft_bzero((*hmap)->slots, sizeof(t_slot*) * (*hmap)->n);
+		free((*hmap)->slots);
+	}
+	ft_bzero((*hmap), sizeof(t_hmap));
+	free(*hmap);
+	*hmap = NULL;
 }

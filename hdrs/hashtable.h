@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/03 21:33:05 by fmiceli        #+#    #+#                */
-/*   Updated: 2020/03/30 15:45:44 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/31 10:20:57 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void			hmap_clear(t_hmap **hmap);
 
 int				hmap_set(t_hmap *hmap, char *key, void *value);
 void			*hmap_get(t_hmap *hmap, char *key);
-void			hmap_del(t_hmap *hmap, char *key);
+void			hmap_del_slot(t_hmap *hmap, char *key);
+void			hmap_del_map(t_hmap **hmap);
 
 unsigned long	hmap_hash(char *key, int n);
 

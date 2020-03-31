@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:46:04 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/30 18:17:48 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/31 10:30:25 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	graph_del(t_graph *graph)
 	{
 		del_vert = (*walk_vert);
 		(*walk_vert) = (*walk_vert)->next_vert;
-		hmap_del(graph->vertices, del_vert->name);
+		hmap_del_slot(graph->vertices, del_vert->name);
 		vert_del(&del_vert);
 	}
-	ft_memdel((void**)&(graph->vertices));
+	hmap_del_map(&(graph->vertices));
 	ft_bzero(graph, sizeof(t_graph));
 }

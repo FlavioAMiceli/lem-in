@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:09:39 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/28 12:42:00 by moana         ########   odam.nl         */
+/*   Updated: 2020/03/31 10:38:51 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		main(void)
 	t_graph			graph;
 	t_input_info	input;
 
-	int fd = open("tests/maps/01", O_RDONLY);
+	int fd = open("tests/maps/04", O_RDONLY);
 	dup2(fd, 0);
 	ft_bzero(&graph, sizeof(graph));
 	ft_bzero(&input, sizeof(input));
