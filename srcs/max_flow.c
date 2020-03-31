@@ -21,10 +21,28 @@ static void		bfs_clear_queue(t_list *queue)
 	}
 }
 
+static t_list	*copy_path(t_list *src)
+{
+	t_list	*cpy;
+	t_list	*current;
+	t_list	*cpy_end;
+
+	cpy = ft_lstnew(src->content, src->content_size);
+	cpy_end = cpy;
+	current = src->next;
+	while (current)
+	{
+		cpy_end->next = ft_lstnew(current->content->name,
+			ft_strlen(current->content->name));
+		cpy_end = cpy_end->next;
+	}
+	return (cpy)
+}
+
+
 static t_list	*bfs_expand(rev_path, end_queue, used, sink, rooms)
 {
 	t_list	*new_path;
-	t_list	*new_path_end;
 	t_list	*path_current;
 	t_room	*current;
 	char	**neighbours;
@@ -33,17 +51,14 @@ static t_list	*bfs_expand(rev_path, end_queue, used, sink, rooms)
 	while (neighbours)
 	{
 		// copy path, add each neighbour to front, append to end_queue
-		new_path = ft_lstnew(rev_path->content, rev_path->content_size);
-		new_path_end = new_path;
-		path_current = rev_path->next;
-		while (path_current)
+		if (is_reachable(rev_path->content, *neighbours))
 		{
-			new_path_end->next = ft_lstnew(path_current->content->name,
-				ft_strlen(path_current->content->name));
-			new_path_end = new_path_end->next;
+			new_path = copy_path(rev_path);
+			ft_lstadd(&new_path, ft_lstnew(*neighbours), ft_strlen(*neighbours));
+			(*neighbours)++;
+			// append to end_queue
+			end_queue->next = ft_lstnew(&new_path, sizeof(t_list *));
 		}
-		ft_lstadd(&new_path, ft_lstnew(*neighbours), ft_strlen(*neighbours));
-		(*neighbours)++;
 		// free old path
 		// test if sink reached -> free other paths and return path
 	}
