@@ -134,7 +134,7 @@ static void		update_flow(t_list *path, t_hmap *e, t_hmap *v)
 	t_edge	*edge;
 	t_list	*tmp;
 
-	// right now written for edges, probably will rewrite for vertices
+	// right now written for path of edges, probably will rewrite for vertices
 	while (path)
 	{
 		edge = hmap_get(e, path->content);
