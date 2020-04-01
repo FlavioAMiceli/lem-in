@@ -39,8 +39,17 @@ static t_list	*copy_path(t_list *src)
 	return (cpy)
 }
 
+static int		is_reachable(
+	t_vert *vert, char *next_room, t_hmap *rooms, t_hmap *used)
+{
+	if (hmap_get(rooms, next_room)->visited == FALSE
+		&& hmap_get(used, next_room) == NULL)
+		return (TRUE);
+	return (FALSE);
+}
 
-static t_list	*bfs_expand(rev_path, end_queue, used, sink, rooms)
+static t_list	*bfs_expand(
+	t_list *rev_path, t_list *end_queue, t_hmap *used, t_vert *sink, t_hmap *rooms)
 {
 	t_list	*new_path;
 	t_list	*path_current;
@@ -51,7 +60,7 @@ static t_list	*bfs_expand(rev_path, end_queue, used, sink, rooms)
 	while (neighbours)
 	{
 		// copy path, add each neighbour to front, append to end_queue
-		if (is_reachable(rev_path->content, *neighbours))
+		if (is_reachable(rev_path->content, *neighbours, rooms, used))
 		{
 			new_path = copy_path(rev_path);
 			ft_lstadd(&new_path, ft_lstnew(*neighbours), ft_strlen(*neighbours));
