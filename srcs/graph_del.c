@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:46:04 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/31 10:30:25 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/01 18:42:56 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 void	vert_del(t_vert **vert)
 {
+	if (vert == NULL || *vert == NULL)
+		return ;
 	ft_strdel(&((*vert)->name));
 	ft_bzero((*vert), sizeof(t_vert));
 	free((*vert));
@@ -24,8 +26,11 @@ void	vert_del(t_vert **vert)
 
 void		edge_del(t_edge **edge)
 {
+	if (edge == NULL || *edge == NULL)
+		return ;
 	ft_bzero((*edge)->invert, sizeof(t_edge));
-	free(((*edge)->invert));
+	if ((*edge)->invert != NULL)
+		free(((*edge)->invert));
 	ft_bzero((*edge), sizeof(t_edge));
 	free((*edge));
 	(*edge) = NULL;

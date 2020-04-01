@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:09:39 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/04/01 18:02:14 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/01 18:39:28 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		main(void)
 	t_graph			graph;
 	t_input_info	input;
 
-	int fd = open("tests/maps/invalid_link_incorrect_room_name_1", O_RDONLY);
+	int fd = open("tests/maps/invalid_link_multiple_minus_3", O_RDONLY);
 	dup2(fd, 0);
 	ft_bzero(&graph, sizeof(graph));
 	ft_bzero(&input, sizeof(input));
