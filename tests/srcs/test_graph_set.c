@@ -6,16 +6,125 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:48:16 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/31 16:23:28 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/01 18:01:07 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <criterion/criterion.h>
 #include <criterion/assert.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <errno.h>
 #include "lem_in.h"
 #include "libft.h"
 
+Test(graph_set, invalid_link_incorrect_room_name_3)
+{
+	t_graph         graph;
+	int				fd;
+	t_input_info	input;
 
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/invalid_link_incorrect_room_name_3", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), ERROR, "incorrect room name does not return error");
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, invalid_link_incorrect_room_name_2)
+{
+	t_graph         graph;
+	int				fd;
+	t_input_info	input;
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/invalid_link_incorrect_room_name_2", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), ERROR, "incorrect room name does not return error");
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, invalid_link_incorrect_room_name_1)
+{
+	t_graph         graph;
+	int				fd;
+	t_input_info	input;
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/invalid_link_incorrect_room_name_1", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), ERROR, "incorrect room name does not return error");
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, invalid_link_multiple_minus_3)
+{
+	t_graph         graph;
+	int				fd;
+	t_input_info	input;
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/invalid_link_multiple_minus_3", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), ERROR, "too many '-' charackters does not return error");
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, invalid_link_multiple_minus_2)
+{
+	t_graph         graph;
+	int				fd;
+	t_input_info	input;
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/invalid_link_multiple_minus_2", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), ERROR, "too many '-' charackters does not return error");
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, invalid_link_multiple_minus_1)
+{
+	t_graph         graph;
+	int				fd;
+	t_input_info	input;
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/invalid_link_multiple_minus_1", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), ERROR, "too many '-' charackters does not return error");
+	input_del(&input);
+	graph_del(&graph);
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
