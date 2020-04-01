@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/30 18:04:21 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/01 17:03:13 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void			edge_del(t_edge **edge);
 
 void			input_del(t_input_info *input);
 int				input_read(t_input_info *input);
-int				input_validate(t_input_info *input, t_graph *graph);
 t_input_line	*input_line_add(t_input_info *input, char *line);
 
 #endif
