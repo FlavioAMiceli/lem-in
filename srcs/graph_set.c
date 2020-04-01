@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 17:47:58 by moana          #+#    #+#                */
-/*   Updated: 2020/04/01 18:21:43 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/01 18:56:14 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	edge_is_duplicate(t_edge *new_edge, t_vert *vert)
 
 static void	edge_set(t_edge *edge, t_graph *graph)
 {
+	edge->invert->invert = edge;
 	edge->invert->tail = edge->head;
 	edge->invert->head = edge->tail;
 	edge->next_edge = graph->edge_list;
@@ -47,28 +48,19 @@ static int	edge_new(char **input_line, t_graph *graph)
 	t_edge  *edge_invert;
 
 	edge = (t_edge*)ft_memalloc(sizeof(t_edge));
-	if (edge == NULL || input_line[0] == NULL || input_line[1] == 0
-		|| input_line[2] != 0)
-		return (ERROR);
 	edge_invert = (t_edge*)ft_memalloc(sizeof(t_edge));
-	if (edge_invert == NULL)
-	{
-		free(edge);
-		return (ERROR);
-	}
+	if (edge == NULL || edge_invert == NULL
+		|| input_line[0] == NULL || input_line[1] == 0 || input_line[2] != 0)
+		return (strarrdel_edgedel_and_return(ERROR, &input_line, &edge));
 	edge->invert = edge_invert;
-	edge_invert->invert = edge;
 	edge->tail = hmap_get(graph->vertices, input_line[0]);
 	edge->head = hmap_get(graph->vertices, input_line[1]);
-	if (edge->tail == NULL || edge->head == NULL || edge->head == edge->tail
-		|| edge_is_duplicate(edge, edge->tail) == TRUE)
-	{
-		edge_del(&edge);
-		return (ERROR);
-	}
+	if (edge->tail == NULL || edge->head == NULL)
+		return (strarrdel_edgedel_and_return(ERROR, &input_line, &edge));
+	if (edge->head == edge->tail || edge_is_duplicate(edge, edge->tail))
+		return (strarrdel_edgedel_and_return(OK, &input_line, &edge));
 	edge_set(edge, graph);
-	ft_strarrdel(&input_line);
-	return (OK);
+	return (strarrdel_and_return(OK, &input_line));
 }
 
 static int	vert_new(char **input_line, t_graph *graph)
