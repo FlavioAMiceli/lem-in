@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 17:47:58 by moana          #+#    #+#                */
-/*   Updated: 2020/03/31 16:21:26 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/01 18:21:43 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 #include "libft.h"
 #include <stdlib.h>
 
-/* 
 // depending on the algorithm, this might not be necessary
-static void	edge_is_duplicate(t_edge *new_edge, t_vert *vert)
+static int	edge_is_duplicate(t_edge *new_edge, t_vert *vert)
 {
 	t_edge	**walk;
 
@@ -29,7 +28,6 @@ static void	edge_is_duplicate(t_edge *new_edge, t_vert *vert)
 	}
 	return (FALSE);
 }
- */
 
 static void	edge_set(t_edge *edge, t_graph *graph)
 {
@@ -62,8 +60,8 @@ static int	edge_new(char **input_line, t_graph *graph)
 	edge_invert->invert = edge;
 	edge->tail = hmap_get(graph->vertices, input_line[0]);
 	edge->head = hmap_get(graph->vertices, input_line[1]);
-	if (edge->tail == NULL || edge->head == NULL
-		/* || edge_is_duplicate(edge, edge->tail) == TRUE */)
+	if (edge->tail == NULL || edge->head == NULL || edge->head == edge->tail
+		|| edge_is_duplicate(edge, edge->tail) == TRUE)
 	{
 		edge_del(&edge);
 		return (ERROR);
