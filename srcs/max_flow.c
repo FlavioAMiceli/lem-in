@@ -29,10 +29,9 @@ static void		update_visited_status(t_list *edge, t_hmap *e)
 /*
 **	Params:	path, list containing names of edges used
 **			e, hmap that stores flow and names of edges in opposite direction
-**			v, hmap that stores room information. Used to track visited rooms.
 **	Return:
 */
-static void		update_flow(t_list *path, t_hmap *e, t_hmap *v)
+static void		update_flow(t_list *path, t_hmap *e)
 {
 	t_edge	*edge;
 	t_list	*tmp;
@@ -44,7 +43,7 @@ static void		update_flow(t_list *path, t_hmap *e, t_hmap *v)
 		edge->flow += 1;
 		edge = edge->invert;
 		edge->flow -= 1;
-		update_visited_status(path, e, v);
+		update_visited_status(path, e);
 		tmp = path;
 		path = path->next;
 		ft_strdel(tmp->content);
@@ -74,7 +73,7 @@ void			edmonds_karp(t_hmap *e, t_hmap *v, t_vert *s, t_vert, *t)
 		path = bfs(s, t, v);
 		if (path)
 		{
-			update_flow(path, e, v);
+			update_flow(path, e);
 			path_found = TRUE;
 		}
 	}
