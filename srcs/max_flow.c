@@ -15,26 +15,15 @@
 /*
 **	Params: edge, to find rooms that have modified flow
 **			e, hmap that stores flow
-**			v, hmap containing room information
 **	Return:
 */
-static void		update_visited_status(t_list *edge, t_hmap *e, t_hmap *v)
+static void		update_visited_status(t_list *edge, t_hmap *e)
 {
-	t_vert	*room;
-	char	*key;
-	char	*separator;
 	int		visited;
 
 	visited = hmap_get(e, edge->content)->flow != 0 ? TRUE : FALSE;
-	separator = ft_strchr(edge->content, ROOM_SEPARATOR);
-	key = ft_memdup(edge->content, separator - edge->content);
-	room = hmap_get(v, key);
-	room->visited = visited;
-	free(key);
-	key = ft_strdup(separator + 1);
-	room = hmap_get(v, key);
-	room->visited = visited;
-	free(key);
+	edge->content->head->visited = visited;
+	edge->content->tail->visited = visited;
 }
 
 /*
