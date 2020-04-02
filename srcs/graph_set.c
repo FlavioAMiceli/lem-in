@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 17:47:58 by moana          #+#    #+#                */
-/*   Updated: 2020/04/01 18:56:14 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/02 18:28:44 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static int	edge_is_duplicate(t_edge *new_edge, t_vert *vert)
 
 static void	edge_set(t_edge *edge, t_graph *graph)
 {
+	++(edge->head->conn_count);
+	++(edge->tail->conn_count);
 	edge->invert->invert = edge;
 	edge->invert->tail = edge->head;
 	edge->invert->head = edge->tail;
@@ -97,7 +99,8 @@ int		graph_set(t_graph *graph, t_input_info *input)
 	walk = input->rooms;
 	while (walk != NULL)
 	{
-		if (vert_new(ft_strsplit(walk->line, ' '), graph) == ERROR)
+		if (ft_strchr(walk->line, '-') ||
+			vert_new(ft_strsplit(walk->line, ' '), graph) == ERROR)
 			return (ERROR);
 		walk = walk->next_room;
 	}
@@ -106,10 +109,12 @@ int		graph_set(t_graph *graph, t_input_info *input)
 	walk = input->links;
 	while (walk != NULL)
 	{
-		if (walk->line[0] == '-' || walk->line[ft_strlen(walk->line) - 1] == '-'
+		if (ft_strchr(ft_strchr(walk->line, '-') + 1, '-') != NULL
 			|| edge_new(ft_strsplit(walk->line, '-'), graph) == ERROR)
 			return (ERROR);
 		walk = walk->next_link;
 	}
+	graph->ant_count = input->ant_no;
+	graph->vert_count = input->room_count;
 	return (OK);
 }

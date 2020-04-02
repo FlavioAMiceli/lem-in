@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:48:16 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/04/01 18:01:07 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/02 18:51:11 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,128 @@
 #include <errno.h>
 #include "lem_in.h"
 #include "libft.h"
+
+Test(graph_set, valid_normal)
+{
+	t_graph         graph;
+	int				fd;
+	t_input_info	input;
+	int				vert_count = 6;
+	char			*source = "blu";
+	char			*sink = "3";
+	t_vert			*vert;
+
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/valid_normal", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
+	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
+	cr_expect_str_eq(graph.sink->name, sink, "sink read = %s, sink expected = %s", graph.sink->name, sink);
+	vert = hmap_get(graph.vertices, "some_room");
+	cr_expect_neq(vert, 0, "hmap_get didn't get the right room");
+	cr_expect_eq(hmap_get(graph.vertices, "bla"), vert->connections->head, "first connection for some_room expected: bla, found: %s", vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, "room"), vert->connections->next_conn->head, "second connection for some_room expected: room, found: %s", vert->connections->next_conn->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, "blu"), vert->connections->next_conn->next_conn->head, "third connection for some_room expected: blu, found: %s", vert->connections->next_conn->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn->next_conn, 0, "some_room shouldn't have more than 3 connections found: %s", vert->connections->next_conn->next_conn->next_conn->head);
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, invalid_room_with_minus)
+{
+	t_graph         graph;
+	int				fd;
+	t_input_info	input;
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/invalid_room_with_minus", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), ERROR, "room with '-' in name does not return error");
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, invalid_room_duplicate_4)
+{
+	t_graph         graph;
+	int				fd;
+	t_input_info	input;
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/invalid_room_duplicate_4", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), ERROR, "duplicate room name does not return error");
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, invalid_room_duplicate_3)
+{
+	t_graph         graph;
+	int				fd;
+	t_input_info	input;
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/invalid_room_duplicate_3", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), ERROR, "duplicate room name does not return error");
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, invalid_room_duplicate_2)
+{
+	t_graph         graph;
+	int				fd;
+	t_input_info	input;
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/invalid_room_duplicate_2", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), ERROR, "duplicate room name does not return error");
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, invalid_room_duplicate_1)
+{
+	t_graph         graph;
+	int				fd;
+	t_input_info	input;
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/invalid_room_duplicate_1", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), ERROR, "duplicate room name does not return error");
+	input_del(&input);
+	graph_del(&graph);
+}
 
 Test(graph_set, invalid_link_incorrect_room_name_3)
 {
