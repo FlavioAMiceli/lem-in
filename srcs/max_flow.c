@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   hmap_new.c                                         :+:    :+:            */
+/*   max_flow.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
@@ -11,92 +11,6 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-static void		bfs_clear_queue(t_list *queue)
-{
-	while (queue)
-	{
-		ft_lstdel(&(queue->content), ft_strdel);
-		queue = queue->next;
-	}
-}
-
-static t_list	*copy_path(t_list *src)
-{
-	t_list	*cpy;
-	t_list	*current;
-	t_list	*cpy_end;
-
-	cpy = ft_lstnew(src->content, src->content_size);
-	cpy_end = cpy;
-	current = src->next;
-	while (current)
-	{
-		cpy_end->next = ft_lstnew(current->content->name,
-			ft_strlen(current->content->name));
-		cpy_end = cpy_end->next;
-	}
-	return (cpy)
-}
-
-static int		is_reachable(
-	t_vert *vert, char *next_room, t_hmap *rooms, t_hmap *used)
-{
-	if (hmap_get(rooms, next_room)->visited == FALSE
-		&& hmap_get(used, next_room) == NULL)
-		return (TRUE);
-	return (FALSE);
-}
-
-static t_list	*bfs_expand(
-	t_list *rev_path, t_list *end_queue, t_hmap *used, t_vert *sink, t_hmap *rooms)
-{
-	t_list	*new_path;
-	t_list	*path_current;
-	t_room	*current;
-	char	**neighbours;
-
-	neighbours = rev_path->content->neighbours;
-	while (neighbours)
-	{
-		// copy path, add each neighbour to front, append to end_queue
-		if (is_reachable(rev_path->content, *neighbours, rooms, used))
-		{
-			new_path = copy_path(rev_path);
-			ft_lstadd(&new_path, ft_lstnew(*neighbours), ft_strlen(*neighbours));
-			(*neighbours)++;
-			// append to end_queue
-			end_queue->next = ft_lstnew(&new_path, sizeof(t_list *));
-		}
-		// free old path
-		// test if sink reached -> free other paths and return path
-	}
-	return (NULL);
-}
-
-static t_list	*bfs(t_vert *source, t_vert *sink, t_hmap *rooms)
-{
-	t_list	*queue;
-	t_list	*end_queue;
-	t_list	*rev_path;
-	t_hmap	*used;
-
-	used = hmap_new((((rooms->n) / 3) * 2), free);
-	queue = (t_list*)ft_memalloc(sizeof(t_list));
-	end_queue = queue;
-	queue->content = source;
-	while (queue)
-	{
-		rev_path = ft_dequeue(queue);
-		rev_path = bfs_expand(rev_path, end_queue, used, sink, rooms);
-		if (rev_path)
-		{
-			bfs_clear_queue(queue);
-			return (ft_lstrev(rev_path));
-		}
-	}
-	return (NULL);
-}
 
 /*
 **	Params: edge, to find rooms that have modified flow

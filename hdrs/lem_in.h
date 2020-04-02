@@ -6,31 +6,19 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/07 16:08:59 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/04/01 18:53:54 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-typedef struct	s_room
-{
-	int				x_coord;
-	int				y_coord;
-	int				distance;
-	int				link_count;
-	int				*links;
-	char			*name;
-}				t_room;
+# include "hashtable.h"
 
-typedef struct	s_graph
-{
-	t_room	**rooms;
-	int		room_count;
-	int		ant_count;
-	char	*start;
-	char	*end;
-}				t_graph;
+# define TRUE 1
+# define FALSE 0
+# define OK 1
+# define ERROR 0
 
 typedef struct	s_input_line
 {
@@ -43,8 +31,9 @@ typedef struct	s_input_line
 
 typedef struct	s_input_info
 {
-	int				room_count;
 	int				ant_no;
+	int				room_count;
+	int				link_count;
 	t_input_line	*start;
 	t_input_line	*end;
 	t_input_line	*list;
@@ -53,16 +42,56 @@ typedef struct	s_input_info
 	t_input_line	*links;
 }				t_input_info;
 
+typedef struct	s_vert
+{
+	int				x_coord;
+	int				y_coord;
+	int				distance;
+	int				visited;
+	int				conn_count;
+	struct s_edge	*connections;
+	struct s_vert	*next_vert;
+	char			*name;
+}				t_vert;
+
+typedef struct	s_edge
+{
+	int				flow;
+	t_vert			*tail;
+	t_vert			*head;
+	struct s_edge	*invert;
+	struct s_edge	*next_edge;
+	struct s_edge	*next_conn;
+}				t_edge;
+
+typedef struct	s_graph
+{
+	int				ant_count;
+	int				vert_count;
+	t_vert			*vert_list;
+	t_edge			*edge_list;
+	t_hmap			*vertices;
+	t_vert			*source;
+	t_vert			*sink;
+}				t_graph;
+
 int				ft_isint(char *str);
 void			ft_strarrdel(char ***arr);
+
 int				strdel_and_return(int ret, char **str);
 int				strarrdel_and_return(int ret, char ***strarr);
-void			free_graph(t_graph *graph);
-void			free_input(t_input_info *input);
+int				strarrdel_edgedel_and_return(int ret, char ***strarr, t_edge **edge);
 int				free_graph_input_and_return(int ret, t_graph *graph,
 				t_input_info *input);
-int				read_input(t_input_info *input);
-t_input_line	*add_input_line(t_input_info *input, char *line);
-t_room			*create_room(char **room_info);
+
+int				graph_set(t_graph *graph, t_input_info *input);
+
+void			graph_del(t_graph *graph);
+void			vert_del(t_vert **vert);
+void			edge_del(t_edge **edge);
+
+void			input_del(t_input_info *input);
+int				input_read(t_input_info *input);
+t_input_line	*input_line_add(t_input_info *input, char *line);
 
 #endif
