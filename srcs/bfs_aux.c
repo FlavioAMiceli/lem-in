@@ -23,10 +23,14 @@ void	rooms_used_to_false(t_vert *rooms)
 
 void	bfs_clear_queue(t_list *queue)
 {
+	t_list	*current;
+
 	while (queue)
 	{
-		ft_lstdel(&(queue->content), ft_strdel);
-		queue = queue->next;
+		free_path(&(queue->content));
+		current = queue->next;
+		free(queue);
+		queue = current;
 	}
 }
 
