@@ -12,29 +12,44 @@
 
 #include "lem_in.h"
 
-static t_list	*bfs_expand(
-	t_list *rev_path, t_list *end_queue, t_hmap *used, t_vert *sink, t_hmap *rooms)
+static void		free_path(t_list **path)
 {
-	t_list	*new_path;
-	t_list	*path_current;
-	t_room	*current;
-	char	**neighbours;
+	t_list	*current;
 
-	neighbours = rev_path->content->neighbours;
-	while (neighbours)
+	current = *path;
+	while (current)
+	{
+		next = current->next;
+		ft_memdel(current);
+		current = next;
+	}
+	path = NULL;
+}
+
+static t_list	*bfs_expand(
+	t_list *rev_path, t_list **end_queue, t_vert *sink, t_hmap *rooms)
+{
+	edge = rev_path->content->connections
+	while (edge)
 	{
 		// copy path, add each neighbour to front, append to end_queue
-		if (is_reachable(rev_path->content, *neighbours, rooms, used))
+		if (is_reachable(edge, rev_path->content, rooms))
 		{
 			new_path = copy_path(rev_path);
-			ft_lstadd(&new_path, ft_lstnew(*neighbours), ft_strlen(*neighbours));
-			(*neighbours)++;
+			ft_lstadd(&new_path, ft_lstnew(&(edge->head), sizeof(t_vert *)));
+			// test if sink reached
+			if (edge->head == sink)
+			{
+				free(rev_path);
+				return (new_path);
+			}
+			edge = edge->next_conn;
 			// append to end_queue
-			end_queue->next = ft_lstnew(&new_path, sizeof(t_list *));
-		}
-		// free old path
-		// test if sink reached -> free other paths and return path
+			(*end_queue)->next = new_path;
+			end_queue = &new_path;
+
 	}
+	free(rev_path);
 	return (NULL);
 }
 
@@ -43,16 +58,14 @@ t_list	*bfs(t_vert *source, t_vert *sink, t_hmap *rooms)
 	t_list	*queue;
 	t_list	*end_queue;
 	t_list	*rev_path;
-	t_hmap	*used;
 
-	used = hmap_new((((rooms->n) / 3) * 2), free);
 	queue = (t_list*)ft_memalloc(sizeof(t_list));
 	end_queue = queue;
 	queue->content = source;
 	while (queue)
 	{
 		rev_path = ft_dequeue(queue);
-		rev_path = bfs_expand(rev_path, end_queue, used, sink, rooms);
+		rev_path = bfs_expand(rev_path, &end_queue, sink, rooms);
 		if (rev_path)
 		{
 			bfs_clear_queue(queue);

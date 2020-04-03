@@ -31,7 +31,7 @@ static void		update_visited_status(t_list *edge, t_hmap *e)
 **			e, hmap that stores flow and names of edges in opposite direction
 **	Return:
 */
-static void		update_flow(t_list *path, t_hmap *e)
+static void		update_flow(t_list *path, t_hmap *v)
 {
 	t_edge	*edge;
 	t_list	*tmp;
@@ -52,15 +52,13 @@ static void		update_flow(t_list *path, t_hmap *e)
 }
 
 /*
-**	Params:	e, adress of hmap storing edges
-**				(every edge should have a counterpart in opposite direct)
 **			v, adress of hmap storing vertices
 **				(used to find every edge for that vertex)
 **			s, t source and sink adresses
 **	return:
 **
 */
-void			edmonds_karp(t_hmap *e, t_hmap *v, t_vert *s, t_vert, *t)
+void			edmonds_karp(t_hmap *v, t_vert *s, t_vert, *t, t_vert *rooms)
 {
 	t_list	*path;
 	int		path_found;
@@ -70,10 +68,11 @@ void			edmonds_karp(t_hmap *e, t_hmap *v, t_vert *s, t_vert, *t)
 	while (path_found)
 	{
 		path_found = FALSE;
+		rooms_used_to_false(rooms);
 		path = bfs(s, t, v);
 		if (path)
 		{
-			update_flow(path, e);
+			update_flow(path, v);
 			path_found = TRUE;
 		}
 	}

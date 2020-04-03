@@ -12,6 +12,15 @@
 
 #include "lem_in.h"
 
+void	rooms_used_to_false(t_vert *rooms)
+{
+	while (rooms)
+	{
+		rooms->used = FALSE;
+		rooms = rooms->next_vert;
+	}
+}
+
 void	bfs_clear_queue(t_list *queue)
 {
 	while (queue)
@@ -39,11 +48,9 @@ t_list	*copy_path(t_list *src)
 	return (cpy)
 }
 
-int		is_reachable(
-	t_vert *vert, char *next_room, t_hmap *rooms, t_hmap *used)
+int		is_reachable(t_edge *edge, t_vert *room, t_hmap *rooms)
 {
-	if (hmap_get(rooms, next_room)->visited == FALSE
-		&& hmap_get(used, next_room) == NULL)
+	if (room->visited == FALSE && room->used == FALSE && edge->flow <= 0)
 		return (TRUE);
 	return (FALSE);
 }

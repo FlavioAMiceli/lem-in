@@ -48,11 +48,19 @@ typedef struct	s_vert
 	int				y_coord;
 	int				distance;
 	int				visited;
+	int				used;
 	int				conn_count;
 	struct s_edge	*connections;
 	struct s_vert	*next_vert;
 	char			*name;
 }				t_vert;
+
+//example: a to b
+//tail: a
+//head: b
+//invert: b to a
+//next_edge: dependent on order of input, don't bother with this
+//next_conn: a to c
 
 typedef struct	s_edge
 {
