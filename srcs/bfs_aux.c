@@ -41,8 +41,7 @@ t_list	*copy_path(t_list *src)
 	current = src->next;
 	while (current)
 	{
-		cpy_end->next = ft_lstnew(current->content->name,
-			ft_strlen(current->content->name));
+		cpy_end->next = ft_lstnew(current->content, sizeof(t_vert *));
 		cpy_end = cpy_end->next;
 	}
 	return (cpy)
