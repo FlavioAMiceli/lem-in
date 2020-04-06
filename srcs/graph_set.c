@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 17:47:58 by moana          #+#    #+#                */
-/*   Updated: 2020/04/02 18:28:44 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/06 13:10:31 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,51 +15,54 @@
 #include <stdlib.h>
 
 // depending on the algorithm, this might not be necessary
-static int	edge_is_duplicate(t_edge *new_edge, t_vert *vert)
+static int	edge_is_duplicate(t_edge *new_edge)
 {
-	t_edge	**walk;
+	t_edge	*walk;
 
-	walk = &(vert->connections);
-	while ((*walk) != NULL)
+	walk = new_edge->tail->connections;
+	while (walk != NULL)
 	{
-		if ((*walk)->head == new_edge->head)
+		if (walk->head == new_edge->head)
 			return (TRUE);
-		(*walk) = (*walk)->next_conn;
+		walk = walk->next_conn;
 	}
 	return (FALSE);
 }
 
 static void	edge_set(t_edge *edge, t_graph *graph)
 {
+	t_edge	*edge_invert;
+
 	++(edge->head->conn_count);
 	++(edge->tail->conn_count);
-	edge->invert->invert = edge;
-	edge->invert->tail = edge->head;
-	edge->invert->head = edge->tail;
 	edge->next_edge = graph->edge_list;
 	graph->edge_list = edge;
 	edge->next_conn = edge->tail->connections;
 	edge->tail->connections = edge;
-	edge->invert->next_conn = edge->invert->tail->connections;
-	edge->invert->tail->connections = edge->invert;	
+	edge_invert = edge->invert;
+	edge_invert->invert = edge;
+	edge_invert->tail = edge->head;
+	edge_invert->head = edge->tail;
+	edge_invert->next_conn = edge_invert->tail->connections;
+	edge_invert->tail->connections = edge_invert;	
 }
 
 static int	edge_new(char **input_line, t_graph *graph)
 {
 	t_edge  *edge;
-	t_edge  *edge_invert;
 
 	edge = (t_edge*)ft_memalloc(sizeof(t_edge));
-	edge_invert = (t_edge*)ft_memalloc(sizeof(t_edge));
-	if (edge == NULL || edge_invert == NULL
+	if (edge == NULL
 		|| input_line[0] == NULL || input_line[1] == 0 || input_line[2] != 0)
 		return (strarrdel_edgedel_and_return(ERROR, &input_line, &edge));
-	edge->invert = edge_invert;
+	edge->invert = (t_edge*)ft_memalloc(sizeof(t_edge));
+	if (edge->invert == NULL)
+		return (strarrdel_edgedel_and_return(ERROR, &input_line, &edge));
 	edge->tail = hmap_get(graph->vertices, input_line[0]);
 	edge->head = hmap_get(graph->vertices, input_line[1]);
 	if (edge->tail == NULL || edge->head == NULL)
 		return (strarrdel_edgedel_and_return(ERROR, &input_line, &edge));
-	if (edge->head == edge->tail || edge_is_duplicate(edge, edge->tail))
+	if (edge->head == edge->tail || edge_is_duplicate(edge))
 		return (strarrdel_edgedel_and_return(OK, &input_line, &edge));
 	edge_set(edge, graph);
 	return (strarrdel_and_return(OK, &input_line));
