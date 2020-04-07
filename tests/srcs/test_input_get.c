@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/04 15:09:27 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/31 18:27:37 by moana         ########   odam.nl         */
+/*   Created: 2020/03/04 15:09:27 by mmarcell      #+#    #+#                 */
+/*   Updated: 2020/04/07 12:08:16 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,32 +140,6 @@ Test(input_read, valid_normal)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_expect_eq(input_read(&input), 1, "reading valid map 01 returns error");
-	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
-	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
-	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);
-	cr_expect_str_eq(input.start->room_name, source, "source read = %s, source expected = %s", input.start->room_name, source);
-	cr_expect_str_eq(input.end->room_name, sink, "sink read = %s, sink expected = %s", input.end->room_name, sink);
-	input_del(&input);
-}
-
-Test(input_read, valid_comment_after_start_indicator)
-{
-	int				fd;
-	t_input_info	input;
-	int				ant_no = 79;
-	int				room_count = 6;
-	int				link_count = 5;
-	char			*source = "blu";
-	char			*sink = "3";
-
-	ft_bzero(&input, sizeof(input));
-	input.ant_no = -1;
-	fd = open("tests/maps/valid_comment_after_start_indicator", O_RDONLY);
-	if (fd == -1)
-   		ft_printf ("Error: %s\n", strerror(errno));
-	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
-	dup2(fd, 0);
-	cr_expect_eq(input_read(&input), 1, "reading valid map 02 returns error");
 	cr_expect_eq(input.ant_no, ant_no, "ants read = %d, ants expected = %d", input.ant_no, ant_no);
 	cr_expect_eq(input.room_count, room_count, "rooms read = %d, rooms expected = %d", input.room_count, room_count);
 	cr_expect_eq(input.link_count, link_count, "links read = %d, links expected = %d", input.link_count, link_count);

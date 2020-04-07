@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/26 14:48:16 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/04/03 12:15:48 by moana         ########   odam.nl         */
+/*   Created: 2020/02/26 14:48:16 by mmarcell      #+#    #+#                 */
+/*   Updated: 2020/04/07 13:01:57 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,529 @@
 #include "lem_in.h"
 #include "libft.h"
 
-Test(graph_set, valid_normal)
+Test(graph_set, valid_flow_one)
 {
-	t_graph         graph;
+	t_graph			graph;
+	int				fd;
+	t_input_info	input;
+	int				vert_count = 276;
+	int				ant_count = 1;
+	char			*source = "Ucf5";
+	char			*sink = "Tgr7";
+	t_vert			*vert;
+
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/valid_flow_one", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
+	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
+	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
+	cr_expect_str_eq(graph.sink->name, sink, "sink read = %s, sink expected = %s", graph.sink->name, sink);
+	//
+	// test room and links
+	char	*room_name = "Ucf5";
+	int		link_count = 3;
+	char	*link1 = "Xbj0";
+	char	*link2 = "D_p2";
+	char	*link3 = "Dbe5";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link3), vert->connections->next_conn->next_conn->head, "third connection for %s expected: %s, found: %s", room_name, link3, vert->connections->next_conn->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "Ukq0";
+	link_count = 5;
+	link1 = "Zho6";
+	link2 = "Nsp0";
+	link3 = "Mgy7";
+	char	*link4 = "Ggv0";
+	char	*link5 = "P_x8";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link3), vert->connections->next_conn->next_conn->head, "third connection for %s expected: %s, found: %s", room_name, link3, vert->connections->next_conn->next_conn->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link4), vert->connections->next_conn->next_conn->next_conn->head, "fourth connection for %s expected: %s, found: %s", room_name, link4, vert->connections->next_conn->next_conn->next_conn->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link5), vert->connections->next_conn->next_conn->next_conn->next_conn->head, "fifth connection for %s expected: %s, found: %s", room_name, link5, vert->connections->next_conn->next_conn->next_conn->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn->next_conn->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->head);
+	room_name = "Ozu2";
+	link_count = 2;
+	link1 = "Tr_3";
+	link2 = "Jc_3";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "S_j8";
+	link_count = 2;
+	link1 = "Axu1";
+	link2 = "Qji0";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "Czq6";
+	link_count = 1;
+	link1 = "Nte9";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "Hsx0";
+	link_count = 1;
+	link1 = "Wpg6";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, valid_flow_ten)
+{
+	t_graph			graph;
+	int				fd;
+	t_input_info	input;
+	int				vert_count = 738;
+	int				ant_count = 10;
+	char			*source = "Fog1";
+	char			*sink = "Gll7";
+	t_vert			*vert;
+
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/valid_flow_ten", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
+	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
+	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
+	cr_expect_str_eq(graph.sink->name, sink, "sink read = %s, sink expected = %s", graph.sink->name, sink);
+	//
+	// test room and links
+	char	*room_name = "Xua6";
+	int		link_count = 3;
+	char	*link1 = "Wln7";
+	char	*link2 = "Erf1";
+	char	*link3 = "I_m9";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link3), vert->connections->next_conn->next_conn->head, "third connection for %s expected: %s, found: %s", room_name, link3, vert->connections->next_conn->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "Ear0";
+	link_count = 1;
+	link1 = "Pca3";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "Ukt1";
+	link_count = 1;
+	link1 = "Nne4";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "Qkf0";
+	link_count = 2;
+	link1 = "Oda0";
+	link2 = "Hxm2";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "Owd0";
+	link_count = 2;
+	link1 = "Q_t5";
+	link2 = "Cqv2";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, valid_link_duplicate_2)
+{
+	t_graph			graph;
 	int				fd;
 	t_input_info	input;
 	int				vert_count = 6;
+	int				ant_count = 79;
+	char			*source = "blu";
+	char			*sink = "3";
+	t_vert			*vert;
+
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/valid_link_duplicate_2", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
+	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
+	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
+	cr_expect_str_eq(graph.sink->name, sink, "sink read = %s, sink expected = %s", graph.sink->name, sink);
+	//
+	// test room and links
+	char	*room_name = "some_room";
+	int		link_count = 3;
+	char	*link1 = "bla";
+	char	*link2 = "room";
+	char	*link3 = "blu";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link3), vert->connections->next_conn->next_conn->head, "third connection for %s expected: %s, found: %s", room_name, link3, vert->connections->next_conn->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "bla";
+	link_count = 1;
+	link1 = "some_room";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "blu";
+	link_count = 1;
+	link1 = "some_room";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "3";
+	link_count = 2;
+	link1 = "room";
+	link2 = "devil";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "devil";
+	link_count = 1;
+	link1 = "3";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "room";
+	link_count = 2;
+	link1 = "some_room";
+	link2 = "3";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, valid_link_duplicate_1)
+{
+	t_graph			graph;
+	int				fd;
+	t_input_info	input;
+	int				vert_count = 6;
+	int				ant_count = 79;
+	char			*source = "blu";
+	char			*sink = "3";
+	t_vert			*vert;
+
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/valid_link_duplicate_1", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
+	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
+	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
+	cr_expect_str_eq(graph.sink->name, sink, "sink read = %s, sink expected = %s", graph.sink->name, sink);
+	//
+	// test room and links
+	char	*room_name = "some_room";
+	int		link_count = 3;
+	char	*link1 = "bla";
+	char	*link2 = "room";
+	char	*link3 = "blu";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link3), vert->connections->next_conn->next_conn->head, "third connection for %s expected: %s, found: %s", room_name, link3, vert->connections->next_conn->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "bla";
+	link_count = 1;
+	link1 = "some_room";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "blu";
+	link_count = 1;
+	link1 = "some_room";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "3";
+	link_count = 2;
+	link1 = "room";
+	link2 = "devil";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "devil";
+	link_count = 1;
+	link1 = "3";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "room";
+	link_count = 2;
+	link1 = "some_room";
+	link2 = "3";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, valid_link_head_equal_tail)
+{
+	t_graph			graph;
+	int				fd;
+	t_input_info	input;
+	int				vert_count = 6;
+	int				ant_count = 79;
+	char			*source = "blu";
+	char			*sink = "3";
+	t_vert			*vert;
+
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/valid_link_head_equal_tail", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
+	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
+	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
+	cr_expect_str_eq(graph.sink->name, sink, "sink read = %s, sink expected = %s", graph.sink->name, sink);
+	//
+	// test room and links
+	char	*room_name = "some_room";
+	int		link_count = 3;
+	char	*link1 = "bla";
+	char	*link2 = "room";
+	char	*link3 = "blu";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link3), vert->connections->next_conn->next_conn->head, "third connection for %s expected: %s, found: %s", room_name, link3, vert->connections->next_conn->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "bla";
+	link_count = 1;
+	link1 = "some_room";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "blu";
+	link_count = 1;
+	link1 = "some_room";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "3";
+	link_count = 2;
+	link1 = "room";
+	link2 = "devil";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "devil";
+	link_count = 1;
+	link1 = "3";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "room";
+	link_count = 2;
+	link1 = "some_room";
+	link2 = "3";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, valid_same_start_end)
+{
+	t_graph			graph;
+	int				fd;
+	t_input_info	input;
+	int				vert_count = 6;
+	int				ant_count = 79;
+	char			*source = "3";
+	char			*sink = "3";
+	t_vert			*vert;
+
+
+	ft_bzero(&input, sizeof(input));
+	ft_bzero(&graph, sizeof(t_graph));
+	input.ant_no = -1;
+	fd = open("tests/maps/valid_same_start_end", O_RDONLY);
+	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
+	dup2(fd, 0);
+	cr_assert_eq(input_read(&input), 1, "couldn't read map");
+	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
+	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
+	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
+	cr_expect_str_eq(graph.sink->name, sink, "sink read = %s, sink expected = %s", graph.sink->name, sink);
+	//
+	// test room and links
+	char	*room_name = "some_room";
+	int		link_count = 3;
+	char	*link1 = "bla";
+	char	*link2 = "room";
+	char	*link3 = "blu";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link3), vert->connections->next_conn->next_conn->head, "third connection for %s expected: %s, found: %s", room_name, link3, vert->connections->next_conn->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "bla";
+	link_count = 1;
+	link1 = "some_room";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "blu";
+	link_count = 1;
+	link1 = "some_room";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "3";
+	link_count = 2;
+	link1 = "room";
+	link2 = "devil";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "devil";
+	link_count = 1;
+	link1 = "3";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "room";
+	link_count = 2;
+	link1 = "some_room";
+	link2 = "3";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	input_del(&input);
+	graph_del(&graph);
+}
+
+Test(graph_set, valid_normal)
+{
+	t_graph			graph;
+	int				fd;
+	t_input_info	input;
+	int				vert_count = 6;
+	int				ant_count = 79;
 	char			*source = "blu";
 	char			*sink = "3";
 	t_vert			*vert;
@@ -38,21 +555,74 @@ Test(graph_set, valid_normal)
 	cr_assert_eq(input_read(&input), 1, "couldn't read map");
 	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
 	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
+	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
 	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
 	cr_expect_str_eq(graph.sink->name, sink, "sink read = %s, sink expected = %s", graph.sink->name, sink);
-	vert = hmap_get(graph.vertices, "some_room");
-	cr_expect_neq(vert, 0, "hmap_get didn't get the right room");
-	cr_expect_eq(hmap_get(graph.vertices, "bla"), vert->connections->head, "first connection for some_room expected: bla, found: %s", vert->connections->head->name);
-	cr_expect_eq(hmap_get(graph.vertices, "room"), vert->connections->next_conn->head, "second connection for some_room expected: room, found: %s", vert->connections->next_conn->head->name);
-	// cr_expect_eq(hmap_get(graph.vertices, "blu"), vert->connections->next_conn->next_conn->head, "third connection for some_room expected: blu, found: %s", vert->connections->next_conn->next_conn->head->name);
-	// cr_expect_eq(vert->connections->next_conn->next_conn->next_conn, 0, "some_room shouldn't have more than 3 connections found: %s", vert->connections->next_conn->next_conn->next_conn->head);
+	//
+	// test room and links
+	char	*room_name = "some_room";
+	int		link_count = 3;
+	char	*link1 = "bla";
+	char	*link2 = "room";
+	char	*link3 = "blu";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link3), vert->connections->next_conn->next_conn->head, "third connection for %s expected: %s, found: %s", room_name, link3, vert->connections->next_conn->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "bla";
+	link_count = 1;
+	link1 = "some_room";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "blu";
+	link_count = 1;
+	link1 = "some_room";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "3";
+	link_count = 2;
+	link1 = "room";
+	link2 = "devil";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "devil";
+	link_count = 1;
+	link1 = "3";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(vert->connections->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
+	room_name = "room";
+	link_count = 2;
+	link1 = "3";
+	link2 = "some_room";
+	vert = hmap_get(graph.vertices, room_name);
+	cr_expect_neq(vert, NULL, "hmap_get didn't get the right room");
+	cr_expect_eq(vert->conn_count, link_count, "link count incorrect. Expected: %d, got: %d", link_count, vert->conn_count);
+	cr_expect_eq(hmap_get(graph.vertices, link1), vert->connections->head, "first connection for %s expected: %s, found: %s", room_name, link1, vert->connections->head->name);
+	cr_expect_eq(hmap_get(graph.vertices, link2), vert->connections->next_conn->head, "second connection for %s expected: %s, found: %s", room_name, link2, vert->connections->next_conn->head->name);
+	cr_expect_eq(vert->connections->next_conn->next_conn, NULL, "found too many connections for %s. incorrect connection: %s", room_name, vert->connections->next_conn->next_conn->next_conn->head);
 	input_del(&input);
 	graph_del(&graph);
 }
 
 Test(graph_set, invalid_room_with_minus)
 {
-	t_graph         graph;
+	t_graph			graph;
 	int				fd;
 	t_input_info	input;
 
@@ -70,7 +640,7 @@ Test(graph_set, invalid_room_with_minus)
 
 Test(graph_set, invalid_room_duplicate_4)
 {
-	t_graph         graph;
+	t_graph			graph;
 	int				fd;
 	t_input_info	input;
 
@@ -88,7 +658,7 @@ Test(graph_set, invalid_room_duplicate_4)
 
 Test(graph_set, invalid_room_duplicate_3)
 {
-	t_graph         graph;
+	t_graph			graph;
 	int				fd;
 	t_input_info	input;
 
@@ -106,7 +676,7 @@ Test(graph_set, invalid_room_duplicate_3)
 
 Test(graph_set, invalid_room_duplicate_2)
 {
-	t_graph         graph;
+	t_graph			graph;
 	int				fd;
 	t_input_info	input;
 
@@ -124,7 +694,7 @@ Test(graph_set, invalid_room_duplicate_2)
 
 Test(graph_set, invalid_room_duplicate_1)
 {
-	t_graph         graph;
+	t_graph			graph;
 	int				fd;
 	t_input_info	input;
 
@@ -142,7 +712,7 @@ Test(graph_set, invalid_room_duplicate_1)
 
 Test(graph_set, invalid_link_incorrect_room_name_3)
 {
-	t_graph         graph;
+	t_graph			graph;
 	int				fd;
 	t_input_info	input;
 
@@ -160,7 +730,7 @@ Test(graph_set, invalid_link_incorrect_room_name_3)
 
 Test(graph_set, invalid_link_incorrect_room_name_2)
 {
-	t_graph         graph;
+	t_graph			graph;
 	int				fd;
 	t_input_info	input;
 
@@ -178,7 +748,7 @@ Test(graph_set, invalid_link_incorrect_room_name_2)
 
 Test(graph_set, invalid_link_incorrect_room_name_1)
 {
-	t_graph         graph;
+	t_graph			graph;
 	int				fd;
 	t_input_info	input;
 
@@ -196,7 +766,7 @@ Test(graph_set, invalid_link_incorrect_room_name_1)
 
 Test(graph_set, invalid_link_multiple_minus_3)
 {
-	t_graph         graph;
+	t_graph			graph;
 	int				fd;
 	t_input_info	input;
 
@@ -214,7 +784,7 @@ Test(graph_set, invalid_link_multiple_minus_3)
 
 Test(graph_set, invalid_link_multiple_minus_2)
 {
-	t_graph         graph;
+	t_graph			graph;
 	int				fd;
 	t_input_info	input;
 
@@ -232,7 +802,7 @@ Test(graph_set, invalid_link_multiple_minus_2)
 
 Test(graph_set, invalid_link_multiple_minus_1)
 {
-	t_graph         graph;
+	t_graph			graph;
 	int				fd;
 	t_input_info	input;
 

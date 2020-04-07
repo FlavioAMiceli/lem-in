@@ -10,8 +10,8 @@ some_room 32 5
 devil 20 20
 room 10 3
 # the links
-blu-blu
 bla-some_room
+some_room-bla
 some_room-room
 room-3
 devil-3
