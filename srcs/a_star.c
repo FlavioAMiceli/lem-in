@@ -34,6 +34,33 @@ static t_list	*a_star_dequeue(t_list **queue)
 	return (equal_score_paths->content);
 }
 
+static void		a_star_clear_queue(t_list *queue)
+{
+	t_list *paths;
+	t_list *current;
+
+	paths = queue->content;
+	while (paths)
+	{
+		current = paths;
+		paths = paths->next;
+		bfs_clear_queue(current);
+	}
+}
+
+static void		bfs_clear_queue(t_list *queue)
+{
+	t_list	*current;
+
+	while (queue)
+	{
+		free_path(&(queue->content));
+		current = queue->next;
+		free(queue);
+		queue = current;
+	}
+}
+
 t_list			*a_star(t_vert *source, t_vert *sink, t_hmap *rooms)
 {
 	t_list	*queue;
@@ -44,11 +71,10 @@ t_list			*a_star(t_vert *source, t_vert *sink, t_hmap *rooms)
 	{
 		rev_path = a_star_dequeue(&queue);
 		// write a_star_expand
-		rev_path = bfs_expand(rev_path, &end_queue, sink, rooms);
+		rev_path = a_star_expand(rev_path, sink, rooms);
 		if (rev_path)
 		{
-			// write a_star_clear_queue
-			bfs_clear_queue(queue);
+			a_star_clear_queue(queue);
 			return (ft_lstrev(rev_path));
 		}
 	}
