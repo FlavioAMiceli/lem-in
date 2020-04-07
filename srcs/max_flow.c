@@ -69,7 +69,7 @@ void			edmonds_karp(t_hmap *v, t_vert *s, t_vert, *t, t_vert *rooms)
 	{
 		path_found = FALSE;
 		rooms_used_to_false(rooms);
-		path = bfs(s, t, v);
+		path = a_star(s, t, v);
 		if (path)
 		{
 			update_flow(path, v);
