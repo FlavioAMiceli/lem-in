@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/26 14:09:39 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/04/02 18:41:44 by moana         ########   odam.nl         */
+/*   Created: 2020/02/26 14:09:39 by mmarcell      #+#    #+#                 */
+/*   Updated: 2020/04/07 19:06:55 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ int		main(void)
 		return (free_graph_input_and_return(0, &graph, &input));
 	}
 	ft_printf("map is valid\n");
+	distance_set(&graph, graph.sink, -1);
 	return (free_graph_input_and_return(0, &graph, &input));
 }

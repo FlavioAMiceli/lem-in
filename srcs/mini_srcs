@@ -5,8 +5,8 @@
 #                                                      +:+                     #
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
-#    Created: 2020/02/28 18:56:22 by mmarcell       #+#    #+#                 #
-#    Updated: 2020/03/30 16:42:17 by moana         ########   odam.nl          #
+#    Created: 2020/02/28 18:56:22 by mmarcell      #+#    #+#                  #
+#    Updated: 2020/04/07 19:03:01 by moana         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ MINI_SOURCES := ft_isint ft_strarrdel \
 	input_create_free input_get \
 	graph_set \
 	graph_del \
+	alg_prep \
 	free_and_return \
 	hmap_hash \
 	hmap_del \
