@@ -6,9 +6,11 @@
 #    /  |  /
 # src-D-E-F-N
 #    \    | |
-#     A-B-C Q
-#           |
-#     T-S-R-P
+#   U A-B-C Q
+#    \      |
+#   V-T-S-R-P
+#    /
+#   W
 10
 ##start
 src 2 0
@@ -32,6 +34,9 @@ P 5 4
 R 5 3
 S 5 2
 T 5 1
+U 4 0
+V 5 0
+W 6 0
 # links
 src-G
 src-D
@@ -56,3 +61,6 @@ Q-P
 P-R
 R-S
 S-T
+T-U
+T-V
+T-W
