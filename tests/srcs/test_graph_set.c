@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:48:16 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/07 13:01:57 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/09 17:27:52 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ Test(graph_set, valid_flow_one)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), 1, "couldn't read map");
-	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
 	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
 	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
 	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
@@ -131,7 +131,7 @@ Test(graph_set, valid_flow_ten)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), 1, "couldn't read map");
-	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
 	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
 	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
 	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
@@ -209,7 +209,7 @@ Test(graph_set, valid_link_duplicate_2)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), 1, "couldn't read map");
-	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
 	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
 	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
 	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
@@ -295,7 +295,7 @@ Test(graph_set, valid_link_duplicate_1)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), 1, "couldn't read map");
-	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
 	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
 	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
 	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
@@ -381,7 +381,7 @@ Test(graph_set, valid_link_head_equal_tail)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), 1, "couldn't read map");
-	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
 	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
 	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
 	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
@@ -467,7 +467,7 @@ Test(graph_set, valid_same_start_end)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), 1, "couldn't read map");
-	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
 	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
 	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
 	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);
@@ -553,7 +553,7 @@ Test(graph_set, valid_normal)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), 1, "couldn't read map");
-	cr_expect_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
 	cr_expect_eq(graph.vert_count, vert_count, "rooms read = %d, rooms expected = %d", graph.vert_count, vert_count);
 	cr_expect_eq(graph.ant_count, ant_count, "incorrect amount of ants. Expecter = %d, read = %d", ant_count, graph.ant_count);
 	cr_expect_str_eq(graph.source->name, source, "source read = %s, source expected = %s", graph.source->name, source);

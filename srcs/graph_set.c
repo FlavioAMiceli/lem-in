@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/27 17:47:58 by moana          #+#    #+#                */
-/*   Updated: 2020/04/06 13:10:31 by moana         ########   odam.nl         */
+/*   Created: 2020/03/27 17:47:58 by moana         #+#    #+#                 */
+/*   Updated: 2020/04/09 17:28:59 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "libft.h"
 #include <stdlib.h>
 
-// depending on the algorithm, this might not be necessary
 static int	edge_is_duplicate(t_edge *new_edge)
 {
 	t_edge	*walk;
@@ -73,10 +72,11 @@ static int	vert_new(char **input_line, t_graph *graph)
 	t_vert		*vert;
 
 	vert = (t_vert*)ft_memalloc(sizeof(t_vert));
-	if (vert == 0 || input_line == 0 || *input_line == 0 ||
-		input_line[1] == 0 || ft_isint(input_line[1]) == 0 ||
-		input_line[2] == 0 || ft_isint(input_line[2]) == 0 ||
-		input_line[3] != 0)
+	if (vert == 0 || input_line == NULL || input_line[0] == NULL ||
+		ft_strchr(input_line[0], '-') != NULL ||
+		input_line[1] == NULL || ft_isint(input_line[1]) == FALSE ||
+		input_line[2] == NULL || ft_isint(input_line[2]) == FALSE ||
+		input_line[3] != NULL)
 		return (ERROR);
 	vert->name = ft_strdup(input_line[0]);
 	vert->x_coord = ft_atoi(input_line[1]);
@@ -102,8 +102,7 @@ int		graph_set(t_graph *graph, t_input_info *input)
 	walk = input->rooms;
 	while (walk != NULL)
 	{
-		if (ft_strchr(walk->line, '-') ||
-			vert_new(ft_strsplit(walk->line, ' '), graph) == ERROR)
+		if (vert_new(ft_strsplit(walk->line, ' '), graph) == ERROR)
 			return (ERROR);
 		walk = walk->next_room;
 	}
