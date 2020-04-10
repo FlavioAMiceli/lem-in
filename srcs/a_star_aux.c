@@ -12,6 +12,10 @@
 
 #include "lem_in.h"
 
+/*
+**	Params:	rooms, hmap that contains all rooms in the graph.
+**	Return:
+*/
 void	rooms_used_to_false(t_vert *rooms)
 {
 	while (rooms)
@@ -21,6 +25,10 @@ void	rooms_used_to_false(t_vert *rooms)
 	}
 }
 
+/*
+**	Params:	path, list of vertices.
+**	Return: Fitness of latest node for finding the shortest path in a graph.
+*/
 int		evaluate(t_list *path)
 {
 	int	prev_score;

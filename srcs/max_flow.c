@@ -52,11 +52,10 @@ static void		update_flow(t_list *path, t_hmap *v)
 }
 
 /*
-**			v, adress of hmap storing vertices
+**	Params:	v, adress of hmap storing vertices
 **				(used to find every edge for that vertex)
 **			s, t source and sink adresses
-**	return:
-**
+**	Return:
 */
 void			edmonds_karp(t_hmap *v, t_vert *s, t_vert, *t, t_vert *rooms)
 {
