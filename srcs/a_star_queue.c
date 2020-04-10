@@ -91,7 +91,7 @@ t_list	*a_star_dequeue(t_list **queue)
 void	insert_into_queue(t_list **queue, t_list *path)
 {
 	t_list	*curr;
-	t_list	*last;
+	t_list	*temp;
 
 	curr = *queue;
 	if (curr == NULL)
@@ -101,13 +101,13 @@ void	insert_into_queue(t_list **queue, t_list *path)
 	}
 	while (curr && curr->SCORE < path->SCORE)
 	{
-		last = curr;
+		temp = curr;
 		curr = curr->next;
 	}
 	if (curr == NULL)
 	{
-		last->next = ft_lstnew(path, sizeof(t_list *));
-		last->next->SCORE = path->SCORE;
+		temp->next = ft_lstnew(path, sizeof(t_list *));
+		temp->next->SCORE = path->SCORE;
 	}
 	else if (curr->SCORE == path->SCORE)
 	{
@@ -116,6 +116,9 @@ void	insert_into_queue(t_list **queue, t_list *path)
 	}
 	else
 	{
-		//Insert new node after current, link to current->next
+		temp = curr->next;
+		curr->next = ft_lstnew(path, sizeof(t_list *));
+		curr->next->SCORE = path->score;
+		curr->next->next = temp;
 	}
 }
