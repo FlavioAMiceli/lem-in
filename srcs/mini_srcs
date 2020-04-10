@@ -19,5 +19,8 @@ MINI_SOURCES := ft_isint ft_strarrdel\
 	hmap_clear \
 	hmap_get \
 	hmap_new \
-	hmap_set
-	
+	hmap_set \
+	a_star \
+	a_star_aux \
+	a_star_queue \
+	max_flow

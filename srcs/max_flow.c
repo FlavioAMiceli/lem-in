@@ -49,7 +49,6 @@ static void		update_flow(t_list *path)
 	}
 }
 
-
 /*
 **	Params: s, current vertex to update
 **			hop, number of hops to reach current vertex
