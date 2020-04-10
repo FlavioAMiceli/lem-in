@@ -12,53 +12,30 @@
 
 #include "lem_in.h"
 
-static void		init_queue(t_list **queue, t_vert *source)
+static t_list	*a_star_expand(t_list **queue, t_vert *sink, t_hmap *rooms)
 {
-	t_list *head;
-
-	head = (t_list*)ft_memalloc(sizeof(t_list));
-	head->content = (t_list*)ft_memalloc(sizeof(t_list));
-	head->SCORE = source->distance;
-	head->content->content = source;
-	queue = &head;
-}
-
-static t_list	*a_star_dequeue(t_list **queue)
-{
-	t_list	*equal_score_paths;
-	t_list	*path;
-
-	equal_score_paths = ft_lstdequeue(queue);
-	if (queue == NULL && equal_score_paths->next)
-		queue = &(equal_score_paths->next);
-	return (equal_score_paths->content);
-}
-
-static void		a_star_clear_queue(t_list *queue)
-{
-	t_list *paths;
-	t_list *current;
-
-	paths = queue->content;
-	while (paths)
+	rev_path = a_star_dequeue(queue);
+	edge = rev_path->content->connections
+	while (edge)
 	{
-		current = paths;
-		paths = paths->next;
-		bfs_clear_queue(current);
+		// copy path, add each neighbour to front, insert into queue
+		if (is_reachable(edge, rev_path->content, rooms))
+		{
+			new_path = copy_path(rev_path);
+			ft_lstadd(&new_path, ft_lstnew(&(edge->head), sizeof(t_vert *)));
+			new_path->SCORE = evaluate(new_path);
+			// test if sink reached
+			if (edge->head == sink)
+			{
+				free(rev_path);
+				return (new_path);
+			}
+			edge = edge->next_conn;
+			// insert into queue
+			insert_into_queue(queue, new_path);
 	}
-}
-
-static void		bfs_clear_queue(t_list *queue)
-{
-	t_list	*current;
-
-	while (queue)
-	{
-		free_path(&(queue->content));
-		current = queue->next;
-		free(queue);
-		queue = current;
-	}
+	free(rev_path);
+	return (NULL);
 }
 
 t_list			*a_star(t_vert *source, t_vert *sink, t_hmap *rooms)
@@ -69,9 +46,7 @@ t_list			*a_star(t_vert *source, t_vert *sink, t_hmap *rooms)
 	init_queue(&queue, source);
 	while (queue)
 	{
-		rev_path = a_star_dequeue(&queue);
-		// write a_star_expand
-		rev_path = a_star_expand(rev_path, sink, rooms);
+		rev_path = a_star_expand(&queue, sink, rooms);
 		if (rev_path)
 		{
 			a_star_clear_queue(queue);
