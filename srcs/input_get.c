@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/02 16:30:44 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/03/26 18:28:04 by moana         ########   odam.nl         */
+/*   Created: 2020/03/02 16:30:44 by mmarcell      #+#    #+#                 */
+/*   Updated: 2020/04/10 17:43:04 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,8 @@ static int	create_input_list(t_input_info *input, char **line,
 	else if (line[0][0] == '#' && !(ft_strequ(line[0], "##end") &&
 		ft_strequ(line[0], "##start") && line[1] == NULL))
 		return (strarrdel_and_return(OK, &line));
-	else if (line[0][0] != '#' && line[1] != NULL && ft_isint(line[1]) &&
-		line[2] != NULL && ft_isint(line[2]) &&
-		add_room(input, input_line, line[0]) == OK)
+	else if (line[0][0] != '#' && line[1] && ft_isint(line[1]) && line[2]
+		&& ft_isint(line[2]) && add_room(input, input_line, line[0]) == OK)
 		return (strarrdel_and_return(OK, &line));
 	else if (line[0][0] != '#' && ft_strchr(line[0], '-') != NULL
 		&& line[1] == NULL && add_link(input, input_line) == 1)
@@ -141,9 +140,8 @@ int			input_read(t_input_info *input)
 			input->ant_no = ft_atoi(line);
 		else
 		{
-			if (input_line == 0 || line[0] == 'L' ||
-			create_input_list(input, ft_strsplit(line, ' '), input_line) ==
-			ERROR)
+			if (input_line == 0 || line[0] == 'L' || create_input_list
+				(input, ft_strsplit(line, ' '), input_line) == ERROR)
 				return (ERROR);
 		}
 		ret = get_next_line(0, &line);

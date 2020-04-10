@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/09 20:18:54 by fmiceli        #+#    #+#                */
-/*   Updated: 2020/03/30 16:34:30 by moana         ########   odam.nl         */
+/*   Created: 2020/03/09 20:18:54 by fmiceli       #+#    #+#                 */
+/*   Updated: 2020/04/10 17:30:04 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 **	params:	addr of hmap pointer
 **	return:
 */
+
 void	hmap_clear(t_hmap **hmap)
 {
 	unsigned int	i;

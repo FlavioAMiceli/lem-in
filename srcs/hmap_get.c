@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/09 21:18:24 by fmiceli        #+#    #+#                */
-/*   Updated: 2020/04/02 17:44:47 by moana         ########   odam.nl         */
+/*   Created: 2020/03/09 21:18:24 by fmiceli       #+#    #+#                 */
+/*   Updated: 2020/04/10 17:10:51 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 **	params:	pointer to hmap, key of requested value.
 **	return:	Value stored for input key.
 */
-void    *hmap_get(t_hmap *hmap, char *key)
+
+void	*hmap_get(t_hmap *hmap, char *key)
 {
 	unsigned long	hash;
 	unsigned int	checked;

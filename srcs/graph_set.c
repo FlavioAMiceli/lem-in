@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 17:47:58 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/09 17:28:59 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/10 17:40:10 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ static void	edge_set(t_edge *edge, t_graph *graph)
 	edge_invert->tail = edge->head;
 	edge_invert->head = edge->tail;
 	edge_invert->next_conn = edge_invert->tail->connections;
-	edge_invert->tail->connections = edge_invert;	
+	edge_invert->tail->connections = edge_invert;
 }
 
 static int	edge_new(char **input_line, t_graph *graph)
 {
-	t_edge  *edge;
+	t_edge	*edge;
 
 	edge = (t_edge*)ft_memalloc(sizeof(t_edge));
 	if (edge == NULL
@@ -90,12 +90,10 @@ static int	vert_new(char **input_line, t_graph *graph)
 	return (OK);
 }
 
-int		graph_set(t_graph *graph, t_input_info *input)
+int			graph_set(t_graph *graph, t_input_info *input)
 {
 	t_input_line	*walk;
 
-	if (graph == NULL || input == NULL)
-		return (ERROR);
 	graph->vertices = hmap_new(input->room_count);
 	if (graph->vertices == NULL)
 		return (ERROR);

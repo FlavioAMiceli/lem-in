@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/09 21:35:44 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/03/09 21:35:45 by fmiceli       ########   odam.nl         */
+/*   Updated: 2020/04/10 17:44:53 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 **	parms: key to hash
 **	return: hash
 */
+
 unsigned long	hmap_hash(char *key)
 {
-	unsigned long 	hash;
+	unsigned long	hash;
 	int				i;
 
 	hash = 5381;

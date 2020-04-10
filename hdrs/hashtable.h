@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/03 21:33:05 by fmiceli        #+#    #+#                */
-/*   Updated: 2020/03/31 10:20:57 by moana         ########   odam.nl         */
+/*   Created: 2020/03/03 21:33:05 by fmiceli       #+#    #+#                 */
+/*   Updated: 2020/04/10 17:09:24 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@
 
 # define PERTURB_SHIFT 5
 
-typedef struct		s_slot
+typedef struct	s_slot
 {
 	char			*key;
 	void			*val;
-}					t_slot;
+}				t_slot;
 
-typedef struct		s_hmap
+typedef struct	s_hmap
 {
 	t_slot			**slots;
 	unsigned int	n;
-}					t_hmap;
+}				t_hmap;
 
 t_hmap			*hmap_new(int n);
 void			hmap_clear(t_hmap **hmap);

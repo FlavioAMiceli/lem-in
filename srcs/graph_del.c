@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/26 14:46:04 by mmarcell       #+#    #+#                */
-/*   Updated: 2020/04/01 18:42:56 by moana         ########   odam.nl         */
+/*   Created: 2020/02/26 14:46:04 by mmarcell      #+#    #+#                 */
+/*   Updated: 2020/04/10 17:44:03 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	vert_del(t_vert **vert)
 	(*vert) = NULL;
 }
 
-void		edge_del(t_edge **edge)
+void	edge_del(t_edge **edge)
 {
 	if (edge == NULL || *edge == NULL)
 		return ;

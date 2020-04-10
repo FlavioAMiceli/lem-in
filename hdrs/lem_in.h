@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/08 12:24:02 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/10 16:53:35 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void			ft_strarrdel(char ***arr);
 
 int				strdel_and_return(int ret, char **str);
 int				strarrdel_and_return(int ret, char ***strarr);
-int				strarrdel_edgedel_and_return(int ret, char ***strarr, t_edge **edge);
+int				strarrdel_edgedel_and_return(int ret, char ***strarr,
+				t_edge **edge);
 int				free_graph_input_and_return(int ret, t_graph *graph,
 				t_input_info *input);
 
