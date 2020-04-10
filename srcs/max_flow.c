@@ -14,40 +14,58 @@
 
 /*
 **	Params: edge, to find rooms that have modified flow
-**			e, hmap that stores flow
 **	Return:
 */
-static void		update_visited_status(t_list *edge, t_hmap *e)
+static void		update_visited_status(t_edge *edge)
 {
 	int		visited;
 
-	visited = hmap_get(e, edge->content)->flow != 0 ? TRUE : FALSE;
+	visited = edge->flow != 0 ? TRUE : FALSE;
 	edge->content->head->visited = visited;
 	edge->content->tail->visited = visited;
 }
 
 /*
-**	Params:	path, list containing names of edges used
-**			e, hmap that stores flow and names of edges in opposite direction
+**	Params:	path, list containing vertices used
 **	Return:
 */
-static void		update_flow(t_list *path, t_hmap *v)
+static void		update_flow(t_list *path)
 {
 	t_edge	*edge;
 	t_list	*tmp;
 
-	// right now written for path of edges, probably will rewrite for vertices
 	while (path)
 	{
-		edge = hmap_get(e, path->content);
+		edge = path->content->connections;
+		while (edge->head != path->next->content)
+			edge = edge->next_conn;
 		edge->flow += 1;
 		edge = edge->invert;
 		edge->flow -= 1;
-		update_visited_status(path, e);
+		update_visited_status(edge);
 		tmp = path;
 		path = path->next;
-		ft_strdel(tmp->content);
 		free(tmp);
+	}
+}
+
+
+/*
+**	Params: s, current vertex to update
+**			hop, number of hops to reach current vertex
+**	Return:
+*/
+static void		update_hops(t_vert *s, int hop)
+{
+	t_edge	*edge;
+
+	s->hops = hop;
+	edge = s->connections;
+	while (edge)
+	{
+		if (edge->flow == 1)
+			update_hops(edge->head, hop + 1);
+		edge = edge->next_conn;
 	}
 }
 
@@ -72,6 +90,7 @@ void			edmonds_karp(t_hmap *v, t_vert *s, t_vert, *t, t_vert *rooms)
 		if (path)
 		{
 			update_flow(path, v);
+			update_hops(s, 0);
 			path_found = TRUE;
 		}
 	}
