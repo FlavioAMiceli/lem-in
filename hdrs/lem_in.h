@@ -19,6 +19,7 @@
 # define FALSE 0
 # define OK 1
 # define ERROR 0
+# define SCORE content_size
 
 typedef struct	s_input_line
 {
@@ -54,13 +55,6 @@ typedef struct	s_vert
 	struct s_vert	*next_vert;
 	char			*name;
 }				t_vert;
-
-//example: a to b
-//tail: a
-//head: b
-//invert: b to a
-//next_edge: dependent on order of input, don't bother with this
-//next_conn: a to c
 
 typedef struct	s_edge
 {
@@ -101,5 +95,13 @@ void			edge_del(t_edge **edge);
 void			input_del(t_input_info *input);
 int				input_read(t_input_info *input);
 t_input_line	*input_line_add(t_input_info *input, char *line);
+
+t_list			*a_star(t_vert *source, t_vert *sink, t_hmap *rooms);
+void			rooms_used_to_false(t_vert *rooms);
+int				evaluate(t_list *path);
+void			insert_into_queue(t_list **queue, t_list *path);
+t_list			*a_star_dequeue(t_list **queue);
+void			init_queue(t_list **queue, t_vert *source);
+void			a_star_clear_queue(t_list *queue);
 
 #endif
