@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:30:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/10 17:43:04 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/16 19:02:52 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 
 /*
 ** -------------------------------------------------------------------------- **
-** checks if both rooms for the link are in fact room names
+** - adds the given struct for the input line to the list of links
+** - counts the links
 **
 ** params
+**	t_input_info *input			struct holding all information from input
+**	t_input_line *input_line	list item for this input line
 **
 ** return
 **	OK
@@ -36,11 +39,15 @@ static int	add_link(t_input_info *input, t_input_line *input_line)
 
 /*
 ** -------------------------------------------------------------------------- **
-** adds the new input_line - link to the room list in the input struct,
-** counts the rooms,
-** saves the start and end room
+** - adds the new input_line - link to the room list in the input struct and saves
+**   its relevant information,
+** - counts the rooms,
+** - saves the start and end room
 **
 ** params
+**	t_input_info *input			struct holding all information from input
+**	t_input_line *input_line	list item for this input line
+**	char *name					the name of the room to be added
 **
 ** return
 **	OK
@@ -68,13 +75,16 @@ static int	add_room(t_input_info *input, t_input_line *input_line, char *name)
 
 /*
 ** -------------------------------------------------------------------------- **
-** - appends every input line to the input struct
+** - appends every line of input to the input struct
 ** - marks if the following room is a start or end room
-** - checks if the input is for a room or a link calls the appropriate function
-**   to add room or link
-** - returns error if there is input for a room after a link has been added
+** - checks if the read line contains information for a room or a link calls
+**   the appropriate function to add room or link
+** - checks for the order of the input
 **
 ** params
+**	t_input_info *input			struct holding all information from input
+**	char **line					the line of input split at ' '
+**	t_input_line *input_line	list item for this input line
 **
 ** return
 **	OK
@@ -111,10 +121,17 @@ static int	create_input_list(t_input_info *input, char **line,
 
 /*
 ** -------------------------------------------------------------------------- **
-** reads the input from stdin to save it in input list
-** saves the number of ants if no input for rooms or link has been added
+** reads the input from stdin
+** saves the number of ants
+** counts the number of rooms and links
+** catches the folllowing input errors:
+**	- line doesn't have the required format
+**	- wrong order (link before room, ant_no in between the rooms, etc.)
+**	- room starts with 'L'
+**	- room coordinates are either < INT_MIN or > INT_MAX
 **
 ** params
+**	t_input_info *input	struct holding all information from input
 **
 ** return
 **	OK
@@ -140,8 +157,8 @@ int			input_read(t_input_info *input)
 			input->ant_no = ft_atoi(line);
 		else
 		{
-			if (input_line == 0 || line[0] == 'L' || create_input_list
-				(input, ft_strsplit(line, ' '), input_line) == ERROR)
+			if (input_line == 0 || line[0] == 'L' || create_input_list(input,
+				ft_strsplit(line, ' '), input_line) == ERROR)
 				return (ERROR);
 		}
 		ret = get_next_line(0, &line);

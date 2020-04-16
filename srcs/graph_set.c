@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 17:47:58 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/10 17:40:10 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/16 19:07:18 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,26 @@ static int	vert_new(char **input_line, t_graph *graph)
 	ft_strarrdel(&input_line);
 	return (OK);
 }
+
+/*
+** -------------------------------------------------------------------------- **
+** creates the graph with its vertices and edges
+** catches the following errors:
+**	- vertix is given twice
+**	- the input for an egde contains two '-' (in which case it is up to inter-
+**		pretation what name the vertices have)
+**	- the vertices for an edge don't exist
+** NOTE:
+**	a duplicate edge will be added only once
+**
+** params
+**	t_graph *graph		struct holding all information about graph
+**	t_input_info *input	struct holding all information from input
+**
+** return
+**	OK
+**	ERROR
+*/
 
 int			graph_set(t_graph *graph, t_input_info *input)
 {
