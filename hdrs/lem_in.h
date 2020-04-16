@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/13 10:13:51 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/16 18:03:15 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,31 @@ typedef struct	s_graph
 	t_vert			*source;
 	t_vert			*sink;
 }				t_graph;
+
+typedef struct s_path
+{
+	int		threshold;
+	t_vert	*path_start;
+}				t_path;
+
+typedef struct s_path_info
+{
+	int		path_count;
+	t_path	**path;
+}				t_path_info;
+
+typedef struct s_ant
+{
+	char			*name;
+	t_vert			*current_vert;
+	struct s_ant	*next;
+}				t_ant;
+
+typedef struct s_ant_list
+{
+	t_ant	*first_ant;
+	t_ant	*last_ant;
+};
 
 int				ft_isint(char *str);
 void			ft_strarrdel(char ***arr);
