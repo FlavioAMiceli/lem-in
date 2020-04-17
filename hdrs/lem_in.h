@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/17 12:27:05 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/17 19:07:36 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,28 +64,24 @@ typedef struct	s_edge
 	struct s_edge	*next_conn;
 }				t_edge;
 
-typedef struct	s_graph
-{
-	int				ant_count;
-	int				vert_count;
-	t_vert			*vert_list;
-	t_edge			*edge_list;
-	t_hmap			*vertices;
-	t_vert			*source;
-	t_vert			*sink;
-}				t_graph;
-
 typedef struct	s_path
 {
 	int		threshold;
 	t_vert	*path_start;
 }				t_path;
 
-typedef struct	s_path_info
+typedef struct	s_graph
 {
+	int		ant_count;
+	int		vert_count;
 	int		path_count;
+	t_vert	*vert_list;
+	t_edge	*edge_list;
+	t_hmap	*vertices;
+	t_vert	*source;
+	t_vert	*sink;
 	t_path	**path;
-}				t_path_info;
+}				t_graph;
 
 typedef struct	s_ant
 {
@@ -102,6 +98,8 @@ typedef struct	s_ant_list
 
 int				ft_isint(char *str);
 void			ft_strarrdel(char ***arr);
+void			ft_swap(void *ptr1, void *ptr2);
+long long int	ft_absolute(long long int nbr);
 
 int				strdel_and_return(int ret, char **str);
 int				strarrdel_and_return(int ret, char ***strarr);
@@ -109,17 +107,22 @@ int				strarrdel_edgedel_and_return(int ret, char ***strarr,
 				t_edge **edge);
 int				free_graph_input_and_return(int ret, t_graph *graph,
 				t_input_info *input);
+int				graph_del_and_return(int ret, t_graph *graph);
 
 int				graph_set(t_graph *graph, t_input_info *input);
 
 void			graph_del(t_graph *graph);
 void			vert_del(t_vert **vert);
 void			edge_del(t_edge **edge);
+void			path_del(t_graph *graph);
 
 void			input_del(t_input_info *input);
 int				input_read(t_input_info *input);
 t_input_line	*input_line_add(t_input_info *input, char *line);
 
 void			distance_set(t_graph *graph, t_vert *vert, t_vert *prev_vert);
+int				path_set(t_graph *graph);
+
+int				threshold(t_path **path, int idx, int from_hop);
 
 #endif

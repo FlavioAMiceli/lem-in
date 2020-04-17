@@ -6,11 +6,12 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/28 18:56:22 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/07 19:03:01 by moana         ########   odam.nl          #
+#    Updated: 2020/04/17 18:38:19 by moana         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 MINI_SOURCES := ft_isint ft_strarrdel \
+	ft_swap ft_absolute \
 	input_create_free input_get \
 	graph_set \
 	graph_del \

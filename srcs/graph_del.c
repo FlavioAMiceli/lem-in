@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:46:04 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/10 17:44:03 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/17 18:32:42 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@ void	edge_del(t_edge **edge)
 	(*edge) = NULL;
 }
 
+void	path_del(t_graph *graph)
+{
+	int	i;
+
+	i = 0;
+	while (i < graph->source->conn_count && graph->path[i])
+	{
+		ft_bzero(graph->path[i], sizeof(t_path));
+		ft_memdel(&(graph->path[i]));
+		i++;
+	}
+	ft_memdel(&(graph->path));
+}
+
 void	graph_del(t_graph *graph)
 {
 	t_edge	**walk_edge;
@@ -44,6 +58,8 @@ void	graph_del(t_graph *graph)
 	t_vert	*del_vert;
 
 	walk_edge = &(graph->edge_list);
+	if (graph->path != NULL)
+		path_del(graph);
 	while ((*walk_edge) != NULL)
 	{
 		del_edge = (*walk_edge);
