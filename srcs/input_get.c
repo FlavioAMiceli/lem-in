@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:30:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/16 19:02:52 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/17 10:20:02 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ static int	create_input_list(t_input_info *input, char **line,
 **	- line doesn't have the required format
 **	- wrong order (link before room, ant_no in between the rooms, etc.)
 **	- room starts with 'L'
-**	- room coordinates are either < INT_MIN or > INT_MAX
 **
 ** params
 **	t_input_info *input	struct holding all information from input

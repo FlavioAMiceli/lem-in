@@ -6,12 +6,26 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/07 15:51:21 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/13 10:13:28 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/17 11:50:07 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
+
+/*
+** -------------------------------------------------------------------------- **
+** helper function for distance_set() to check if vertix is leading to nothing
+** but dead-ends
+**
+** params
+**	t_graph *graph		struct holding all information about graph
+**	t_vert *vert		current vertix for which to set distance
+**	t_vert *prev_vert	vertix from where we came
+**
+** return
+**	VOID
+*/
 
 static int	is_deadend(t_graph *graph, t_vert *vert, t_vert *prev_vert)
 {
@@ -32,6 +46,21 @@ static int	is_deadend(t_graph *graph, t_vert *vert, t_vert *prev_vert)
 	}
 	return (TRUE);
 }
+
+/*
+** -------------------------------------------------------------------------- **
+** this function recursively travels through the graph and saves the shortest
+** distance of each vertix to the sink.
+** distances of vertices leading into a dead-end are set to < 0
+**
+** params
+**	t_graph *graph		struct holding all information about graph
+**	t_vert *vert		current vertix for which to set distance
+**	t_vert *prev_vert	vertix from where we came
+**
+** return
+**	VOID
+*/
 
 void		distance_set(t_graph *graph, t_vert *vert, t_vert *prev_vert)
 {

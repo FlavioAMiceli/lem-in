@@ -6,13 +6,26 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 17:47:58 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/16 19:07:18 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/17 10:30:07 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
 #include <stdlib.h>
+
+/*
+** -------------------------------------------------------------------------- **
+** helper function for edge_new()
+** checks if the new edge is already saved in its tail
+**
+** params
+**	t_edge *new_edge	the struct for the new egde
+**
+** return
+**	OK
+**	ERROR
+*/
 
 static int	edge_is_duplicate(t_edge *new_edge)
 {
@@ -27,6 +40,20 @@ static int	edge_is_duplicate(t_edge *new_edge)
 	}
 	return (FALSE);
 }
+
+/*
+** -------------------------------------------------------------------------- **
+** helper function for edge_new()
+** sets all the pointers for the new edge and its invert edge
+**
+** params
+**	t_edge *edge	the struct for the new egde
+**	t_graph *graph	struct holding all information about graph
+**
+** return
+**	OK
+**	ERROR
+*/
 
 static void	edge_set(t_edge *edge, t_graph *graph)
 {
@@ -45,6 +72,21 @@ static void	edge_set(t_edge *edge, t_graph *graph)
 	edge_invert->next_conn = edge_invert->tail->connections;
 	edge_invert->tail->connections = edge_invert;
 }
+
+/*
+** -------------------------------------------------------------------------- **
+** helper function for graph_set()
+** creates a directed edge and its invert edge in the graph and links it to its
+** head and tail vertices
+**
+** params
+**	char **input_line	line of input declaring a room split at '-'
+**	t_graph *graph		struct holding all information about graph
+**
+** return
+**	OK
+**	ERROR
+*/
 
 static int	edge_new(char **input_line, t_graph *graph)
 {
@@ -66,6 +108,20 @@ static int	edge_new(char **input_line, t_graph *graph)
 	edge_set(edge, graph);
 	return (strarrdel_and_return(OK, &input_line));
 }
+
+/*
+** -------------------------------------------------------------------------- **
+** helper function for graph_set()
+** creates a vertix in the graph
+**
+** params
+**	char **input_line	line of input declaring a room split at ' '
+**	t_graph *graph		struct holding all information about graph
+**
+** return
+**	OK
+**	ERROR
+*/
 
 static int	vert_new(char **input_line, t_graph *graph)
 {
@@ -95,6 +151,7 @@ static int	vert_new(char **input_line, t_graph *graph)
 ** creates the graph with its vertices and edges
 ** catches the following errors:
 **	- vertix is given twice
+**	- coordinates of vertix are not integers
 **	- the input for an egde contains two '-' (in which case it is up to inter-
 **		pretation what name the vertices have)
 **	- the vertices for an edge don't exist
