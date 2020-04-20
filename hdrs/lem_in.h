@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/17 19:07:36 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/20 17:56:11 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct	s_vert
 	int				x_coord;
 	int				y_coord;
 	int				distance;
+	int				hops;
 	int				visited;
 	int				conn_count;
 	struct s_edge	*connections;
@@ -67,7 +68,7 @@ typedef struct	s_edge
 typedef struct	s_path
 {
 	int		threshold;
-	t_vert	*path_start;
+	t_vert	*start;
 }				t_path;
 
 typedef struct	s_graph

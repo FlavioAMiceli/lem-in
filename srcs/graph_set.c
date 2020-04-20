@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 17:47:58 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/17 10:30:07 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/20 18:00:46 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ static int	vert_new(char **input_line, t_graph *graph)
 	vert->x_coord = ft_atoi(input_line[1]);
 	vert->y_coord = ft_atoi(input_line[2]);
 	vert->distance = -1;
+	vert->hops = -1;
 	vert->next_vert = graph->vert_list;
 	graph->vert_list = vert;
 	if (hmap_set(graph->vertices, vert->name, vert) != 0)
