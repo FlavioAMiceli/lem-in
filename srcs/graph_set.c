@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 17:47:58 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/20 18:00:46 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/21 16:42:47 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,9 +149,29 @@ static int	vert_new(char **input_line, t_graph *graph)
 
 /*
 ** -------------------------------------------------------------------------- **
+** helper function for graph_new(), whick had to be split due to the norm
+** params
+**	t_graph *graph		struct holding all information about graph
+**	t_input_info *input	struct holding all information from input
+**
+** return
+**	VOID
+*/
+
+static void	graph_set(t_graph *graph, t_input_info *input)
+{
+	graph->source = hmap_get(graph->vertices, input->start->room_name);
+	graph->sink = hmap_get(graph->vertices, input->end->room_name);
+	graph->ant_count = input->ant_no;
+	graph->vert_count = input->room_count;
+}
+
+/*
+** -------------------------------------------------------------------------- **
 ** creates the graph with its vertices and edges
 ** catches the following errors:
 **	- vertix is given twice
+**	- source or sink vertix is missing
 **	- coordinates of vertix are not integers
 **	- the input for an egde contains two '-' (in which case it is up to inter-
 **		pretation what name the vertices have)
@@ -168,7 +188,7 @@ static int	vert_new(char **input_line, t_graph *graph)
 **	ERROR
 */
 
-int			graph_set(t_graph *graph, t_input_info *input)
+int			graph_new(t_graph *graph, t_input_info *input)
 {
 	t_input_line	*walk;
 
@@ -182,17 +202,17 @@ int			graph_set(t_graph *graph, t_input_info *input)
 			return (ERROR);
 		walk = walk->next_room;
 	}
-	graph->source = hmap_get(graph->vertices, input->start->room_name);
-	graph->sink = hmap_get(graph->vertices, input->end->room_name);
 	walk = input->links;
 	while (walk != NULL)
 	{
-		if (ft_strchr(ft_strchr(walk->line, '-') + 1, '-') != NULL
-			|| edge_new(ft_strsplit(walk->line, '-'), graph) == ERROR)
+		if (edge_new(ft_strsplit(walk->line, '-'), graph) == ERROR)
 			return (ERROR);
 		walk = walk->next_link;
 	}
-	graph->ant_count = input->ant_no;
-	graph->vert_count = input->room_count;
-	return (OK);
+	graph_set(graph, input);
+	if (graph->source == NULL || graph->sink == NULL)
+		return (ERROR);
+	graph->paths = (t_path**)ft_memalloc(sizeof(t_path*) *
+		graph->source->conn_count + 1);
+	return (OK && graph->paths != NULL);
 }

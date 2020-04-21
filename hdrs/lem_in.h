@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/20 17:56:11 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/21 16:53:45 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,21 @@ typedef struct	s_edge
 
 typedef struct	s_path
 {
-	int		threshold;
-	t_vert	*start;
+	int				threshold;
+	t_vert			*start;
 }				t_path;
 
 typedef struct	s_graph
 {
-	int		ant_count;
-	int		vert_count;
-	int		path_count;
-	t_vert	*vert_list;
-	t_edge	*edge_list;
-	t_hmap	*vertices;
-	t_vert	*source;
-	t_vert	*sink;
-	t_path	**path;
+	int				ant_count;
+	int				vert_count;
+	int				path_count;
+	t_vert			*vert_list;
+	t_edge			*edge_list;
+	t_hmap			*vertices;
+	t_vert			*source;
+	t_vert			*sink;
+	t_path			**paths;
 }				t_graph;
 
 typedef struct	s_ant
@@ -93,8 +93,8 @@ typedef struct	s_ant
 
 typedef struct	s_ant_list
 {
-	t_ant	*first_ant;
-	t_ant	*last_ant;
+	t_ant			*first_ant;
+	t_ant			*last_ant;
 }				t_ant_list;
 
 int				ft_isint(char *str);
@@ -110,7 +110,7 @@ int				free_graph_input_and_return(int ret, t_graph *graph,
 				t_input_info *input);
 int				graph_del_and_return(int ret, t_graph *graph);
 
-int				graph_set(t_graph *graph, t_input_info *input);
+int				graph_new(t_graph *graph, t_input_info *input);
 
 void			graph_del(t_graph *graph);
 void			vert_del(t_vert **vert);
@@ -122,8 +122,10 @@ int				input_read(t_input_info *input);
 t_input_line	*input_line_add(t_input_info *input, char *line);
 
 void			distance_set(t_graph *graph, t_vert *vert, t_vert *prev_vert);
-int				path_set(t_graph *graph);
+int				path_new(t_graph *graph, t_vert *new_start);
 
-int				threshold(t_path **path, int idx, int from_hop);
+int				threshold(t_path **paths, int idx, int placeholder);
+
+int				keep_searching(t_graph *graph, t_vert *new_start);
 
 #endif
