@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/21 16:53:45 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/23 16:34:11 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,6 @@ typedef struct	s_ant_list
 	t_ant			*first_ant;
 	t_ant			*last_ant;
 }				t_ant_list;
-
-int				ft_isint(char *str);
-void			ft_strarrdel(char ***arr);
-void			ft_swap(void *ptr1, void *ptr2);
-long long int	ft_absolute(long long int nbr);
 
 int				strdel_and_return(int ret, char **str);
 int				strarrdel_and_return(int ret, char ***strarr);

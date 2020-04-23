@@ -6,11 +6,12 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/20 17:44:40 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/21 16:30:13 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/23 16:39:56 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include "libft.h"
 
 /*
 ** -------------------------------------------------------------------------- **
@@ -42,8 +43,8 @@ int		threshold(t_path **paths, int idx, int placeholder)
 	threshold = 0;
 	while (i < idx)
 	{
-		threshold +=
-			ft_absolute(placeholder - paths[i]->start->hops);
+		threshold = threshold + ft_absolute(placeholder - paths[i]->start->hops);
+		++i;
 	}
 	threshold += idx + 1;
 	return (threshold);

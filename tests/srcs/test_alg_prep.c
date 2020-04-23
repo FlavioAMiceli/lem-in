@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/07 16:28:03 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/09 17:46:17 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/23 16:31:24 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ Test(distance_set, valid_deadend_6)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), OK, "couldn't read map, formatting error?\nlast line was: %s, room count = %d, link count = %d", input.last_line->line, input.room_count, input.link_count);
-	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_new(&graph, &input), OK, "normal map returns error");
 	distance_set(&graph, graph.sink, NULL);
 	room_name = "snk";
 	distance = 0;
@@ -170,7 +170,7 @@ Test(distance_set, valid_deadend_5)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), OK, "couldn't read map, formatting error?\nlast line was: %s, room count = %d, link count = %d", input.last_line->line, input.room_count, input.link_count);
-	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_new(&graph, &input), OK, "normal map returns error");
 	distance_set(&graph, graph.sink, NULL);
 	room_name = "snk";
 	distance = 0;
@@ -307,7 +307,7 @@ Test(distance_set, valid_deadend_4)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), OK, "couldn't read map, formatting error?\nlast line was: %s, room count = %d, link count = %d", input.last_line->line, input.room_count, input.link_count);
-	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_new(&graph, &input), OK, "normal map returns error");
 	distance_set(&graph, graph.sink, NULL);
 	room_name = "snk";
 	distance = 0;
@@ -414,7 +414,7 @@ Test(distance_set, valid_deadend_3)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), OK, "couldn't read map, formatting error?\nlast line was: %s, room count = %d, link count = %d", input.last_line->line, input.room_count, input.link_count);
-	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_new(&graph, &input), OK, "normal map returns error");
 	distance_set(&graph, graph.sink, NULL);
 	room_name = "snk";
 	distance = 0;
@@ -521,7 +521,7 @@ Test(distance_set, valid_deadend_2)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), OK, "couldn't read map, formatting error?\nlast line was: %s, room count = %d, link count = %d", input.last_line->line, input.room_count, input.link_count);
-	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_new(&graph, &input), OK, "normal map returns error");
 	distance_set(&graph, graph.sink, NULL);
 	room_name = "snk";
 	distance = 0;
@@ -643,7 +643,7 @@ Test(distance_set, valid_deadend_1)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), OK, "couldn't read map");
-	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_new(&graph, &input), OK, "normal map returns error");
 	distance_set(&graph, graph.sink, NULL);
 	room_name = "3";
 	distance = 0;
@@ -700,7 +700,7 @@ Test(distance_set, valid_normal_2)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), OK, "couldn't read map, formatting error?\nlast line was: %s, room count = %d, link count = %d", input.last_line->line, input.room_count, input.link_count);
-	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_new(&graph, &input), OK, "normal map returns error");
 	distance_set(&graph, graph.sink, NULL);
 	room_name = "snk";
 	distance = 0;
@@ -792,7 +792,7 @@ Test(distance_set, valid_normal)
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);
 	dup2(fd, 0);
 	cr_assert_eq(input_read(&input), OK, "couldn't read map");
-	cr_assert_eq(graph_set(&graph, &input), OK, "normal map returns error");
+	cr_assert_eq(graph_new(&graph, &input), OK, "normal map returns error");
 	distance_set(&graph, graph.sink, NULL);
 	room_name = "3";
 	distance = 0;
