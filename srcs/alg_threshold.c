@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/20 17:44:40 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/23 16:39:56 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/28 17:14:34 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 **		the resulting threshold marks the min number of ants for which to use
 **		path[idx]
 **	- case 2:
-**		placeholder = 'distance to sink of potential new path no. idx'
-**		the resulting threshold markd the min number of ants for which (if
+**		placeholder = 'distance to sink of potential new path number idx'
+**		the resulting threshold marks the min number of ants for which (if
 **		exceeded) we want to run Edmonds Karps algorithm on the vertix of the
 **		potential new path
 **
@@ -43,7 +43,7 @@ int		threshold(t_path **paths, int idx, int placeholder)
 	threshold = 0;
 	while (i < idx)
 	{
-		threshold = threshold + ft_absolute(placeholder - paths[i]->start->hops);
+		threshold += ft_absolute(placeholder - paths[i]->start->hops);
 		++i;
 	}
 	threshold += idx + 1;
