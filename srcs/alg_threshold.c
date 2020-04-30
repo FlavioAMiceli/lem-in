@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/20 17:44:40 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/30 15:12:26 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/04/30 15:52:05 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,19 @@ unsigned int	threshold(t_path **paths, unsigned int idx,
 {
 	unsigned int	i;
 	unsigned int	threshold;
+	unsigned int	count;
 
 	i = 0;
 	threshold = 0;
+	count = 1;
 	while (i < idx)
 	{
-		threshold += ft_absolute(placeholder - paths[i]->start->hops);
+		if (placeholder >= paths[i]->start->hops)
+		{
+			threshold += placeholder - paths[i]->start->hops;
+			++count;
+		}
 		++i;
 	}
-	threshold += idx + 1;
-	return (threshold);
+	return (threshold + count);
 }

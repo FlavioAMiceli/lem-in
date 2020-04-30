@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 12:34:33 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/30 15:25:51 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/04/30 16:23:24 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,372 @@ static int		add_paths(t_graph *graph)
 	return (OK);
 }
 
+Test(alg_threshold, idx_is_23_4)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 23;
+	graph.paths[0]->start->hops = 212;
+	graph.paths[1]->start->hops = 412;
+	graph.paths[2]->start->hops = 612;
+	graph.paths[3]->start->hops = 812;
+	graph.paths[4]->start->hops = 1120;
+	graph.paths[5]->start->hops = 1122;
+	graph.paths[6]->start->hops = 1124;
+	graph.paths[7]->start->hops = 1126;
+	graph.paths[8]->start->hops = 1128;
+	graph.paths[9]->start->hops = 2120;
+	graph.paths[10]->start->hops = 1222;
+	graph.paths[11]->start->hops = 1224;
+	graph.paths[12]->start->hops = 1226;
+	graph.paths[13]->start->hops = 1228;
+	graph.paths[14]->start->hops = 1230;
+	graph.paths[15]->start->hops = 1232;
+	graph.paths[16]->start->hops = 1234;
+	graph.paths[17]->start->hops = 1236;
+	graph.paths[18]->start->hops = 1238;
+	graph.paths[19]->start->hops = 1240;
+	graph.paths[20]->start->hops = 1242;
+	graph.paths[21]->start->hops = 1244;
+	graph.paths[22]->start->hops = 1246;
+	placeholder = 48;
+	threshold_expected = 1;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_23_3)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 23;
+	graph.paths[0]->start->hops = 10;
+	graph.paths[1]->start->hops = 10;
+	graph.paths[2]->start->hops = 10;
+	graph.paths[3]->start->hops = 10;
+	graph.paths[4]->start->hops = 10;
+	graph.paths[5]->start->hops = 10;
+	graph.paths[6]->start->hops = 10;
+	graph.paths[7]->start->hops = 10;
+	graph.paths[8]->start->hops = 10;
+	graph.paths[9]->start->hops = 10;
+	graph.paths[10]->start->hops = 10;
+	graph.paths[11]->start->hops = 10;
+	graph.paths[12]->start->hops = 10;
+	graph.paths[13]->start->hops = 10;
+	graph.paths[14]->start->hops = 10;
+	graph.paths[15]->start->hops = 10;
+	graph.paths[16]->start->hops = 10;
+	graph.paths[17]->start->hops = 10;
+	graph.paths[18]->start->hops = 10;
+	graph.paths[19]->start->hops = 10;
+	graph.paths[20]->start->hops = 10;
+	graph.paths[21]->start->hops = 10;
+	graph.paths[22]->start->hops = 10;
+	placeholder = 10;
+	threshold_expected = 24;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_23_2)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 23;
+	graph.paths[0]->start->hops = 12;
+	graph.paths[1]->start->hops = 14;
+	graph.paths[2]->start->hops = 16;
+	graph.paths[3]->start->hops = 18;
+	graph.paths[4]->start->hops = 110;
+	graph.paths[5]->start->hops = 112;
+	graph.paths[6]->start->hops = 114;
+	graph.paths[7]->start->hops = 116;
+	graph.paths[8]->start->hops = 118;
+	graph.paths[9]->start->hops = 120;
+	graph.paths[10]->start->hops = 122;
+	graph.paths[11]->start->hops = 124;
+	graph.paths[12]->start->hops = 126;
+	graph.paths[13]->start->hops = 128;
+	graph.paths[14]->start->hops = 130;
+	graph.paths[15]->start->hops = 132;
+	graph.paths[16]->start->hops = 134;
+	graph.paths[17]->start->hops = 136;
+	graph.paths[18]->start->hops = 138;
+	graph.paths[19]->start->hops = 140;
+	graph.paths[20]->start->hops = 42;
+	graph.paths[21]->start->hops = 44;
+	graph.paths[22]->start->hops = 46;
+	placeholder = 48;
+	threshold_expected = 152;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_23_1)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 23;
+	graph.paths[0]->start->hops = 2;
+	graph.paths[1]->start->hops = 4;
+	graph.paths[2]->start->hops = 6;
+	graph.paths[3]->start->hops = 8;
+	graph.paths[4]->start->hops = 10;
+	graph.paths[5]->start->hops = 12;
+	graph.paths[6]->start->hops = 14;
+	graph.paths[7]->start->hops = 16;
+	graph.paths[8]->start->hops = 18;
+	graph.paths[9]->start->hops = 20;
+	graph.paths[10]->start->hops = 22;
+	graph.paths[11]->start->hops = 24;
+	graph.paths[12]->start->hops = 26;
+	graph.paths[13]->start->hops = 28;
+	graph.paths[14]->start->hops = 30;
+	graph.paths[15]->start->hops = 32;
+	graph.paths[16]->start->hops = 34;
+	graph.paths[17]->start->hops = 36;
+	graph.paths[18]->start->hops = 38;
+	graph.paths[19]->start->hops = 40;
+	graph.paths[20]->start->hops = 42;
+	graph.paths[21]->start->hops = 44;
+	graph.paths[22]->start->hops = 46;
+	placeholder = 48;
+	threshold_expected = 576;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_3_4)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 3;
+	graph.paths[0]->start->hops = 30;
+	graph.paths[1]->start->hops = 40;
+	graph.paths[2]->start->hops = 60;
+	placeholder = 10;
+	threshold_expected = 1;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_3_3)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 3;
+	graph.paths[0]->start->hops = 4;
+	graph.paths[1]->start->hops = 6;
+	graph.paths[2]->start->hops = 20;
+	placeholder = 10;
+	threshold_expected = 13;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_3_2)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 3;
+	graph.paths[0]->start->hops = 3;
+	graph.paths[1]->start->hops = 18;
+	graph.paths[2]->start->hops = 40;
+	placeholder = 50;
+	threshold_expected = 93;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_3_1)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 3;
+	graph.paths[0]->start->hops = 10;
+	graph.paths[1]->start->hops = 10;
+	graph.paths[2]->start->hops = 10;
+	placeholder = 10;
+	threshold_expected = 4;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_2_4)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 2;
+	graph.paths[0]->start->hops = 30;
+	graph.paths[1]->start->hops = 20;
+	placeholder = 10;
+	threshold_expected = 1;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_2_3)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 2;
+	graph.paths[0]->start->hops = 40;
+	graph.paths[1]->start->hops = 10;
+	placeholder = 30;
+	threshold_expected = 22;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_2_2)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 2;
+	graph.paths[0]->start->hops = 2;
+	graph.paths[1]->start->hops = 4;
+	placeholder = 7;
+	threshold_expected = 11;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_2_1)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 2;
+	graph.paths[0]->start->hops = 0;
+	graph.paths[1]->start->hops = 0;
+	placeholder = 0;
+	threshold_expected = 3;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_1_4)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 1;
+	graph.paths[0]->start->hops = 10;
+	placeholder = 5;
+	threshold_expected = 1;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
+Test(alg_threshold, idx_is_1_3)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
+	idx = 1;
+	graph.paths[0]->start->hops = 0;
+	placeholder = 0;
+	threshold_expected = 2;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
+
 Test(alg_threshold, idx_is_1_2)
 {
 	t_graph		graph;
@@ -215,8 +581,8 @@ Test(alg_threshold, idx_is_1_2)
 
 	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
 	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
-	graph.paths[0]->start->hops = 10;
 	idx = 1;
+	graph.paths[0]->start->hops = 10;
 	placeholder = 10;
 	threshold_expected = 2;
 	threshold_calculated = threshold(graph.paths, idx, placeholder);
@@ -234,28 +600,10 @@ Test(alg_threshold, idx_is_1_1)
 
 	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
 	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
-	graph.paths[0]->start->hops = 5;
 	idx = 1;
+	graph.paths[0]->start->hops = 5;
 	placeholder = 10;
 	threshold_expected = 7;
-	threshold_calculated = threshold(graph.paths, idx, placeholder);
-	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
-	graph_del(&graph);
-}
-
-Test(alg_threshold, idx_is_0_4)
-{
-	t_graph		graph;
-	int			idx;
-	int			placeholder;
-	int			threshold_expected;
-	int			threshold_calculated;
-
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
-	cr_assert_eq(add_paths(&graph), OK, "paths couldn't be loaded");
-	idx = 0;
-	placeholder = 10;
-	threshold_expected = 1;
 	threshold_calculated = threshold(graph.paths, idx, placeholder);
 	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
 	graph_del(&graph);

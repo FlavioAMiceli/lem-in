@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/30 15:22:10 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/04/30 15:56:33 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct	s_vert
 	int				x_coord;
 	int				y_coord;
 	int				distance;
-	int				hops;
+	unsigned int	hops;
 	int				visited;
 	int				conn_count;
 	struct s_edge	*connections;
