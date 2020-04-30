@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:46:04 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/21 16:44:42 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/30 15:22:59 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	edge_del(t_edge **edge)
 
 void	path_del(t_graph *graph)
 {
-	int	i;
+	unsigned int	i;
 
 	i = 0;
 	while (i < graph->path_count && graph->paths[i])

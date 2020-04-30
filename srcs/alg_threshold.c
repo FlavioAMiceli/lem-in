@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/20 17:44:40 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/28 17:14:34 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/04/30 15:12:26 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** 	- case 1:
 **		placeholder = paths[idx]->start->hops
 **		the resulting threshold marks the min number of ants for which to use
-**		path[idx]
+**		paths[idx]
 **	- case 2:
 **		placeholder = 'distance to sink of potential new path number idx'
 **		the resulting threshold marks the min number of ants for which (if
@@ -27,17 +27,18 @@
 **		potential new path
 **
 ** params
-**	t_path **paths	array of pointers for paths
-**	int idx			index for the path to calculate threshold for
-**	int placeholder	distance of new path or hops of path[idx]
+**	t_path **paths				array of pointers for paths
+**	unsigned int idx			index for the path to calculate threshold for
+**	unsigned int placeholder	distance of new path or hops of paths[idx]
 ** return
-**	int				the threshold for path[idx]
+**	unsigned int				the threshold for paths[idx]
 */
 
-int		threshold(t_path **paths, int idx, int placeholder)
+unsigned int	threshold(t_path **paths, unsigned int idx,
+				unsigned int placeholder)
 {
-	int	i;
-	int	threshold;
+	unsigned int	i;
+	unsigned int	threshold;
 
 	i = 0;
 	threshold = 0;

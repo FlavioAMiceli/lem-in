@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/23 16:34:11 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/30 15:22:10 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ typedef struct	s_path
 
 typedef struct	s_graph
 {
-	int				ant_count;
-	int				vert_count;
-	int				path_count;
+	unsigned int	ant_count;
+	unsigned int	vert_count;
+	unsigned int	path_count;
 	t_vert			*vert_list;
 	t_edge			*edge_list;
 	t_hmap			*vertices;
@@ -119,7 +119,8 @@ t_input_line	*input_line_add(t_input_info *input, char *line);
 void			distance_set(t_graph *graph, t_vert *vert, t_vert *prev_vert);
 int				path_new(t_graph *graph, t_vert *new_start);
 
-int				threshold(t_path **paths, int idx, int placeholder);
+unsigned int	threshold(t_path **paths, unsigned int idx,
+				unsigned int placeholder);
 
 int				keep_searching(t_graph *graph, t_vert *new_start);
 
