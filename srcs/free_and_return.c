@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:34:08 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/17 18:01:01 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/30 17:11:03 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	strdel_and_return(int ret, char **str)
 	ft_strdel(str);
 	return (ret);
 }
+
 int	graph_del_and_return(int ret, t_graph *graph)
 {
 	graph_del(graph);

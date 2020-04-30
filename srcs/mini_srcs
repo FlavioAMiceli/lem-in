@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/28 18:56:22 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/23 16:36:51 by moana         ########   odam.nl          #
+#    Updated: 2020/04/30 17:36:43 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ MINI_SOURCES := free_and_return \
 	input_create_free \
 	input_get \
 	graph_set \
+	graph_edge_new \
 	graph_del \
 	hmap_hash \
 	hmap_del \

@@ -6,12 +6,11 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/21 16:18:28 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/21 16:48:58 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/30 17:15:16 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
 
 /*
 ** -------------------------------------------------------------------------- **
@@ -30,5 +29,5 @@
 int		keep_searching(t_graph *graph, t_vert *new_start)
 {
 	return (graph->path_count < graph->ant_count && graph->ant_count >
-		threshold(graph->paths, graph->path_count + 1, new_start->distance));
+		threshold(graph->paths, graph->path_count, new_start->distance));
 }

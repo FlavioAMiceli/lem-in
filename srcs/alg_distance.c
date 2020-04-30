@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/07 15:51:21 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/21 16:46:43 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/30 17:08:04 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,52 +88,3 @@ void		distance_set(t_graph *graph, t_vert *vert, t_vert *prev_vert)
 		vert->distance = -2;
 	return ;
 }
-
-// static int	paths_sort(t_graph *graph)
-// {
-// 	int		idx;
-// 	int		jdx;
-// 	t_edge	*start_edge;
-
-// 	start_edge = graph->source->connections;
-// 	while (idx < graph->source->conn_count)
-// 	{
-// 		graph->path[idx]->path_start = start_edge->head;
-// 		jdx = idx;
-// 		while (jdx > 0)
-// 		{
-// 			if (graph->path[jdx]->path_start->distance <
-// 				graph->path[jdx - 1]->path_start->distance)
-// 				ft_swap(graph->path[jdx], graph->path[jdx - 1]);
-// 			--jdx;
-// 		}
-// 		start_edge = start_edge->next_conn;
-// 		++idx;
-// 	}
-// }
-
-// int			paths_set(t_graph *graph)
-// {
-// 	int	idx;
-
-// 	graph->path = (t_path**)ft_memalloc(sizeof(t_path*)
-// 		* graph->source->conn_count);
-// 	if (graph->path == NULL)
-// 		return(ERROR);
-// 	idx = 0;
-// 	while (idx < graph->source->conn_count)
-// 	{
-// 		graph->path[idx] = (t_path*)ft_memalloc(sizeof(t_path));
-// 		if (graph->path[idx] == NULL)
-// 			return (ERROR);
-// 		++idx;
-// 	}
-// 	paths_sort(graph);
-// 	idx = 0;
-// 	while (idx < graph->source->conn_count)
-// 	{
-// 		graph->path[idx]->threshold = threshold(graph->path, idx, FALSE);
-// 		++idx;
-// 	}
-// 	return (OK);
-// }

@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/30 15:56:33 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/04/30 17:35:10 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int				free_graph_input_and_return(int ret, t_graph *graph,
 int				graph_del_and_return(int ret, t_graph *graph);
 
 int				graph_new(t_graph *graph, t_input_info *input);
+int				edge_new(char **input_line, t_graph *graph);
 
 void			graph_del(t_graph *graph);
 void			vert_del(t_vert **vert);

@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:30:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/21 16:02:44 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/30 17:38:08 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static int	add_link(t_input_info *input, t_input_line *input_line)
 
 /*
 ** -------------------------------------------------------------------------- **
-** - adds the new input_line - link to the room list in the input struct and saves
-**   its relevant information,
+** - adds the new input_line - link to the room list in the input struct and
+**   saves its relevant information,
 ** - counts the rooms,
 ** - saves the start and end room
 **
