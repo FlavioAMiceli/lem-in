@@ -23,4 +23,5 @@ MINI_SOURCES := ft_isint ft_strarrdel\
 	a_star \
 	a_star_aux \
 	a_star_queue \
-	max_flow
+	max_flow \
+	insert_into_queue
