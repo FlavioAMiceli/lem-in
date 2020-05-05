@@ -17,6 +17,7 @@
 **				first level nodes are sorted nodes of queues with equal scores.
 **	Return:
 */
+
 static void	bfs_clear_queue(t_list *queue)
 {
 	t_list	*current;
@@ -35,7 +36,8 @@ static void	bfs_clear_queue(t_list *queue)
 **				first level nodes are sorted nodes of queues with equal scores.
 **	Return:
 */
-void	a_star_clear_queue(t_list *queue)
+
+void		a_star_clear_queue(t_list *queue)
 {
 	t_list *paths;
 	t_list *current;
@@ -55,7 +57,8 @@ void	a_star_clear_queue(t_list *queue)
 **			source, vertex that represents first the first room in graph.
 **	Return:
 */
-void	init_queue(t_list **queue, t_vert *source)
+
+void		init_queue(t_list **queue, t_vert *source)
 {
 	t_list *head;
 
@@ -71,7 +74,8 @@ void	init_queue(t_list **queue, t_vert *source)
 **				first level nodes are sorted nodes of queues with equal scores.
 **	Return: path found at top node of top queue.
 */
-t_list	*a_star_dequeue(t_list **queue)
+
+t_list		*a_star_dequeue(t_list **queue)
 {
 	t_list	*equal_score_paths;
 	t_list	*path;
@@ -88,7 +92,8 @@ t_list	*a_star_dequeue(t_list **queue)
 **			path, list to be inserted in the proper second order queue.
 **	Return:
 */
-void	insert_into_queue(t_list **queue, t_list *path)
+
+void		insert_into_queue(t_list **queue, t_list *path)
 {
 	t_list	*curr;
 	t_list	*temp;

@@ -16,7 +16,8 @@
 **	params:	pointer to hmap struct, key of slot to remove.
 **	return:
 */
-void    hmap_del(t_hmap *hmap, char *key)
+
+void	hmap_del(t_hmap *hmap, char *key)
 {
 	unsigned long	hash;
 	unsigned int	checked;

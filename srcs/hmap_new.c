@@ -16,7 +16,8 @@
 **	params:	number of expected keys, pointer to deletion function for values.
 **	return:	Pointer to newly allocated hmap struct.
 */
-t_hmap  *hmap_new(int max_len, void (*del)(void *))
+
+t_hmap	*hmap_new(int max_len, void (*del)(void *))
 {
 	t_hmap	*hmap;
 

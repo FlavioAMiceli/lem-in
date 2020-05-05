@@ -32,19 +32,16 @@ static t_list	*bfs_expand(
 	edge = rev_path->content->connections
 	while (edge)
 	{
-		// copy path, add each neighbour to front, append to end_queue
 		if (is_reachable(edge, rev_path->content, rooms))
 		{
 			new_path = copy_path(rev_path);
 			ft_lstadd(&new_path, ft_lstnew(&(edge->head), sizeof(t_vert *)));
-			// test if sink reached
 			if (edge->head == sink)
 			{
 				free(rev_path);
 				return (new_path);
 			}
 			edge = edge->next_conn;
-			// append to end_queue
 			(*end_queue)->next = new_path;
 			end_queue = &new_path;
 

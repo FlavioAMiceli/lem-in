@@ -17,6 +17,7 @@
 **	parms: key to hash
 **	return: hash
 */
+
 unsigned long	hmap_hash(char *key)
 {
 	unsigned long 	hash;

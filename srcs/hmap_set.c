@@ -12,11 +12,20 @@
 
 #include "hashtable.h"
 
+static void	slotmalloc(t_hmap *hmap, char *key, void *value)
+{
+	hmap->slots[i] = (t_slot*)ft_memalloc(sizeof(t_slot));
+	hmap->slots[i]->key = ft_strdup(key);
+	hmap->slots[i]->val = value;
+	hmap->len = hmap->len + 1;
+}
+
 /*
 **	params:	pointer to hmap struct, key and value to store.
 **	return:	0 if key didn't exist yet, 1 if value for key was replaced.
 **			-1 if hmap is full
 */
+
 int	hmap_set(t_hmap *hmap, char *key, void *value)
 {
 	unsigned long	hash;
@@ -38,9 +47,7 @@ int	hmap_set(t_hmap *hmap, char *key, void *value)
 	}
 	else if (hmap->slots[i] == NULL)
 	{
-		hmap->slots[i] = (t_slot*)ft_memalloc(sizeof(t_slot));
-		hmap->slots[i]->key = ft_strdup(key);
-		hmap->slots[i]->val = value;
+		slotmalloc(hmap, key, value);
 		hmap->len = hmap->len + 1;
 		return (0);
 	}

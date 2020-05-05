@@ -16,7 +16,8 @@
 **	params:	pointer to hmap, key of requested value.
 **	return:	Value stored for input key.
 */
-void    *hmap_get(t_hmap *hmap, char *key)
+
+void	*hmap_get(t_hmap *hmap, char *key)
 {
 	unsigned long	hash;
 	unsigned int	checked;

@@ -16,6 +16,7 @@
 **	params:	addr of hmap pointer
 **	return:
 */
+
 void	hmap_clear(t_hmap **hmap)
 {
 	unsigned int	i;
