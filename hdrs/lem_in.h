@@ -97,11 +97,17 @@ int				input_read(t_input_info *input);
 t_input_line	*input_line_add(t_input_info *input, char *line);
 
 t_list			*a_star(t_vert *source, t_vert *sink, t_hmap *rooms);
+t_list			*a_star_dequeue(t_list **queue);
+void			a_star_clear_queue(t_list *queue);
+void			bfs_clear_queue(t_list *queue);
+
+void			init_queue(t_list **queue, t_vert *source);
+void			insert_into_queue(t_list **queue, t_list *path);
+
 void			rooms_used_to_false(t_vert *rooms);
 int				evaluate(t_list *path);
-void			insert_into_queue(t_list **queue, t_list *path);
-t_list			*a_star_dequeue(t_list **queue);
-void			init_queue(t_list **queue, t_vert *source);
-void			a_star_clear_queue(t_list *queue);
+void			free_path(t_list **path);
+t_list			*copy_path(t_list *src);
+int				is_reachable(t_edge *edge, t_vert *room, t_hmap *rooms);
 
 #endif

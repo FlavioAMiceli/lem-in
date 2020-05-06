@@ -22,8 +22,11 @@
 */
 static t_list	*a_star_expand(t_list **queue, t_vert *sink, t_hmap *rooms)
 {
+	t_list	*path;
+	t_edge	*edge;
+
 	path = a_star_dequeue(queue);
-	edge = path->content->connections
+	edge = ((t_vert *)(path->content))->connections;
 	while (edge)
 	{
 		// copy path, add each neighbour to front, insert into queue

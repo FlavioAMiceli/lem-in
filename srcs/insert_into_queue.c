@@ -5,27 +5,27 @@
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                  +#+                       */
-/*   Created: 2020/05/05 06:21:30 by fmiceli       #+#    #+#                 */
+/*   Created: 2020/05/05 06:21:30 by fmiceli        #+#    #+#                */
 /*   Updated: 2020/05/05 06:21:47 by fmiceli       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void add_to_front_of_sub_queue(t_list *curr, t_list *path)
+static void	add_to_front_of_sub_queue(t_list *curr, t_list *path)
 {
-    ft_lstadd(&(curr->content), ft_lstnew(&(path), sizeof(t_list *)));
-    curr->SCORE = path->SCORE;
+	ft_lstadd(&(curr->content), ft_lstnew(&(path), sizeof(t_list *)));
+	curr->SCORE = path->SCORE;
 }
 
-static void new_sub_queue(t_list *curr, t_list *path)
+static void	new_sub_queue(t_list *curr, t_list *path)
 {
-    t_list	*temp;
+	t_list	*temp;
 
-    temp = curr->next;
-    curr->next = ft_lstnew(path, sizeof(t_list *));
-    curr->next->SCORE = path->score;
-    curr->next->next = temp;
+	temp = curr->next;
+	curr->next = ft_lstnew(path, sizeof(t_list *));
+	curr->next->SCORE = path->score;
+	curr->next->next = temp;
 }
 
 /*
@@ -35,7 +35,7 @@ static void new_sub_queue(t_list *curr, t_list *path)
 **	Return:
 */
 
-void		insert_into_queue(t_list **queue, t_list *path)
+void	insert_into_queue(t_list **queue, t_list *path)
 {
 	t_list	*curr;
 	t_list	*temp;
@@ -57,7 +57,7 @@ void		insert_into_queue(t_list **queue, t_list *path)
 		temp->next->SCORE = path->SCORE;
 	}
 	else if (curr->SCORE == path->SCORE)
-        add_to_front_of_sub_queue(curr, path);
+		add_to_front_of_sub_queue(curr, path);
 	else
-        new_sub_queue(curr, path);
+		new_sub_queue(curr, path);
 }

@@ -14,7 +14,7 @@
 
 # define HASHTABLE_H
 
-# include "libft.h"
+# include "../libft/libft.h"
 
 # define PERTURB_SHIFT 5
 

@@ -21,8 +21,8 @@ static void		update_visited_status(t_edge *edge)
 	int		visited;
 
 	visited = edge->flow != 0 ? TRUE : FALSE;
-	edge->content->head->visited = visited;
-	edge->content->tail->visited = visited;
+	edge->head->visited = visited;
+	edge->tail->visited = visited;
 }
 
 /*
@@ -36,7 +36,7 @@ static void		update_flow(t_list *path)
 
 	while (path)
 	{
-		edge = path->content->connections;
+		edge = ((t_vert *)path->content)->connections;
 		while (edge->head != path->next->content)
 			edge = edge->next_conn;
 		edge->flow += 1;

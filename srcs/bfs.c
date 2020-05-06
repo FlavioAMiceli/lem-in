@@ -12,24 +12,12 @@
 
 #include "lem_in.h"
 
-static void		free_path(t_list **path)
-{
-	t_list	*current;
-
-	current = *path;
-	while (current)
-	{
-		next = current->next;
-		ft_memdel(current);
-		current = next;
-	}
-	path = NULL;
-}
-
 static t_list	*bfs_expand(
 	t_list *rev_path, t_list **end_queue, t_vert *sink, t_hmap *rooms)
 {
-	edge = rev_path->content->connections
+	t_edge	*edge;
+
+	edge = ((t_vert *)(rev_path->content))->connections;
 	while (edge)
 	{
 		if (is_reachable(edge, rev_path->content, rooms))
@@ -61,7 +49,7 @@ t_list	*bfs(t_vert *source, t_vert *sink, t_hmap *rooms)
 	queue->content = source;
 	while (queue)
 	{
-		rev_path = ft_dequeue(queue);
+		rev_path = ft_lstdequeue(&queue);
 		rev_path = bfs_expand(rev_path, &end_queue, sink, rooms);
 		if (rev_path)
 		{
