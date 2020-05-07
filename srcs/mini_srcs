@@ -25,4 +25,9 @@ MINI_SOURCES := free_and_return \
 	alg_distance \
 	alg_threshold \
 	alg_keep_searching \
-	path_set
+	path_set \
+	a_star \
+	a_star_aux \
+	a_star_queue \
+	max_flow \
+	insert_into_queue

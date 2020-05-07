@@ -12,7 +12,7 @@
 
 #include "hashtable.h"
 
-static int	store_value(t_slot **slot, char *key, void *value)
+static int	store_value(t_hmap *hmap, t_slot **slot, char *key, void *value)
 {
 	(*slot) = (t_slot*)ft_memalloc(sizeof(t_slot));
 	if ((*slot) == NULL)
@@ -24,6 +24,7 @@ static int	store_value(t_slot **slot, char *key, void *value)
 		return (-1);
 	}
 	(*slot)->val = value;
+	hmap->len += 1;
 	return (0);
 }
 
@@ -36,24 +37,20 @@ static int	store_value(t_slot **slot, char *key, void *value)
 int			hmap_set(t_hmap *hmap, char *key, void *value)
 {
 	unsigned long	hash;
-	unsigned int	checked;
 	int				i;
 
 	hash = hmap_hash(key, hmap->n);
 	i = hash % hmap->n;
-	checked = 0;
 	if (key == NULL)
 		return (-1);
 	while (hmap->slots[i] != NULL &&
-		!ft_strequ(hmap->slots[i]->key, key) && checked <= hmap->n)
+		!ft_strequ(hmap->slots[i]->key, key) && hmap->len < hmap->n)
 	{
 		i = (((5 * i) + 1) + hash) % hmap->n;
 		hash >>= PERTURB_SHIFT;
-		if (hash == 0)
-			checked++;
 	}
 	if (hmap->slots[i] == NULL)
-		return (store_value(&(hmap->slots[i]), key, value));
+		return (store_value(hmap, &(hmap->slots[i]), key, value));
 	else if (ft_strequ(hmap->slots[i]->key, key))
 	{
 		hmap->slots[i]->val = value;
