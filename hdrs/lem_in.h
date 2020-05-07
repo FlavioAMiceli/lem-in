@@ -108,7 +108,6 @@ int				graph_del_and_return(int ret, t_graph *graph);
 
 int				graph_new(t_graph *graph, t_input_info *input);
 int				edge_new(char **input_line, t_graph *graph);
-}				t_graph;
 
 int				ft_isint(char *str);
 void			ft_strarrdel(char ***arr);
@@ -118,8 +117,6 @@ int				strarrdel_and_return(int ret, char ***strarr);
 int				strarrdel_edgedel_and_return(int ret, char ***strarr, t_edge **edge);
 int				free_graph_input_and_return(int ret, t_graph *graph,
 				t_input_info *input);
-
-int				graph_set(t_graph *graph, t_input_info *input);
 
 void			graph_del(t_graph *graph);
 void			vert_del(t_vert **vert);
