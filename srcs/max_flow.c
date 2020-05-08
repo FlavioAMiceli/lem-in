@@ -16,7 +16,8 @@
 **	Params: edge, to find rooms that have modified flow
 **	Return:
 */
-static void		update_visited_status(t_edge *edge)
+
+static void	update_visited_status(t_edge *edge)
 {
 	int		visited;
 
@@ -29,7 +30,8 @@ static void		update_visited_status(t_edge *edge)
 **	Params:	path, list containing vertices used
 **	Return:
 */
-static void		update_flow(t_list *path)
+
+static void	update_flow(t_list *path)
 {
 	t_edge	*edge;
 	t_list	*tmp;
@@ -54,7 +56,8 @@ static void		update_flow(t_list *path)
 **			hop, number of hops to reach current vertex
 **	Return:
 */
-static void		update_hops(t_vert *s, int hop)
+
+static void	update_hops(t_vert *s, int hop)
 {
 	t_edge	*edge;
 
@@ -74,22 +77,16 @@ static void		update_hops(t_vert *s, int hop)
 **			s, t source and sink adresses
 **	Return:
 */
-void			edmonds_karp(t_vert *s, t_vert *t, t_vert *rooms)
+
+void		edmonds_karp(t_vert *s, t_vert *t, t_vert *rooms)
 {
 	t_list	*path;
-	int		path_found;
 
-	path_found = TRUE;
-	while (path_found)
+	rooms_used_to_false(rooms);
+	path = a_star(s, t);
+	if (path)
 	{
-		path_found = FALSE;
-		rooms_used_to_false(rooms);
-		path = a_star(s, t);
-		if (path)
-		{
-			update_flow(path);
-			update_hops(s, 0);
-			path_found = TRUE;
-		}
+		update_flow(path);
+		update_hops(s, 0);
 	}
 }
