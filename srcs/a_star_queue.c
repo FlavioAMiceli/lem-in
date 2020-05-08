@@ -24,7 +24,7 @@ static void	bfs_clear_queue(t_list *queue)
 
 	while (queue)
 	{
-		free_path(&(queue->content));
+		free_path((t_list **)(&(queue->content)));
 		current = queue->next;
 		free(queue);
 		queue = current;
@@ -62,11 +62,11 @@ void		init_queue(t_list **queue, t_vert *source)
 {
 	t_list *head;
 
-	head = (t_list*)ft_memalloc(sizeof(t_list));
+	(*queue) = (t_list*)ft_memalloc(sizeof(t_list));
+	head = (*queue);
 	head->content = (t_list*)ft_memalloc(sizeof(t_list));
 	head->SCORE = source->distance;
-	head->content->content = source;
-	queue = &head;
+	((t_list *)head->content)->content = source;
 }
 
 /*
@@ -78,7 +78,6 @@ void		init_queue(t_list **queue, t_vert *source)
 t_list		*a_star_dequeue(t_list **queue)
 {
 	t_list	*equal_score_paths;
-	t_list	*path;
 
 	equal_score_paths = ft_lstdequeue(queue);
 	if (queue == NULL && equal_score_paths->next)

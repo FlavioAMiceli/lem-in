@@ -23,7 +23,7 @@ int		main(void)
 	int fd = open("tests/maps/valid_path_threshold", O_RDONLY);
 	if (fd < 0)
 	{
-		ft_printf("map doesn't exist\n");
+		ft_putendl("map doesn't exist");
 		return (0);
 	}
 	dup2(fd, 0);
@@ -33,10 +33,10 @@ int		main(void)
 	if (input_read(&input) == ERROR ||
 		graph_new(&graph, &input) == ERROR)
 	{
-		ft_dprintf(2, "Error\n");
+		ft_putendl_fd("Error", 2);
 		return (free_graph_input_and_return(0, &graph, &input));
 	}
-	ft_printf("map is valid\n");
+	ft_putendl("map is valid");
 	distance_set(&graph, graph.sink, NULL);
 	t_vert	*path_1 = hmap_get(graph.vertices, "B");
 	t_vert	*path_2 = hmap_get(graph.vertices, "C");

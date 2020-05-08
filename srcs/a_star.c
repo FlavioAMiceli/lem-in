@@ -23,6 +23,7 @@
 static t_list	*a_star_expand(t_list **queue, t_vert *sink, t_hmap *rooms)
 {
 	t_list	*path;
+	t_list	*new_path;
 	t_edge	*edge;
 
 	path = a_star_dequeue(queue);
@@ -44,6 +45,7 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink, t_hmap *rooms)
 			edge = edge->next_conn;
 			// insert into queue
 			insert_into_queue(queue, new_path);
+		}
 	}
 	free(path);
 	return (NULL);
@@ -68,7 +70,7 @@ t_list			*a_star(t_vert *source, t_vert *sink, t_hmap *rooms)
 		if (rev_path)
 		{
 			a_star_clear_queue(queue);
-			return (ft_lstrev(rev_path));
+			return (ft_lstrev(&rev_path));
 		}
 	}
 	return (NULL);

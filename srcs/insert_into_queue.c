@@ -14,7 +14,7 @@
 
 static void	add_to_front_of_sub_queue(t_list *curr, t_list *path)
 {
-	ft_lstadd(&(curr->content), ft_lstnew(&(path), sizeof(t_list *)));
+	ft_lstadd((t_list **)&(curr->content), ft_lstnew(&(path), sizeof(t_list *)));
 	curr->SCORE = path->SCORE;
 }
 
@@ -24,7 +24,7 @@ static void	new_sub_queue(t_list *curr, t_list *path)
 
 	temp = curr->next;
 	curr->next = ft_lstnew(path, sizeof(t_list *));
-	curr->next->SCORE = path->score;
+	curr->next->SCORE = path->SCORE;
 	curr->next->next = temp;
 }
 

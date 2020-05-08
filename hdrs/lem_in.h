@@ -50,6 +50,7 @@ typedef struct	s_vert
 	int				distance;
 	unsigned int	hops;
 	int				visited;
+	int				used;
 	int				conn_count;
 	struct s_edge	*connections;
 	struct s_vert	*next_vert;
@@ -138,7 +139,6 @@ int				keep_searching(t_graph *graph, t_vert *new_start);
 t_list			*a_star(t_vert *source, t_vert *sink, t_hmap *rooms);
 t_list			*a_star_dequeue(t_list **queue);
 void			a_star_clear_queue(t_list *queue);
-void			bfs_clear_queue(t_list *queue);
 
 void			init_queue(t_list **queue, t_vert *source);
 void			insert_into_queue(t_list **queue, t_list *path);
