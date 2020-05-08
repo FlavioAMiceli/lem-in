@@ -18,7 +18,7 @@
 **	return:
 */
 
-void	hmap_del(t_hmap *hmap, char *key)
+void	hmap_del_slot(t_hmap *hmap, char *key)
 {
 	unsigned long	hash;
 	unsigned int	checked;

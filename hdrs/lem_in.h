@@ -136,7 +136,7 @@ unsigned int	threshold(t_path **paths, unsigned int idx,
 
 int				keep_searching(t_graph *graph, t_vert *new_start);
 
-t_list			*a_star(t_vert *source, t_vert *sink, t_hmap *rooms);
+t_list			*a_star(t_vert *source, t_vert *sink);
 t_list			*a_star_dequeue(t_list **queue);
 void			a_star_clear_queue(t_list *queue);
 
@@ -147,6 +147,6 @@ void			rooms_used_to_false(t_vert *rooms);
 int				evaluate(t_list *path);
 void			free_path(t_list **path);
 t_list			*copy_path(t_list *src);
-int				is_reachable(t_edge *edge, t_vert *room, t_hmap *rooms);
+int				is_reachable(t_edge *edge, t_vert *room);
 
 #endif

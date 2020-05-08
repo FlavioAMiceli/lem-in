@@ -74,7 +74,7 @@ static void		update_hops(t_vert *s, int hop)
 **			s, t source and sink adresses
 **	Return:
 */
-void			edmonds_karp(t_hmap *v, t_vert *s, t_vert *t, t_vert *rooms)
+void			edmonds_karp(t_vert *s, t_vert *t, t_vert *rooms)
 {
 	t_list	*path;
 	int		path_found;
@@ -84,7 +84,7 @@ void			edmonds_karp(t_hmap *v, t_vert *s, t_vert *t, t_vert *rooms)
 	{
 		path_found = FALSE;
 		rooms_used_to_false(rooms);
-		path = a_star(s, t, v);
+		path = a_star(s, t);
 		if (path)
 		{
 			update_flow(path);

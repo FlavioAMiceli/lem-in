@@ -20,7 +20,7 @@
 **	Return:	NULL if sink hasn't been reached yet,
 **			otherwise shortest path in reverse.
 */
-static t_list	*a_star_expand(t_list **queue, t_vert *sink, t_hmap *rooms)
+static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 {
 	t_list	*path;
 	t_list	*new_path;
@@ -31,7 +31,7 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink, t_hmap *rooms)
 	while (edge)
 	{
 		// copy path, add each neighbour to front, insert into queue
-		if (is_reachable(edge, path->content, rooms))
+		if (is_reachable(edge, path->content))
 		{
 			new_path = copy_path(path);
 			ft_lstadd(&new_path, ft_lstnew(&(edge->head), sizeof(t_vert *)));
@@ -58,7 +58,7 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink, t_hmap *rooms)
 **	Return:	linked list of vertices
 **			that make up the shortest path from source to sink
 */
-t_list			*a_star(t_vert *source, t_vert *sink, t_hmap *rooms)
+t_list			*a_star(t_vert *source, t_vert *sink)
 {
 	t_list	*queue;
 	t_list	*rev_path;
@@ -66,7 +66,7 @@ t_list			*a_star(t_vert *source, t_vert *sink, t_hmap *rooms)
 	init_queue(&queue, source);
 	while (queue)
 	{
-		rev_path = a_star_expand(&queue, sink, rooms);
+		rev_path = a_star_expand(&queue, sink);
 		if (rev_path)
 		{
 			a_star_clear_queue(queue);
