@@ -5,8 +5,8 @@
 #                                                      +:+                     #
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
-#    Created: 2020/01/07 18:47:20 by mmarcell       #+#    #+#                 #
-#    Updated: 2020/03/31 10:33:22 by moana         ########   odam.nl          #
+#    Created: 2020/01/07 18:47:20 by mmarcell      #+#    #+#                  #
+#    Updated: 2020/05/07 13:26:39 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ HDRS_PATH := hdrs
 INCLUDES := -I $(HDRS_PATH) -I $(LIBFT_PATH)
 HDRS := $(HDRS_PATH)/lem_in.h
 
-PLUS := \033[0;32m+\033[0;00m
-MINUS := \033[0;31m-\033[0;00m
+PLUS = $$(tput setaf 2)+$$(tput sgr0)
+MINUS = $$(tput setaf 1)-$$(tput sgr0)
 
 all: $(NAME)
 
@@ -42,19 +42,19 @@ objs:
 	@mkdir -p $@
 
 $(LIBFT): FORCE
-	@make -C $(LIBFT_PATH) | sed -e $$'s/^/$(LIBFT_PATH): /'
+	@make -C $(LIBFT_PATH) | sed "s/^/$(LIBFT_PATH): /"
 
 clean: lclean
-	@make clean -C $(LIBFT_PATH) | sed -e $$'s/^/$(LIBFT_PATH): /'
+	@make clean -C $(LIBFT_PATH) | sed "s/^/$(LIBFT_PATH): /"
 
 lclean:
-	@rm -rfv objs | sed -e $$'s/^/ $(MINUS) /'
+	@rm -rfv objs | sed "s/^/ $(MINUS) /"
 
 fclean: clean lfclean
-	@rm -fv $(LIBFT) | sed -e $$'s/^/ $(MINUS) /'
+	@rm -fv $(LIBFT) | sed "s/^/ $(MINUS) /"
 
 lfclean: lclean
-	@rm -fv $(NAME) | sed -e $$'s/^/ $(MINUS) /'
+	@rm -fv $(NAME) | sed "s/^/ $(MINUS) /"
 
 re: fclean all
 
