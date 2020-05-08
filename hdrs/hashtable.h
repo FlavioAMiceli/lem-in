@@ -14,7 +14,7 @@
 
 # define HASHTABLE_H
 
-# include "libft.h"
+# include "../libft/libft.h"
 
 # define PERTURB_SHIFT 5
 
@@ -27,6 +27,7 @@ typedef struct	s_slot
 typedef struct	s_hmap
 {
 	t_slot			**slots;
+	unsigned int	len;
 	unsigned int	n;
 }				t_hmap;
 

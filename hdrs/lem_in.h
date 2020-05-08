@@ -19,6 +19,7 @@
 # define FALSE 0
 # define OK 1
 # define ERROR 0
+# define SCORE content_size
 
 typedef struct	s_input_line
 {
@@ -108,6 +109,15 @@ int				graph_del_and_return(int ret, t_graph *graph);
 int				graph_new(t_graph *graph, t_input_info *input);
 int				edge_new(char **input_line, t_graph *graph);
 
+int				ft_isint(char *str);
+void			ft_strarrdel(char ***arr);
+
+int				strdel_and_return(int ret, char **str);
+int				strarrdel_and_return(int ret, char ***strarr);
+int				strarrdel_edgedel_and_return(int ret, char ***strarr, t_edge **edge);
+int				free_graph_input_and_return(int ret, t_graph *graph,
+				t_input_info *input);
+
 void			graph_del(t_graph *graph);
 void			vert_del(t_vert **vert);
 void			edge_del(t_edge **edge);
@@ -124,5 +134,19 @@ unsigned int	threshold(t_path **paths, unsigned int idx,
 				unsigned int placeholder);
 
 int				keep_searching(t_graph *graph, t_vert *new_start);
+
+t_list			*a_star(t_vert *source, t_vert *sink, t_hmap *rooms);
+t_list			*a_star_dequeue(t_list **queue);
+void			a_star_clear_queue(t_list *queue);
+void			bfs_clear_queue(t_list *queue);
+
+void			init_queue(t_list **queue, t_vert *source);
+void			insert_into_queue(t_list **queue, t_list *path);
+
+void			rooms_used_to_false(t_vert *rooms);
+int				evaluate(t_list *path);
+void			free_path(t_list **path);
+t_list			*copy_path(t_list *src);
+int				is_reachable(t_edge *edge, t_vert *room, t_hmap *rooms);
 
 #endif

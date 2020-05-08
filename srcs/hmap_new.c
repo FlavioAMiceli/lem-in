@@ -34,5 +34,6 @@ t_hmap	*hmap_new(int n)
 		return (NULL);
 	}
 	hmap->n = (n * 3) / 2;
+	hmap->len = 0;
 	return (hmap);
 }
