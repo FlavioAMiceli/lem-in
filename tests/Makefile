@@ -5,8 +5,8 @@
 #                                                      +:+                     #
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
-#    Created: 2020/01/08 13:03:52 by mmarcell       #+#    #+#                 #
-#    Updated: 2020/03/26 18:11:50 by moana         ########   odam.nl          #
+#    Created: 2020/01/08 13:03:52 by mmarcell      #+#    #+#                  #
+#    Updated: 2020/05/07 13:21:23 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,27 +27,27 @@ HDRS_PATH := ../hdrs
 INCLUDES := -I $(HDRS_PATH) -I $(LIBFT_PATH)
 HDRS := $(HDRS_PATH)/lem_in.h
 
-PLUS = \033[38;5;40m+\033[0;00m
-MINUS = \033[38;5;160m-\033[0;00m
+PLUS = $$(tput setaf 2)+$$(tput sgr0)
+MINUS = $$(tput setaf 1)-$$(tput sgr0)
 
 all: test
 
 test: $(OBJS) $(TESTS_OBJS)
 	@$(CC) -o $@ $^ -lcriterion $(LIBFT)
-	@echo -e " ${PLUS} $@"
+	@echo " ${PLUS} $@"
 
 objs/%.o: srcs/%.c $(HDRS) | objs
 	@$(CC) -c $(CFLAGS) -o $@ $(INCLUDES) $<
-	@echo -e " ${PLUS} $@"
+	@echo " ${PLUS} $@"
 
 objs:
 	@mkdir -p $@
 
 clean:
-	@rm -fv $(TESTS_OBJS) | sed -e $$'s/^/ $(MINUS) /'
+	@rm -fv $(TESTS_OBJS) | sed 's/^/ $(MINUS) /'
 
 fclean: clean
-	@rm -fv test | sed -e $$'s/^/ $(MINUS) /'
+	@rm -fv test | sed 's/^/ $(MINUS) /'
 
 re: fclean all
 
