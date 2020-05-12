@@ -17,7 +17,7 @@
 **	Return:
 */
 
-static void	update_visited_status(t_edge *edge)
+static void		update_visited_status(t_edge *edge)
 {
 	int		visited;
 
@@ -31,7 +31,7 @@ static void	update_visited_status(t_edge *edge)
 **	Return:
 */
 
-static void	update_flow(t_list *path)
+static void		update_flow(t_list *path)
 {
 	t_edge	*edge;
 	t_list	*tmp;
@@ -57,7 +57,7 @@ static void	update_flow(t_list *path)
 **	Return:
 */
 
-static void	update_hops(t_vert *s, int hop)
+static void		update_hops(t_vert *s, int hop)
 {
 	t_edge	*edge;
 
@@ -72,21 +72,53 @@ static void	update_hops(t_vert *s, int hop)
 }
 
 /*
-**	Params:	v, adress of hmap storing vertices
-**				(used to find every edge for that vertex)
-**			s, t source and sink adresses
+**	Params:	s, source vertex
+**
+**	Return: Unvisited vertex connected to source with lowest distance to sink
+*/
+
+static t_vert	*get_next_start(t_vert *s)
+{
+	t_vert	*next_start;
+	t_edge	*edge;
+	int		min_dist;
+
+	edge = s->connections;
+	min_dist = FT_INT_MAX;
+	next_start = NULL;
+	while (edge)
+	{
+		if (edge->head->visited == FALSE && edge->head->distance < min_dist)
+		{
+			next_start = edge->head;
+			min_dist = edge->head->distance;
+		}
+		edge = edge->next_conn;
+	}
+	return (next_start);
+}
+
+/*
+**	Params:	graph, struct containing all information about the graph
+**
 **	Return:
 */
 
-void		edmonds_karp(t_vert *s, t_vert *t, t_vert *rooms)
+void			edmonds_karp(t_graph *graph)
 {
-	t_list	*path;
+	t_list	*aug_path;
+	t_vert	*new_start;
 
-	rooms_used_to_false(rooms);
-	path = a_star(s, t);
-	if (path)
+	new_start = get_next_start(graph->source);
+	while (keep_searching(graph, new_start))
 	{
-		update_flow(path);
-		update_hops(s, 0);
+		rooms_used_to_false(graph->vert_list);
+		aug_path = a_star(graph->source, graph->sink);
+		if (aug_path)
+		{
+			update_flow(aug_path);
+			update_hops(graph->source, 0);
+		}
+		new_start = get_next_start(graph->source);
 	}
 }
