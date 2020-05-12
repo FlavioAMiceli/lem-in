@@ -4,13 +4,14 @@
 /*   a_star_queue.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
-/*                                                  +#+                       */
+/*                                                   +#+                      */
 /*   Created: 2020/04/10 10:55:30 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/04/10 10:55:47 by fmiceli       ########   odam.nl         */
+/*   Updated: 2020/05/12 11:15:51 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <stdlib.h>
 
 /*
 **	Params:	queue, ordered list of queues of reverse paths to expand.

@@ -6,11 +6,12 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/07 10:27:30 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/04/07 10:29:10 by fmiceli       ########   odam.nl         */
+/*   Updated: 2020/05/12 11:15:21 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <stdlib.h>
 
 /*
 **	Params:	queue, ordered list of queues of reverse paths to expand.

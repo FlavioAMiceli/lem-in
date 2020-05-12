@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   bfs.c                                              :+:    :+:            */
+/*   bfs_aux.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/02 06:39:13 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/04/02 06:40:00 by fmiceli       ########   odam.nl         */
+/*   Updated: 2020/05/12 11:16:24 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <stdlib.h>
 
 void	bfs_clear_queue(t_list *queue)
 {

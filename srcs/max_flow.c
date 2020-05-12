@@ -6,11 +6,12 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/25 18:13:13 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/03/25 18:14:00 by fmiceli       ########   odam.nl         */
+/*   Updated: 2020/05/12 11:16:58 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <stdlib.h>
 
 /*
 **	Params: edge, to find rooms that have modified flow
