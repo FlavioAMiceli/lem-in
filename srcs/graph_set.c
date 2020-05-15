@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/27 17:47:58 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/30 17:35:24 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/05/15 18:11:35 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	graph_set(t_graph *graph, t_input_info *input)
 {
 	graph->source = hmap_get(graph->vertices, input->start->room_name);
 	graph->sink = hmap_get(graph->vertices, input->end->room_name);
-	graph->ant_count = input->ant_no;
+	graph->ant_total = input->ant_no;
 	graph->vert_count = input->room_count;
 }
 

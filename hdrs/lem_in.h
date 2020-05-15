@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/30 17:35:10 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/05/15 18:11:14 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct	s_path
 
 typedef struct	s_graph
 {
-	unsigned int	ant_count;
+	unsigned int	ant_total;
 	unsigned int	vert_count;
 	unsigned int	path_count;
 	t_vert			*vert_list;
@@ -93,11 +93,11 @@ typedef struct	s_ant
 	struct s_ant	*next;
 }				t_ant;
 
-typedef struct	s_ant_list
+typedef struct	s_print
 {
-	t_ant			*first_ant;
-	t_ant			*last_ant;
-}				t_ant_list;
+	unsigned int	ant_send;
+	t_ant			*moving_ants;
+}				t_print;
 
 int				strdel_and_return(int ret, char **str);
 int				strarrdel_and_return(int ret, char ***strarr);
