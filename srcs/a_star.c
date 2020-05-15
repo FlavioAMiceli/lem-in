@@ -67,6 +67,7 @@ t_list			*a_star(t_vert *source, t_vert *sink)
 	init_queue(&queue, source);
 	while (queue)
 	{
+		ft_putendl("Enter a_star_expand"); //remove
 		rev_path = a_star_expand(&queue, sink);
 		if (rev_path)
 		{

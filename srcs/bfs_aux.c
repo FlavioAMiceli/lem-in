@@ -47,12 +47,14 @@ t_list	*copy_path(t_list *src)
 	t_list	*current;
 	t_list	*cpy_end;
 
-	cpy = ft_lstnew(src->content, src->content_size);
+	cpy = ft_lstnew(src->content, sizeof(t_vert *));
+	cpy->SCORE = ((t_vert *)src->content)->distance;
 	cpy_end = cpy;
 	current = src->next;
 	while (current)
 	{
 		cpy_end->next = ft_lstnew(current->content, sizeof(t_vert *));
+		cpy_end->SCORE = ((t_vert *)current->content)->distance;
 		cpy_end = cpy_end->next;
 	}
 	return (cpy);

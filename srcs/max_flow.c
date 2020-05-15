@@ -114,7 +114,9 @@ void			edmonds_karp(t_graph *graph)
 	while (keep_searching(graph, new_start))
 	{
 		rooms_used_to_false(graph->vert_list);
+		ft_putendl("Enter a_star"); // REMOVE
 		aug_path = a_star(graph->source, graph->sink);
+		ft_putendl("Exit a_star"); // REMOVE
 		if (aug_path)
 		{
 			update_flow(aug_path);

@@ -36,13 +36,7 @@ int		main(void)
 		ft_putendl_fd("Error", 2);
 		return (free_graph_input_and_return(0, &graph, &input));
 	}
-	ft_putendl("map is valid");
 	distance_set(&graph, graph.sink, NULL);
-	t_vert	*path_1 = hmap_get(graph.vertices, "B");
-	t_vert	*path_2 = hmap_get(graph.vertices, "C");
-	path_1->hops = 3;
-	path_2->hops = 1;
-	path_new(&graph, path_1);
-	path_new(&graph, path_2);
+	edmonds_karp(&graph);
 	return (free_graph_input_and_return(0, &graph, &input));
 }

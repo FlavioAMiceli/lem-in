@@ -68,6 +68,7 @@ void		init_queue(t_list **queue, t_vert *source)
 	head->content = (t_list*)ft_memalloc(sizeof(t_list));
 	head->SCORE = source->distance;
 	((t_list *)head->content)->content = source;
+	((t_list *)head->content)->SCORE = source->distance;
 }
 
 /*
@@ -76,12 +77,35 @@ void		init_queue(t_list **queue, t_vert *source)
 **	Return: path found at top node of top queue.
 */
 
+// t_list		*a_star_dequeue(t_list **queue)
+// {
+// 	t_list	*equal_score_paths;
+//
+// 	equal_score_paths = ft_lstdequeue(queue);
+// 	if (queue == NULL && equal_score_paths->next)
+// 		queue = &(equal_score_paths->next);
+// 	return (equal_score_paths->content);
+// }
+
 t_list		*a_star_dequeue(t_list **queue)
 {
-	t_list	*equal_score_paths;
+	t_list	*current;
+	t_list	*path;
 
-	equal_score_paths = ft_lstdequeue(queue);
-	if (queue == NULL && equal_score_paths->next)
-		queue = &(equal_score_paths->next);
-	return (equal_score_paths->content);
+	current = *queue;
+	path = current->content;
+	if (((t_list *)current->content)->next)
+	{
+		(*queue) = (((t_list *)current->content)->next);
+		(*queue)->next = current->next;
+	}
+	else if (current->next)
+		(*queue) = current->next;
+	else
+	{
+		(*queue) = NULL;
+		queue = NULL;
+	}
+	free(current);
+	return (path);
 }

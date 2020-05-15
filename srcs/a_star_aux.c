@@ -37,8 +37,13 @@ int		evaluate(t_list *path)
 	int	prev_dist;
 	int	curr_dist;
 
-	prev_score = path->next ? path->next->SCORE : 0;
-	prev_dist = path->next ? ((t_vert *)path->next->content)->distance : 0;
+	prev_score = 0;
+	prev_dist = 0;
+	if (path->next)
+	{
+		prev_score = path->next->SCORE;
+		prev_dist = ((t_vert *)(path->next->content))->distance;
+	}
 	curr_dist = ((t_vert *)path->content)->distance;
 	return (curr_dist + prev_score - prev_dist + 1);
 }
