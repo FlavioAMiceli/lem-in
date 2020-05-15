@@ -92,6 +92,7 @@ t_list		*a_star_dequeue(t_list **queue)
 	t_list	*current;
 	t_list	*path;
 
+	// TODO: Check whether the correct return value is current, or current->content
 	current = *queue;
 	path = current->content;
 	if (((t_list *)current->content)->next)
@@ -106,6 +107,6 @@ t_list		*a_star_dequeue(t_list **queue)
 		(*queue) = NULL;
 		queue = NULL;
 	}
-	free(current);
+	free(current); // Is this needed?
 	return (path);
 }

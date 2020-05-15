@@ -32,6 +32,9 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 	while (edge)
 	{
 		// copy path, add each neighbour to front, insert into queue
+		ft_putstr("expanding next edge with head: ");
+		ft_putstr(((t_vert *)edge->head)->name); //remove
+		ft_putchar('\n'); //remove
 		if (is_reachable(edge, path->content))
 		{
 			new_path = copy_path(path);
@@ -43,7 +46,7 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 				free(path);
 				return (new_path);
 			}
-			edge = edge->next_conn;
+			edge = edge->next_edge;
 			// insert into queue
 			insert_into_queue(queue, new_path);
 		}
@@ -67,13 +70,22 @@ t_list			*a_star(t_vert *source, t_vert *sink)
 	init_queue(&queue, source);
 	while (queue)
 	{
+		ft_putchar('\n'); //remove
 		ft_putendl("Enter a_star_expand"); //remove
+		ft_putstr("Current vert: "); //remove
+		ft_putstr(((t_vert *)((t_list *)queue->content)->content)->name); //remove
+		ft_putchar('\n'); //remove
+		ft_putstr("Score: "); //remove
+		ft_putnbr(queue->SCORE); //remove
+		ft_putchar('\n'); //remove
 		rev_path = a_star_expand(&queue, sink);
 		if (rev_path)
 		{
+			ft_putendl("rev_path found"); //remove
 			a_star_clear_queue(queue);
 			return (ft_lstrev(&rev_path));
 		}
 	}
+	ft_putendl("No path found"); //remove
 	return (NULL);
 }
