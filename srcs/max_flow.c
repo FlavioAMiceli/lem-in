@@ -119,6 +119,7 @@ void			edmonds_karp(t_graph *graph)
 		ft_putendl("Exit a_star"); // REMOVE
 		if (aug_path)
 		{
+			ft_putendl("Updating_graph"); // REMOVE
 			update_flow(aug_path);
 			update_hops(graph->source, 0);
 		}

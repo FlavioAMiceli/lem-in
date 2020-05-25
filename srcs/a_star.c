@@ -43,7 +43,7 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 			// test if sink reached
 			if (edge->head == sink)
 			{
-				free(path);
+				ft_memdel((void **)&path);
 				return (new_path);
 			}
 			edge = edge->next_conn;
@@ -68,7 +68,7 @@ t_list			*a_star(t_vert *source, t_vert *sink)
 	t_list	*rev_path;
 
 	init_queue(&queue, source);
-	while (queue)
+	while (queue->content != NULL)
 	{
 		ft_putchar('\n'); //remove
 		ft_putendl("Enter a_star_expand"); //remove
@@ -82,7 +82,7 @@ t_list			*a_star(t_vert *source, t_vert *sink)
 		if (rev_path)
 		{
 			ft_putendl("rev_path found"); //remove
-			a_star_clear_queue(queue);
+			a_star_clear_queue(&queue);
 			return (ft_lstrev(&rev_path));
 		}
 	}

@@ -139,7 +139,7 @@ int				keep_searching(t_graph *graph, t_vert *new_start);
 void			edmonds_karp(t_graph *graph);
 t_list			*a_star(t_vert *source, t_vert *sink);
 t_list			*a_star_dequeue(t_list **queue);
-void			a_star_clear_queue(t_list *queue);
+void			a_star_clear_queue(t_list **queue);
 
 void			init_queue(t_list **queue, t_vert *source);
 void			insert_into_queue(t_list **queue, t_list *path);

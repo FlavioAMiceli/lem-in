@@ -38,12 +38,12 @@ static void	bfs_clear_queue(t_list *queue)
 **	Return:
 */
 
-void		a_star_clear_queue(t_list *queue)
+void		a_star_clear_queue(t_list **queue)
 {
 	t_list *paths;
 	t_list *current;
 
-	paths = queue->content;
+	paths = (*queue)->content;
 	while (paths)
 	{
 		current = paths;
@@ -63,8 +63,8 @@ void		init_queue(t_list **queue, t_vert *source)
 {
 	t_list *head;
 
-	(*queue) = (t_list*)ft_memalloc(sizeof(t_list));
-	head = (*queue);
+	head = (t_list*)ft_memalloc(sizeof(t_list));
+	(*queue) = head;
 	head->content = (t_list*)ft_memalloc(sizeof(t_list));
 	head->SCORE = source->distance;
 	((t_list *)head->content)->content = source;
@@ -103,10 +103,7 @@ t_list		*a_star_dequeue(t_list **queue)
 	else if (current->next)
 		(*queue) = current->next;
 	else
-	{
 		(*queue) = NULL;
-		queue = NULL;
-	}
 	free(current); // Is this needed?
 	return (path);
 }

@@ -11,9 +11,11 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <stdio.h> // REMOVE
 
 static void	add_to_front_of_sub_queue(t_list *curr, t_list *path)
 {
+	ft_putendl("Enter atfosq"); //remove
 	ft_lstadd((t_list **)&(curr->content), ft_lstnew(&(path), sizeof(t_list *)));
 	curr->SCORE = path->SCORE;
 }
@@ -40,19 +42,30 @@ void	insert_into_queue(t_list **queue, t_list *path)
 	t_list	*curr;
 	t_list	*temp;
 
+	// ft_putendl("Enter IIQ"); //remove
 	curr = *queue;
 	if (curr == NULL)
 	{
+		// ft_putendl("curr == NULL"); //remove
 		curr = ft_lstnew(path, sizeof(t_list *));
 		curr->SCORE = path->SCORE;
+		printf("%p, ", queue);
+		printf("%p, ", *queue);
+		printf("%p, ", (*queue)->content);
+		printf("%p, ", ((t_list *)(*queue)->content)->content);
+		printf("%s\n", ((t_vert *)((t_list *)(*queue)->content)->content)->name);
+		return ;
 	}
+	// ft_putendl("Pre while loop"); //remove
 	while (curr && curr->SCORE < path->SCORE)
 	{
 		temp = curr;
 		curr = curr->next;
 	}
+	// ft_putendl("Post while loop"); //remove
 	if (curr == NULL)
 	{
+		// ft_putendl("Curr == NULL post loop"); //remove
 		temp->next = ft_lstnew(path, sizeof(t_list *));
 		temp->next->SCORE = path->SCORE;
 	}
