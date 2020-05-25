@@ -46,7 +46,7 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 				free(path);
 				return (new_path);
 			}
-			edge = edge->next_edge;
+			edge = edge->next_conn;
 			// insert into queue
 			insert_into_queue(queue, new_path);
 		}
