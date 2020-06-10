@@ -41,23 +41,49 @@ void	free_path(t_list **path)
 	path = NULL;
 }
 
+static t_list	*copy_node(t_list *src)
+{
+	t_list	*node;
+
+	node = ft_memalloc(sizeof(t_list));
+	node->content = src->content;
+	node->SCORE = src->SCORE;
+	node->next = NULL;
+	return (node);
+}
+
 t_list	*copy_path(t_list *src)
 {
-	t_list	*cpy;
+	t_list	*head;
 	t_list	*current;
-	t_list	*cpy_end;
+	t_list	*tail;
 
-	cpy = ft_lstnew(src->content, sizeof(t_vert *));
-	cpy->SCORE = ((t_vert *)src->content)->distance;
-	cpy_end = cpy;
+	ft_putendl("Enter copy_path"); //remove
+	// ft_putstr("Current src: "); //remove
+	// ft_putstr(((t_vert *)src->content)->name); //remove
+	// ft_putchar('\n'); //remove
+	head = copy_node(src);
+	tail = head;
 	current = src->next;
+	// if (current)
+	// {
+	// 	ft_putstr("Next src: "); //remove
+	// 	ft_putstr(((t_vert *)current->content)->name); //remove
+	// 	ft_putchar('\n'); //remove
+	// }
+	// ft_putstr("Current copy: "); //remove
+	// ft_putstr(((t_vert *)head->content)->name); //remove
+	// ft_putchar('\n'); //remove
+	// ft_putstr("Score: "); //remove
+	// ft_putnbr(cpy->SCORE); //remove
+	// ft_putchar('\n'); //remove
 	while (current)
 	{
-		cpy_end->next = ft_lstnew(current->content, sizeof(t_vert *));
-		cpy_end->SCORE = ((t_vert *)current->content)->distance;
-		cpy_end = cpy_end->next;
+		tail->next = copy_node(current);
+		current = current->next;
+		tail = tail->next;
 	}
-	return (cpy);
+	return (head);
 }
 
 int		is_reachable(t_edge *edge, t_vert *room)

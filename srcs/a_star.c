@@ -28,11 +28,12 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 	t_edge	*edge;
 
 	path = a_star_dequeue(queue);
+	ft_putendl("Exit a_star_dequeue"); //remove
 	edge = ((t_vert *)(path->content))->connections;
 	while (edge)
 	{
 		// copy path, add each neighbour to front, insert into queue
-		ft_putstr("expanding next edge with head: ");
+		ft_putstr("expanding next edge with head: "); //remove
 		ft_putstr(((t_vert *)edge->head)->name); //remove
 		ft_putchar('\n'); //remove
 		if (is_reachable(edge, path->content))
@@ -51,7 +52,7 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 			insert_into_queue(queue, new_path);
 		}
 	}
-	free(path);
+	ft_memdel((void **)&path);
 	return (NULL);
 }
 
@@ -73,7 +74,7 @@ t_list			*a_star(t_vert *source, t_vert *sink)
 		ft_putchar('\n'); //remove
 		ft_putendl("Enter a_star_expand"); //remove
 		ft_putstr("Current vert: "); //remove
-		ft_putstr(((t_vert *)((t_list *)queue->content)->content)->name); //remove
+		ft_putstr(((t_vert *)((t_list *)((t_list *)queue->content)->content)->content)->name); //remove
 		ft_putchar('\n'); //remove
 		ft_putstr("Score: "); //remove
 		ft_putnbr(queue->SCORE); //remove

@@ -55,25 +55,6 @@ void		a_star_clear_queue(t_list **queue)
 /*
 **	Params:	queue, ordered list of queues of reverse paths to expand.
 **				first level nodes are sorted nodes of queues with equal scores.
-**			source, vertex that represents first the first room in graph.
-**	Return:
-*/
-
-void		init_queue(t_list **queue, t_vert *source)
-{
-	t_list *head;
-
-	head = (t_list*)ft_memalloc(sizeof(t_list));
-	(*queue) = head;
-	head->content = (t_list*)ft_memalloc(sizeof(t_list));
-	head->SCORE = source->distance;
-	((t_list *)head->content)->content = source;
-	((t_list *)head->content)->SCORE = source->distance;
-}
-
-/*
-**	Params:	queue, ordered list of queues of reverse paths to expand.
-**				first level nodes are sorted nodes of queues with equal scores.
 **	Return: path found at top node of top queue.
 */
 
@@ -91,19 +72,27 @@ t_list		*a_star_dequeue(t_list **queue)
 {
 	t_list	*current;
 	t_list	*path;
+	t_list	*tmp;
 
-	// TODO: Check whether the correct return value is current, or current->content
 	current = *queue;
-	path = current->content;
+	path = ((t_list *)current->content)->content;
 	if (((t_list *)current->content)->next)
 	{
-		(*queue) = (((t_list *)current->content)->next);
-		(*queue)->next = current->next;
+		tmp = current->content;
+		current->content = ((t_list *)current->content)->next;
+		free(tmp);
 	}
 	else if (current->next)
+	{
 		(*queue) = current->next;
+		free(current->content);
+		free(current);
+	}
 	else
+	{
 		(*queue) = NULL;
-	free(current); // Is this needed?
+		free(current->content);
+		free(current);
+	}
 	return (path);
 }
