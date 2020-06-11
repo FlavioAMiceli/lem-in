@@ -11,26 +11,39 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdio.h> // REMOVE
+
+static t_list 	*new_equal_score_queue(t_list *path)
+{
+	t_list	*head;
+
+	head = (t_list *)ft_memalloc(sizeof(t_list));
+	head->SCORE = path->SCORE;
+	head->next = NULL;
+	head->content = (t_list *)ft_memalloc(sizeof(t_list));
+	((t_list *)head->content)->content = path;
+	((t_list *)head->content)->SCORE = path->SCORE;
+	((t_list *)head->content)->next = NULL;
+	return (head);
+}
 
 static void	add_to_front_of_sub_queue(t_list *curr, t_list *path)
 {
-	ft_putendl("Enter atfosq (insert_into_queue)"); //remove
-	ft_putendl("CHECK THIS FOR CORRECT PLACEMENT"); //remove
-	ft_lstadd((t_list **)&(curr->content), ft_lstnew(&(path), sizeof(t_list *)));
-	curr->SCORE = path->SCORE;
+	t_list	*head;
+
+	head = (t_list *)ft_memalloc(sizeof(t_list));
+	head->SCORE = path->SCORE;
+	head->next = curr->content;
+	head->content = path;
+	curr->content = head;
 }
 
-static void	new_sub_queue(t_list *curr, t_list *path)
+static void	insert_sub_queue(t_list *prev, t_list *path)
 {
 	t_list	*temp;
 
-	ft_putendl("Enter nsq (insert_into_queue)"); //remove
-	ft_putendl("CHECK THIS FOR CORRECT PLACEMENT"); //remove
-	temp = curr->next;
-	curr->next = ft_lstnew(path, sizeof(t_list *));
-	curr->next->SCORE = path->SCORE;
-	curr->next->next = temp;
+	temp = prev->next;
+	prev->next = new_equal_score_queue(path);
+	prev->next->next = temp;
 }
 
 /*
@@ -45,32 +58,21 @@ void	insert_into_queue(t_list **queue, t_list *path)
 	t_list	*curr;
 	t_list	*temp;
 
-	ft_putendl("Enter IIQ"); //remove
 	curr = *queue;
 	if (curr == NULL)
 	{
-		ft_putendl("curr == NULL"); //remove
-		*queue = ft_lstnew(path, sizeof(t_list *));
-		(*queue)->SCORE = path->SCORE;
-		// printf("%p, ", queue);
-		// printf("%p\n", *queue);
+		*queue = new_equal_score_queue(path);
 		return ;
 	}
-	// ft_putendl("Pre while loop"); //remove
 	while (curr && curr->SCORE < path->SCORE)
 	{
 		temp = curr;
 		curr = curr->next;
 	}
-	// ft_putendl("Post while loop"); //remove
 	if (curr == NULL)
-	{
-		ft_putendl("Curr == NULL post loop"); //remove
-		temp->next = ft_lstnew(path, sizeof(t_list *));
-		temp->next->SCORE = path->SCORE;
-	}
+		temp->next = new_equal_score_queue(path);
 	else if (curr->SCORE == path->SCORE)
 		add_to_front_of_sub_queue(curr, path);
 	else
-		new_sub_queue(curr, path);
+		insert_sub_queue(temp, path);
 }

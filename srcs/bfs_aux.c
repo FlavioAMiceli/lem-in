@@ -58,25 +58,9 @@ t_list	*copy_path(t_list *src)
 	t_list	*current;
 	t_list	*tail;
 
-	ft_putendl("Enter copy_path"); //remove
-	// ft_putstr("Current src: "); //remove
-	// ft_putstr(((t_vert *)src->content)->name); //remove
-	// ft_putchar('\n'); //remove
 	head = copy_node(src);
 	tail = head;
 	current = src->next;
-	// if (current)
-	// {
-	// 	ft_putstr("Next src: "); //remove
-	// 	ft_putstr(((t_vert *)current->content)->name); //remove
-	// 	ft_putchar('\n'); //remove
-	// }
-	// ft_putstr("Current copy: "); //remove
-	// ft_putstr(((t_vert *)head->content)->name); //remove
-	// ft_putchar('\n'); //remove
-	// ft_putstr("Score: "); //remove
-	// ft_putnbr(cpy->SCORE); //remove
-	// ft_putchar('\n'); //remove
 	while (current)
 	{
 		tail->next = copy_node(current);

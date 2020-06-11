@@ -63,6 +63,7 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 **	Return:	linked list of vertices
 **			that make up the shortest path from source to sink
 */
+
 t_list			*a_star(t_vert *source, t_vert *sink)
 {
 	t_list	*queue;

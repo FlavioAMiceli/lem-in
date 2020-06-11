@@ -58,16 +58,6 @@ void		a_star_clear_queue(t_list **queue)
 **	Return: path found at top node of top queue.
 */
 
-// t_list		*a_star_dequeue(t_list **queue)
-// {
-// 	t_list	*equal_score_paths;
-//
-// 	equal_score_paths = ft_lstdequeue(queue);
-// 	if (queue == NULL && equal_score_paths->next)
-// 		queue = &(equal_score_paths->next);
-// 	return (equal_score_paths->content);
-// }
-
 t_list		*a_star_dequeue(t_list **queue)
 {
 	t_list	*current;
