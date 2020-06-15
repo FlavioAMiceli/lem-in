@@ -39,13 +39,16 @@ static void		update_flow(t_list *path)
 
 	while (path)
 	{
-		edge = ((t_vert *)path->content)->connections;
-		while (edge->head != path->next->content)
-			edge = edge->next_conn;
-		edge->flow += 1;
-		edge = edge->invert;
-		edge->flow -= 1;
-		update_visited_status(edge);
+		if (!ft_strequ(((t_vert *)path->content)->name, "snk"))
+		{
+			edge = ((t_vert *)path->content)->connections;
+			while (edge->head != path->next->content)
+				edge = edge->next_conn;
+			edge->flow += 1;
+			edge = edge->invert;
+			edge->flow -= 1;
+			update_visited_status(edge);
+		}
 		tmp = path;
 		path = path->next;
 		free(tmp);
@@ -114,15 +117,17 @@ void			edmonds_karp(t_graph *graph)
 	while (keep_searching(graph, new_start))
 	{
 		rooms_used_to_false(graph->vert_list);
-		ft_putendl("Enter a_star"); // REMOVE
+		// ft_putendl("Enter a_star"); // REMOVE
 		aug_path = a_star(graph->source, graph->sink);
-		ft_putendl("Exit a_star"); // REMOVE
+		// ft_putendl("Exit a_star"); // REMOVE
 		if (aug_path)
 		{
-			ft_putendl("Updating_graph"); // REMOVE
+			ft_putendl("Updating_graph flow"); // REMOVE
 			update_flow(aug_path);
+			ft_putendl("Updating_graph hops"); // REMOVE
 			update_hops(graph->source, 0);
 		}
+		// ft_putendl("get_next_start"); // REMOVE
 		new_start = get_next_start(graph->source);
 	}
 }

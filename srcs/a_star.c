@@ -13,23 +13,23 @@
 #include "lem_in.h"
 #include <stdlib.h>
 
-static void print_path(t_list *path)
-{
-	t_list	*curr;
+// static void print_path(t_list *path)
+// {
+// 	t_list	*curr;
+//
+// 	// remove this function
+// 	ft_putendl("Printing path:");
+// 	curr = path;
+// 	while (curr)
+// 	{
+// 		ft_putstr(((t_vert *)curr->content)->name);
+// 		ft_putchar(' ');
+// 		curr = curr->next;
+// 	}
+// 	ft_putchar('\n');
+// }
 
-	// remove this function
-	ft_putendl("Printing path:");
-	curr = path;
-	while (curr)
-	{
-		ft_putstr(((t_vert *)curr->content)->name);
-		ft_putchar(' ');
-		curr = curr->next;
-	}
-	ft_putchar('\n');
-}
-
-static int not_back(t_edge *edge, t_list *path)
+static int no_back_flow(t_edge *edge, t_list *path)
 {
 	if (!path->next)
 		return (TRUE);
@@ -60,10 +60,10 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 	while (edge)
 	{
 		// copy path, add each neighbour to front, insert into queue
-		ft_putstr("expanding next edge with head: "); //remove
-		ft_putstr(((t_vert *)edge->head)->name); //remove
-		ft_putchar('\n'); //remove
-		if (is_reachable(edge, path->content) && not_back(edge, path))
+		// ft_putstr("expanding next edge with head: "); //remove
+		// ft_putstr(((t_vert *)edge->head)->name); //remove
+		// ft_putchar('\n'); //remove
+		if (is_reachable(edge, path->content) && no_back_flow(edge, path))
 		{
 			new_path = (t_list *)ft_memalloc(sizeof(t_list));
 			new_path->content = edge->head;
@@ -76,7 +76,7 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 				return (new_path);
 			}
 			// insert into queue
-			print_path(new_path); //remove
+			// print_path(new_path); //remove
 			insert_into_queue(queue, new_path);
 		}
 		edge = edge->next_conn;
@@ -101,24 +101,24 @@ t_list			*a_star(t_vert *source, t_vert *sink)
 	init_queue(&queue, source);
 	while (queue && queue->content != NULL)
 	{
-		ft_putchar('\n'); //remove
-		// ft_putendl("Enter a_star_expand"); //remove
-		ft_putstr("Current vert: "); //remove
-		ft_putstr(((t_vert *)((t_list *)((t_list *)queue->content)->content)->content)->name); //remove
-		ft_putchar('\n'); //remove
-		ft_putstr("Score: "); //remove
-		ft_putnbr(queue->SCORE); //remove
-		ft_putchar('\n'); //remove
+		// ft_putchar('\n'); //remove
+		// // ft_putendl("Enter a_star_expand"); //remove
+		// ft_putstr("Current vert: "); //remove
+		// ft_putstr(((t_vert *)((t_list *)((t_list *)queue->content)->content)->content)->name); //remove
+		// ft_putchar('\n'); //remove
+		// ft_putstr("Score: "); //remove
+		// ft_putnbr(queue->SCORE); //remove
+		// ft_putchar('\n'); //remove
 		rev_path = a_star_expand(&queue, sink);
 		if (rev_path)
 		{
-			ft_putendl("rev_path found"); //remove
-			ft_putendl("Check if stuff was freed."); //remove
+			// ft_putendl("rev_path found"); //remove
+			// ft_putendl("Check if stuff was freed."); //remove
 			a_star_clear_queue(&queue);
 			return (ft_lstrev(&rev_path));
 		}
 	}
-	ft_putendl("No path found"); //remove
-	ft_putendl("Check if stuff was freed."); //remove
+	// ft_putendl("No path found"); //remove
+	// ft_putendl("Check if stuff was freed."); //remove
 	return (NULL);
 }
