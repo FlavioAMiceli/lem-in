@@ -13,6 +13,22 @@
 #include "lem_in.h"
 #include <stdlib.h>
 
+static void print_path_cpy(t_list *path)
+{
+	t_list	*curr;
+
+	// remove this function
+	ft_putendl("Printing path:");
+	curr = path;
+	while (curr)
+	{
+		ft_putstr(((t_vert *)curr->content)->name);
+		ft_putchar(' ');
+		curr = curr->next;
+	}
+	ft_putchar('\n');
+}
+
 /*
 **	Params: edge, to find rooms that have modified flow
 **	Return:
@@ -67,6 +83,10 @@ static void		update_hops(t_vert *s, int hop)
 
 	s->hops = hop;
 	edge = s->connections;
+	// ft_putstr(s->name); // remove
+	// ft_putstr(" hops: "); // remove
+	// ft_putnbr(hop); // remove
+	// ft_putchar('\n'); // remove
 	while (edge)
 	{
 		if (edge->flow == 1)
@@ -117,16 +137,18 @@ void			edmonds_karp(t_graph *graph)
 	while (keep_searching(graph, new_start))
 	{
 		rooms_used_to_false(graph->vert_list);
-		// ft_putendl("Enter a_star"); // REMOVE
+		ft_putendl("Enter a_star"); // REMOVE
 		aug_path = a_star(graph->source, graph->sink);
-		// ft_putendl("Exit a_star"); // REMOVE
+		ft_putendl("Exit a_star"); // REMOVE
 		if (aug_path)
 		{
+			print_path_cpy(aug_path);
 			ft_putendl("Updating_graph flow"); // REMOVE
 			update_flow(aug_path);
 			ft_putendl("Updating_graph hops"); // REMOVE
 			update_hops(graph->source, 0);
 		}
+		return ;
 		// ft_putendl("get_next_start"); // REMOVE
 		new_start = get_next_start(graph->source);
 	}
