@@ -33,6 +33,7 @@ static int	is_reachable(t_edge *edge, t_vert *room)
 {
 	// TODO:	Check these.
 	// 			After first aug_path was found, not edges seem to be valid.
+	ft_putendl("Print debug values here");
 	if (room->visited == FALSE && room->used == FALSE && edge->flow <= 0)
 		return (TRUE);
 	return (FALSE);
@@ -42,6 +43,7 @@ static int	no_back_flow(t_edge *edge, t_list *path)
 {
 	// TODO:	Check these.
 	// 			After first aug_path was found, not edges seem to be valid.
+	ft_putendl("Print debug values here");
 	if (!path->next)
 		return (TRUE);
 	else if (edge->head != ((t_list *)path->next)->content)
