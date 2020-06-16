@@ -69,10 +69,3 @@ t_list	*copy_path(t_list *src)
 	}
 	return (head);
 }
-
-int		is_reachable(t_edge *edge, t_vert *room)
-{
-	if (room->visited == FALSE && room->used == FALSE && edge->flow <= 0)
-		return (TRUE);
-	return (FALSE);
-}

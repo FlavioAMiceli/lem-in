@@ -60,7 +60,13 @@ static void		update_flow(t_list *path)
 			edge = ((t_vert *)path->content)->connections;
 			while (edge->head != path->next->content)
 				edge = edge->next_conn;
+			// ft_putstr(((t_vert *)edge->tail)->name); // remove
+			// ft_putstr(" to "); // remove
+			// ft_putstr(((t_vert *)edge->head)->name); // remove
 			edge->flow += 1;
+			// ft_putstr(" flow: "); // remove
+			// ft_putnbr(edge->flow); // remove
+			// ft_putchar('\n'); // remove
 			edge = edge->invert;
 			edge->flow -= 1;
 			update_visited_status(edge);
@@ -132,7 +138,9 @@ void			edmonds_karp(t_graph *graph)
 {
 	t_list	*aug_path;
 	t_vert	*new_start;
+	int		stop; //remove
 
+	stop = FALSE; //remove
 	new_start = get_next_start(graph->source);
 	while (keep_searching(graph, new_start))
 	{
@@ -145,10 +153,12 @@ void			edmonds_karp(t_graph *graph)
 			print_path_cpy(aug_path);
 			ft_putendl("Updating_graph flow"); // REMOVE
 			update_flow(aug_path);
-			ft_putendl("Updating_graph hops"); // REMOVE
+			ft_putendl("Updating_graph hops\n\n"); // REMOVE
 			update_hops(graph->source, 0);
 		}
-		return ;
+		if (stop) // remove
+			return ; // remove
+		stop = TRUE; // remove
 		// ft_putendl("get_next_start"); // REMOVE
 		new_start = get_next_start(graph->source);
 	}

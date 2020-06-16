@@ -148,6 +148,5 @@ void			rooms_used_to_false(t_vert *rooms);
 int				evaluate(t_list *path);
 void			free_path(t_list **path);
 t_list			*copy_path(t_list *src);
-int				is_reachable(t_edge *edge, t_vert *room);
 
 #endif

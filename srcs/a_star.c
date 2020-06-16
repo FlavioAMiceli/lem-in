@@ -29,8 +29,19 @@ static void print_path(t_list *path)
 	ft_putchar('\n');
 }
 
-static int no_back_flow(t_edge *edge, t_list *path)
+static int	is_reachable(t_edge *edge, t_vert *room)
 {
+	// TODO:	Check these.
+	// 			After first aug_path was found, not edges seem to be valid.
+	if (room->visited == FALSE && room->used == FALSE && edge->flow <= 0)
+		return (TRUE);
+	return (FALSE);
+}
+
+static int	no_back_flow(t_edge *edge, t_list *path)
+{
+	// TODO:	Check these.
+	// 			After first aug_path was found, not edges seem to be valid.
 	if (!path->next)
 		return (TRUE);
 	else if (edge->head != ((t_list *)path->next)->content)
@@ -54,8 +65,8 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 	t_edge	*edge;
 
 	path = a_star_dequeue(queue);
-	// ft_putendl("Exit a_star_dequeue"); //remove
-	// print_path(path); //remove
+	ft_putendl("Exit a_star_dequeue"); //remove
+	print_path(path); //remove
 	edge = ((t_vert *)path->content)->connections;
 	while (edge)
 	{
