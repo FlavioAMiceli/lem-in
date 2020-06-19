@@ -16,6 +16,7 @@ static t_list 	*new_equal_score_queue(t_list *path)
 {
 	t_list	*head;
 
+	// ft_putendl("enter nesq"); //remove
 	head = (t_list *)ft_memalloc(sizeof(t_list));
 	head->SCORE = path->SCORE;
 	head->next = NULL;
@@ -30,6 +31,7 @@ static void	add_to_front_of_sub_queue(t_list *curr, t_list *path)
 {
 	t_list	*head;
 
+	// ft_putendl("enter atfosq"); //remove
 	head = (t_list *)ft_memalloc(sizeof(t_list));
 	head->SCORE = path->SCORE;
 	head->next = curr->content;
@@ -41,6 +43,7 @@ static void	insert_sub_queue(t_list *prev, t_list *path)
 {
 	t_list	*temp;
 
+	// ft_putendl("enter isq"); //remove
 	temp = prev->next;
 	prev->next = new_equal_score_queue(path);
 	prev->next->next = temp;
@@ -59,6 +62,7 @@ void	insert_into_queue(t_list **queue, t_list *path)
 	t_list	*temp;
 
 	curr = *queue;
+	temp = curr;
 	if (curr == NULL)
 	{
 		*queue = new_equal_score_queue(path);

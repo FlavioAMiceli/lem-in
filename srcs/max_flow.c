@@ -18,7 +18,7 @@ static void print_path_cpy(t_list *path)
 	t_list	*curr;
 
 	// remove this function
-	ft_putendl("Printing path:");
+	ft_putendl("Printing augmented path:");
 	curr = path;
 	while (curr)
 	{
@@ -34,13 +34,35 @@ static void print_path_cpy(t_list *path)
 **	Return:
 */
 
-static void		update_visited_status(t_edge *edge)
+static void		update_visited_status(t_list *path)
 {
 	int		visited;
+	t_edge	*edge;
+	t_list	*tmp;
 
-	visited = edge->flow != 0 ? TRUE : FALSE;
-	edge->head->visited = visited;
-	edge->tail->visited = visited;
+	while (path)
+	{
+		edge = ((t_vert *)path->content)->connections;
+		visited = FALSE;
+		while (edge)
+		{
+			if (edge->flow != 0)
+			{
+				visited = TRUE;
+				break ;
+			}
+			edge = edge->next_conn;
+		}
+		// ft_putstr(((t_vert *)path->content)->name);
+		// ft_putstr(" visited status changing from ");
+		// ft_putstr(((t_vert *)path->content)->visited ? "TRUE" : "FALSE");
+		// ft_putstr(" to ");
+		// ft_putendl(visited ? "TRUE" : "FALSE");
+		((t_vert *)path->content)->visited = visited;
+		tmp = path;
+		path = path->next;
+		free(tmp);
+	}
 }
 
 /*
@@ -51,7 +73,6 @@ static void		update_visited_status(t_edge *edge)
 static void		update_flow(t_list *path)
 {
 	t_edge	*edge;
-	t_list	*tmp;
 
 	while (path)
 	{
@@ -69,11 +90,8 @@ static void		update_flow(t_list *path)
 			// ft_putchar('\n'); // remove
 			edge = edge->invert;
 			edge->flow -= 1;
-			update_visited_status(edge);
 		}
-		tmp = path;
 		path = path->next;
-		free(tmp);
 	}
 }
 
@@ -140,25 +158,27 @@ void			edmonds_karp(t_graph *graph)
 	t_vert	*new_start;
 	int		stop; //remove
 
-	stop = FALSE; //remove
+	stop = 3; //remove
 	new_start = get_next_start(graph->source);
 	while (keep_searching(graph, new_start))
 	{
 		rooms_used_to_false(graph->vert_list);
-		ft_putendl("Enter a_star"); // REMOVE
+		// ft_putendl("Enter a_star"); // REMOVE
 		aug_path = a_star(graph->source, graph->sink);
-		ft_putendl("Exit a_star"); // REMOVE
+		// ft_putendl("Exit a_star"); // REMOVE
 		if (aug_path)
 		{
 			print_path_cpy(aug_path);
-			ft_putendl("Updating_graph flow"); // REMOVE
+			// ft_putendl("Updating_graph flow"); // REMOVE
 			update_flow(aug_path);
-			ft_putendl("Updating_graph hops\n\n"); // REMOVE
+			// ft_putendl("Updating_visited status"); // REMOVE
+			update_visited_status(aug_path);
+			// ft_putendl("Updating_graph hops\n\n"); // REMOVE
 			update_hops(graph->source, 0);
 		}
-		if (stop) // remove
+		if (stop == 0) // remove
 			return ; // remove
-		stop = TRUE; // remove
+		stop--; // remove
 		// ft_putendl("get_next_start"); // REMOVE
 		new_start = get_next_start(graph->source);
 	}

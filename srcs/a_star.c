@@ -13,29 +13,37 @@
 #include "lem_in.h"
 #include <stdlib.h>
 
-static void print_path(t_list *path)
-{
-	t_list	*curr;
+// static void print_path(t_list *path)
+// {
+// 	t_list	*curr;
+//
+// 	// remove this function
+// 	ft_putendl("Printing path:");
+// 	curr = path;
+// 	while (curr)
+// 	{
+// 		ft_putstr(((t_vert *)curr->content)->name);
+// 		ft_putchar(' ');
+// 		curr = curr->next;
+// 	}
+// 	ft_putchar('\n');
+// }
 
-	// remove this function
-	ft_putendl("Printing path:");
-	curr = path;
-	while (curr)
+static int	is_traversable(t_edge *edge, t_vert *sink)
+{
+
+	if (edge->flow <= 0 && edge->head->used == FALSE)
 	{
-		ft_putstr(((t_vert *)curr->content)->name);
-		ft_putchar(' ');
-		curr = curr->next;
+		if (edge->flow < 0 || (edge->head->visited == FALSE || edge->head == sink))
+			return (TRUE);
 	}
-	ft_putchar('\n');
-}
-
-static int	is_reachable(t_edge *edge, t_vert *room)
-{
-	// TODO:	Check these.
-	// 			After first aug_path was found, not edges seem to be valid.
-	ft_putendl("Print debug values here");
-	if (room->visited == FALSE && room->used == FALSE && edge->flow <= 0)
-		return (TRUE);
+	// ft_putstr("visited: ");
+	// ft_putendl((edge->head->visited ? "TRUE" : "FALSE"));
+	// ft_putstr("used: ");
+	// ft_putendl((edge->head->used ? "TRUE" : "FALSE"));
+	// ft_putstr("flow: ");
+	// ft_putnbr(edge->flow);
+	// ft_putchar('\n');
 	return (FALSE);
 }
 
@@ -43,7 +51,7 @@ static int	no_back_flow(t_edge *edge, t_list *path)
 {
 	// TODO:	Check these.
 	// 			After first aug_path was found, not edges seem to be valid.
-	ft_putendl("Print debug values here");
+	// ft_putendl("Print debug values here");
 	if (!path->next)
 		return (TRUE);
 	else if (edge->head != ((t_list *)path->next)->content)
@@ -67,17 +75,23 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 	t_edge	*edge;
 
 	path = a_star_dequeue(queue);
-	ft_putendl("Exit a_star_dequeue"); //remove
-	print_path(path); //remove
+	// ft_putendl("Exit a_star_dequeue"); //remove
+	// print_path(path); //remove
 	edge = ((t_vert *)path->content)->connections;
 	while (edge)
 	{
 		// copy path, add each neighbour to front, insert into queue
-		if (is_reachable(edge, path->content) && no_back_flow(edge, path))
+		// ft_putstr("\ncurrent head: "); //remove
+		// ft_putendl(((t_vert*)edge->head)->name); //remove
+		// ft_putstr("is_traversable: "); //remove
+		// ft_putendl((is_traversable(edge, sink) ? "TRUE" : "FALSE")); //remove
+		// ft_putstr("no_back_flow: "); //remove
+		// ft_putendl((no_back_flow(edge, path) ? "TRUE" : "FALSE")); //remove
+		if (is_traversable(edge, sink) && no_back_flow(edge, path))
 		{
-			ft_putstr("expanding next edge with head: "); //remove
-			ft_putstr(((t_vert *)edge->head)->name); //remove
-			ft_putchar('\n'); //remove
+			// ft_putstr("expanding next edge with head: "); //remove
+			// ft_putstr(((t_vert *)edge->head)->name); //remove
+			// ft_putchar('\n'); //remove
 			new_path = (t_list *)ft_memalloc(sizeof(t_list));
 			new_path->content = edge->head;
 			new_path->next = copy_path(path);
@@ -89,8 +103,10 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 				return (new_path);
 			}
 			// insert into queue
-			print_path(new_path); //remove
+			// ft_putendl("inserting into queue:"); //remove
+			// print_path(new_path); //remove
 			insert_into_queue(queue, new_path);
+			// ft_putendl("exit iiq"); //remove
 		}
 		edge = edge->next_conn;
 	}
@@ -114,14 +130,14 @@ t_list			*a_star(t_vert *source, t_vert *sink)
 	init_queue(&queue, source);
 	while (queue && queue->content != NULL)
 	{
-		ft_putchar('\n'); //remove
+		// ft_putchar('\n'); //remove
 		// ft_putendl("Enter a_star_expand"); //remove
-		ft_putstr("Current vert: "); //remove
-		ft_putstr(((t_vert *)((t_list *)((t_list *)queue->content)->content)->content)->name); //remove
-		ft_putchar('\n'); //remove
-		ft_putstr("Score: "); //remove
-		ft_putnbr(queue->SCORE); //remove
-		ft_putchar('\n'); //remove
+		// ft_putstr("Current vert: "); //remove
+		// ft_putstr(((t_vert *)((t_list *)((t_list *)queue->content)->content)->content)->name); //remove
+		// ft_putchar('\n'); //remove
+		// ft_putstr("Score: "); //remove
+		// ft_putnbr(queue->SCORE); //remove
+		// ft_putchar('\n'); //remove
 		rev_path = a_star_expand(&queue, sink);
 		if (rev_path)
 		{
