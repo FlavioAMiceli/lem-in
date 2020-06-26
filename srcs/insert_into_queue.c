@@ -102,7 +102,8 @@ void	insert_into_queue(t_list **queue, t_list *path)
 		add_to_front_of_sub_queue(curr, path);
 	else if (curr == temp)
 	{
-		// new equal score sub queue becomes front, curr/temp becomes second.
+		*queue = new_equal_score_queue(path);
+		(*queue)->next = temp;
 	}
 	else
 		insert_sub_queue(temp, path);
