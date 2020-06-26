@@ -81,17 +81,17 @@ static void		update_flow(t_list *path)
 			edge = ((t_vert *)path->content)->connections;
 			while (edge->head != path->next->content)
 				edge = edge->next_conn;
-			ft_putstr(((t_vert *)edge->tail)->name); // remove
-			ft_putstr(" to "); // remove
-			ft_putstr(((t_vert *)edge->head)->name); // remove
+			// ft_putstr(((t_vert *)edge->tail)->name); // remove
+			// ft_putstr(" to "); // remove
+			// ft_putstr(((t_vert *)edge->head)->name); // remove
 			edge->flow += 1;
-			ft_putstr(" flow: "); // remove
-			ft_putnbr(edge->flow); // remove
+			// ft_putstr(" flow: "); // remove
+			// ft_putnbr(edge->flow); // remove
 			edge = edge->invert;
 			edge->flow -= 1;
-			ft_putstr(" invert flow: "); // remove
-			ft_putnbr(edge->flow); // remove
-			ft_putchar('\n'); // remove
+			// ft_putstr(" invert flow: "); // remove
+			// ft_putnbr(edge->flow); // remove
+			// ft_putchar('\n'); // remove
 		}
 		path = path->next;
 	}
@@ -160,7 +160,7 @@ void			edmonds_karp(t_graph *graph)
 	t_vert	*new_start;
 	int		stop; //remove
 
-	stop = 3; //remove
+	stop = 1; //remove
 	new_start = get_next_start(graph->source);
 	while (keep_searching(graph, new_start))
 	{

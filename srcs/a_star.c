@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdlib.h>
+// #include <stdlib.h>
 
 static void print_path(t_list *path)
 {
@@ -27,6 +27,15 @@ static void print_path(t_list *path)
 		curr = curr->next;
 	}
 	ft_putchar('\n');
+}
+
+static int	no_back_flow(t_edge *edge, t_list *path)
+{
+	if (!path->next)
+		return (TRUE);
+	else if (edge->head != ((t_list *)path->next)->content)
+		return (TRUE);
+	return (FALSE);
 }
 
 static int	is_traversable(t_edge *edge, t_list *path, t_vert *source)
@@ -90,7 +99,7 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink, t_vert *source)
 		// ft_putendl((is_traversable(edge, path, source) ? "TRUE" : "FALSE")); //remove
 		// ft_putstr("no_back_flow: "); //remove
 		// ft_putendl((no_back_flow(edge, path) ? "TRUE" : "FALSE")); //remove
-		if (is_traversable(edge, path, source))
+		if (no_back_flow(edge, path) && is_traversable(edge, path, source))
 		{
 			// ft_putstr("expanding next edge with head: "); //remove
 			// ft_putstr(((t_vert *)edge->head)->name); //remove
@@ -107,6 +116,7 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink, t_vert *source)
 				return (new_path);
 			}
 			// insert into queue
+			ft_putchar('\n'); //remove
 			ft_putendl("inserting into queue:"); //remove
 			print_path(new_path); //remove
 			ft_putstr("Score: "); //remove
