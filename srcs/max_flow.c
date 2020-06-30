@@ -13,22 +13,6 @@
 #include "lem_in.h"
 #include <stdlib.h>
 
-static void print_path_cpy(t_list *path)
-{
-	t_list	*curr;
-
-	// remove this function
-	ft_putendl("Printing augmented path:");
-	curr = path;
-	while (curr)
-	{
-		ft_putstr(((t_vert *)curr->content)->name);
-		ft_putchar(' ');
-		curr = curr->next;
-	}
-	ft_putchar('\n');
-}
-
 /*
 **	Params: edge, to find rooms that have modified flow
 **	Return:
@@ -158,9 +142,9 @@ void			edmonds_karp(t_graph *graph)
 {
 	t_list	*aug_path;
 	t_vert	*new_start;
-	int		stop; //remove
+	// int		stop; //remove
 
-	stop = 1; //remove
+	// stop = 1; //remove
 	new_start = get_next_start(graph->source);
 	while (keep_searching(graph, new_start))
 	{
@@ -170,17 +154,14 @@ void			edmonds_karp(t_graph *graph)
 		// ft_putendl("Exit a_star"); // REMOVE
 		if (aug_path)
 		{
-			print_path_cpy(aug_path);
-			// ft_putendl("Updating_graph flow"); // REMOVE
+			print_path(aug_path);
 			update_flow(aug_path);
-			// ft_putendl("Updating_visited status"); // REMOVE
 			update_visited_status(aug_path);
-			// ft_putendl("Updating_graph hops\n\n"); // REMOVE
 			update_hops(graph->source, 0);
 		}
-		if (stop == 0) // remove
-			return ; // remove
-		stop--; // remove
+		// if (stop == 0) // remove
+		// 	return ; // remove
+		// stop--; // remove
 		// ft_putendl("get_next_start"); // REMOVE
 		new_start = get_next_start(graph->source);
 	}

@@ -27,7 +27,7 @@ static void	bfs_clear_queue(t_list *queue)
 	{
 		free_path((t_list **)(&(queue->content)));
 		current = queue->next;
-		free(queue);
+		ft_memdel((void **)&queue);
 		queue = current;
 	}
 }
@@ -40,15 +40,15 @@ static void	bfs_clear_queue(t_list *queue)
 
 void		a_star_clear_queue(t_list **queue)
 {
-	t_list *paths;
-	t_list *current;
+	t_list	*curr;
+	t_list	*paths;
 
-	paths = (*queue)->content;
-	while (paths)
+	curr = *queue;
+	while (curr)
 	{
-		current = paths;
-		paths = paths->next;
-		bfs_clear_queue(current);
+		paths = curr->content;
+		bfs_clear_queue(paths);
+		curr = curr->next;
 	}
 }
 
@@ -70,19 +70,19 @@ t_list		*a_star_dequeue(t_list **queue)
 	{
 		tmp = current->content;
 		current->content = ((t_list *)current->content)->next;
-		free(tmp);
+		ft_memdel((void **)&tmp);
 	}
 	else if (current->next)
 	{
 		(*queue) = current->next;
-		free(current->content);
-		free(current);
+		ft_memdel((void **)&current->content);
+		ft_memdel((void **)&current);
 	}
 	else
 	{
 		(*queue) = NULL;
-		free(current->content);
-		free(current);
+		ft_memdel((void **)&current->content);
+		ft_memdel((void **)&current);
 	}
 	return (path);
 }
