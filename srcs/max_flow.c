@@ -22,7 +22,6 @@ static void		update_visited_status(t_list *path)
 {
 	int		visited;
 	t_edge	*edge;
-	t_list	*tmp;
 
 	while (path)
 	{
@@ -43,9 +42,7 @@ static void		update_visited_status(t_list *path)
 		// ft_putstr(" to ");
 		// ft_putendl(visited ? "TRUE" : "FALSE");
 		((t_vert *)path->content)->visited = visited;
-		tmp = path;
 		path = path->next;
-		free(tmp);
 	}
 }
 
@@ -73,6 +70,38 @@ static void		update_flow(t_list *path)
 			// ft_putnbr(edge->flow); // remove
 			edge = edge->invert;
 			edge->flow -= 1;
+			// ft_putstr(" invert flow: "); // remove
+			// ft_putnbr(edge->flow); // remove
+			// ft_putchar('\n'); // remove
+		}
+		path = path->next;
+	}
+}
+
+/*
+**	Params:	path, list containing vertices used
+**	Return:
+*/
+
+static void		revert_flow(t_list *path)
+{
+	t_edge	*edge;
+
+	while (path)
+	{
+		if (!ft_strequ(((t_vert *)path->content)->name, "src"))
+		{
+			edge = ((t_vert *)path->content)->connections;
+			while (edge->head != path->next->content)
+				edge = edge->next_conn;
+			// ft_putstr(((t_vert *)edge->tail)->name); // remove
+			// ft_putstr(" to "); // remove
+			// ft_putstr(((t_vert *)edge->head)->name); // remove
+			edge->flow -= 1;
+			// ft_putstr(" flow: "); // remove
+			// ft_putnbr(edge->flow); // remove
+			edge = edge->invert;
+			edge->flow += 1;
 			// ft_putstr(" invert flow: "); // remove
 			// ft_putnbr(edge->flow); // remove
 			// ft_putchar('\n'); // remove
@@ -132,6 +161,32 @@ static t_vert	*get_next_start(t_vert *s)
 	return (next_start);
 }
 
+static int 		revert(t_graph *graph)
+{
+	(void)graph;
+	return (FALSE);
+}
+
+static void 	clear_aug_path(t_graph *graph, t_list *aug_path)
+{
+	t_list	*to_free;
+
+	if (!aug_path)
+		return ;
+	if (revert(graph))
+	{
+		revert_flow(aug_path);
+		update_visited_status(aug_path);
+		update_hops(graph->source, 0);
+	}
+	while (aug_path)
+	{
+		to_free = aug_path;
+		aug_path = aug_path->next;
+		ft_memdel((void **)&to_free);
+	}
+}
+
 /*
 **	Params:	graph, struct containing all information about the graph
 **
@@ -148,6 +203,7 @@ void			edmonds_karp(t_graph *graph)
 	new_start = get_next_start(graph->source);
 	while (keep_searching(graph, new_start))
 	{
+		// ft_putendl("exit keep_searching"); // REMOVE
 		rooms_used_to_false(graph->vert_list);
 		// ft_putendl("Enter a_star"); // REMOVE
 		aug_path = a_star(graph->source, graph->sink);
@@ -164,5 +220,7 @@ void			edmonds_karp(t_graph *graph)
 		// stop--; // remove
 		// ft_putendl("get_next_start"); // REMOVE
 		new_start = get_next_start(graph->source);
+		clear_aug_path(graph, aug_path);
+		// ft_putendl("exit get_next_start"); // REMOVE
 	}
 }
