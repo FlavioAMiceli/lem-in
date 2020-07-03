@@ -152,7 +152,8 @@ static t_vert	*get_next_start(t_vert *s)
 	next_start = NULL;
 	while (edge)
 	{
-		if (edge->head->visited == FALSE && edge->head->distance < min_dist)
+		if (edge->head->visited == FALSE && edge->head->distance < min_dist \
+			&& edge->head->distance > 0) // moana added check if new_start  vert is connected to snd at all
 		{
 			next_start = edge->head;
 			min_dist = edge->head->distance;
