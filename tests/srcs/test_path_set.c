@@ -34,7 +34,7 @@ static int		load_map(t_graph *graph, char *map)
 	if (graph_new(graph, &input) == ERROR)
 		return (ERROR);
 	input_del(&input);
-	return (OK);
+	return (SUCCESS);
 }
 
 Test(path_set, first_path)
@@ -42,11 +42,11 @@ Test(path_set, first_path)
 	t_graph		graph;
 	t_vert		*path_1;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix");
 	path_1->hops = 3;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.paths[0]->start, path_1, "first path not in paths[0]");
 	cr_expect_eq(graph.paths[0]->threshold, 0, "threshold not initialized");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
@@ -59,18 +59,18 @@ Test(path_set, second_path_1)
 	t_vert		*path_1;
 	t_vert		*path_2;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 3;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.paths[0]->start, path_1, "first path not in paths[0]");
 	cr_expect_eq(graph.paths[0]->threshold, 0, "threshold not initialized");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 3;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.paths[1]->start, path_2, "first path not in paths[1]");
 	cr_expect_eq(graph.paths[1]->threshold, 0, "threshold not initialized");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
@@ -83,18 +83,18 @@ Test(path_set, second_path_2)
 	t_vert		*path_1;
 	t_vert		*path_2;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 3;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.paths[0]->start, path_1, "first path not in paths[0]");
 	cr_expect_eq(graph.paths[0]->threshold, 0, "threshold not initialized");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 4;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.paths[1]->start, path_2, "first path not in paths[1]");
 	cr_expect_eq(graph.paths[1]->threshold, 0, "threshold not initialized");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
@@ -107,18 +107,18 @@ Test(path_set, second_path_3)
 	t_vert		*path_1;
 	t_vert		*path_2;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 3;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 1;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// check threshold
 	cr_expect_eq(graph.paths[0]->threshold, 0, "threshold not initialized");
@@ -136,19 +136,19 @@ Test(path_set, second_path_4)
 	t_vert		*path_2;
 	int			i;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 3;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_1->hops = 5;
 	path_2->hops = 4;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// check threshold and order
 	i = 0;
@@ -170,24 +170,24 @@ Test(path_set, third_path_1)
 	t_vert		*path_3;
 	int			i;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 4;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 4;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// add path_3
 	path_3 = hmap_get(graph.vertices, "D");
 	cr_assert_neq(path_3, NULL, "couldn't find vertix for path_3");
 	path_3->hops = 4;
-	cr_assert_eq(path_new(&graph, path_3), OK, "addding third path didn't work");
+	cr_assert_eq(path_new(&graph, path_3), SUCCESS, "addding third path didn't work");
 	cr_expect_eq(graph.path_count, 3, "path_count not incremented");
 	// check threshold and order
 	i = 0;
@@ -209,18 +209,18 @@ Test(path_set, third_path_2)
 	t_vert		*path_3;
 	int			i;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 20;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 30;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// add path_3
 	path_3 = hmap_get(graph.vertices, "D");
@@ -228,7 +228,7 @@ Test(path_set, third_path_2)
 	path_1->hops = 20;
 	path_2->hops = 30;
 	path_3->hops = 40;
-	cr_assert_eq(path_new(&graph, path_3), OK, "addding third path didn't work");
+	cr_assert_eq(path_new(&graph, path_3), SUCCESS, "addding third path didn't work");
 	cr_expect_eq(graph.path_count, 3, "path_count not incremented");
 	// check threshold and order
 	i = 0;
@@ -250,18 +250,18 @@ Test(path_set, third_path_3)
 	t_vert		*path_3;
 	int			i;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 20;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 30;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// add path_3
 	path_3 = hmap_get(graph.vertices, "D");
@@ -269,7 +269,7 @@ Test(path_set, third_path_3)
 	path_1->hops = 50;
 	path_2->hops = 30;
 	path_3->hops = 40;
-	cr_assert_eq(path_new(&graph, path_3), OK, "addding third path didn't work");
+	cr_assert_eq(path_new(&graph, path_3), SUCCESS, "addding third path didn't work");
 	cr_expect_eq(graph.path_count, 3, "path_count not incremented");
 	// check threshold and order
 	i = 0;
@@ -291,18 +291,18 @@ Test(path_set, third_path_4)
 	t_vert		*path_3;
 	int			i;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 20;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 30;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// add path_3
 	path_3 = hmap_get(graph.vertices, "D");
@@ -310,7 +310,7 @@ Test(path_set, third_path_4)
 	path_1->hops = 60;
 	path_2->hops = 50;
 	path_3->hops = 40;
-	cr_assert_eq(path_new(&graph, path_3), OK, "addding third path didn't work");
+	cr_assert_eq(path_new(&graph, path_3), SUCCESS, "addding third path didn't work");
 	cr_expect_eq(graph.path_count, 3, "path_count not incremented");
 	// check threshold and order
 	i = 0;
@@ -332,18 +332,18 @@ Test(path_set, third_path_5)
 	t_vert		*path_3;
 	int			i;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 20;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 30;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// add path_3
 	path_3 = hmap_get(graph.vertices, "D");
@@ -351,7 +351,7 @@ Test(path_set, third_path_5)
 	path_1->hops = 20;
 	path_2->hops = 50;
 	path_3->hops = 40;
-	cr_assert_eq(path_new(&graph, path_3), OK, "addding third path didn't work");
+	cr_assert_eq(path_new(&graph, path_3), SUCCESS, "addding third path didn't work");
 	cr_expect_eq(graph.path_count, 3, "path_count not incremented");
 	// check threshold and order
 	i = 0;
@@ -374,24 +374,24 @@ Test(path_set, fourth_path_1)
 	t_vert		*path_4;
 	int			i;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 30;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 30;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// add path_3
 	path_3 = hmap_get(graph.vertices, "D");
 	cr_assert_neq(path_3, NULL, "couldn't find vertix for path_3");
 	path_3->hops = 30;
-	cr_assert_eq(path_new(&graph, path_3), OK, "addding third path didn't work");
+	cr_assert_eq(path_new(&graph, path_3), SUCCESS, "addding third path didn't work");
 	cr_expect_eq(graph.path_count, 3, "path_count not incremented");
 	// add path_4
 	path_4 = hmap_get(graph.vertices, "E");
@@ -400,7 +400,7 @@ Test(path_set, fourth_path_1)
 	path_2->hops = 30;
 	path_3->hops = 30;
 	path_4->hops = 30;
-	cr_assert_eq(path_new(&graph, path_4), OK, "addding fourth path didn't work");
+	cr_assert_eq(path_new(&graph, path_4), SUCCESS, "addding fourth path didn't work");
 	cr_expect_eq(graph.path_count, 4, "path_count not incremented");
 	// check threshold and order
 	i = 0;
@@ -423,24 +423,24 @@ Test(path_set, fourth_path_2)
 	t_vert		*path_4;
 	int			i;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 10;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 10;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// add path_3
 	path_3 = hmap_get(graph.vertices, "D");
 	cr_assert_neq(path_3, NULL, "couldn't find vertix for path_3");
 	path_3->hops = 10;
-	cr_assert_eq(path_new(&graph, path_3), OK, "addding third path didn't work");
+	cr_assert_eq(path_new(&graph, path_3), SUCCESS, "addding third path didn't work");
 	cr_expect_eq(graph.path_count, 3, "path_count not incremented");
 	// add path_4
 	path_4 = hmap_get(graph.vertices, "E");
@@ -449,7 +449,7 @@ Test(path_set, fourth_path_2)
 	path_2->hops = 15;
 	path_3->hops = 20;
 	path_4->hops = 25;
-	cr_assert_eq(path_new(&graph, path_4), OK, "addding fourth path didn't work");
+	cr_assert_eq(path_new(&graph, path_4), SUCCESS, "addding fourth path didn't work");
 	cr_expect_eq(graph.path_count, 4, "path_count not incremented");
 	// check threshold and order
 	i = 0;
@@ -472,24 +472,24 @@ Test(path_set, fourth_path_3)
 	t_vert		*path_4;
 	int			i;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 10;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 10;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// add path_3
 	path_3 = hmap_get(graph.vertices, "D");
 	cr_assert_neq(path_3, NULL, "couldn't find vertix for path_3");
 	path_3->hops = 10;
-	cr_assert_eq(path_new(&graph, path_3), OK, "addding third path didn't work");
+	cr_assert_eq(path_new(&graph, path_3), SUCCESS, "addding third path didn't work");
 	cr_expect_eq(graph.path_count, 3, "path_count not incremented");
 	// add path_4
 	path_4 = hmap_get(graph.vertices, "E");
@@ -498,7 +498,7 @@ Test(path_set, fourth_path_3)
 	path_2->hops = 25;
 	path_3->hops = 20;
 	path_4->hops = 15;
-	cr_assert_eq(path_new(&graph, path_4), OK, "addding fourth path didn't work");
+	cr_assert_eq(path_new(&graph, path_4), SUCCESS, "addding fourth path didn't work");
 	cr_expect_eq(graph.path_count, 4, "path_count not incremented");
 	// check threshold and order
 	i = 0;
@@ -521,24 +521,24 @@ Test(path_set, fourth_path_4)
 	t_vert		*path_4;
 	int			i;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 10;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 10;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// add path_3
 	path_3 = hmap_get(graph.vertices, "D");
 	cr_assert_neq(path_3, NULL, "couldn't find vertix for path_3");
 	path_3->hops = 10;
-	cr_assert_eq(path_new(&graph, path_3), OK, "addding third path didn't work");
+	cr_assert_eq(path_new(&graph, path_3), SUCCESS, "addding third path didn't work");
 	cr_expect_eq(graph.path_count, 3, "path_count not incremented");
 	// add path_4
 	path_4 = hmap_get(graph.vertices, "E");
@@ -547,7 +547,7 @@ Test(path_set, fourth_path_4)
 	path_2->hops = 10;
 	path_3->hops = 20;
 	path_4->hops = 15;
-	cr_assert_eq(path_new(&graph, path_4), OK, "addding fourth path didn't work");
+	cr_assert_eq(path_new(&graph, path_4), SUCCESS, "addding fourth path didn't work");
 	cr_expect_eq(graph.path_count, 4, "path_count not incremented");
 	// check threshold and order
 	i = 0;
@@ -570,24 +570,24 @@ Test(path_set, fourth_path_5)
 	t_vert		*path_4;
 	int			i;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 10;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 10;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// add path_3
 	path_3 = hmap_get(graph.vertices, "D");
 	cr_assert_neq(path_3, NULL, "couldn't find vertix for path_3");
 	path_3->hops = 10;
-	cr_assert_eq(path_new(&graph, path_3), OK, "addding third path didn't work");
+	cr_assert_eq(path_new(&graph, path_3), SUCCESS, "addding third path didn't work");
 	cr_expect_eq(graph.path_count, 3, "path_count not incremented");
 	// add path_4
 	path_4 = hmap_get(graph.vertices, "E");
@@ -596,7 +596,7 @@ Test(path_set, fourth_path_5)
 	path_2->hops = 25;
 	path_3->hops = 20;
 	path_4->hops = 10;
-	cr_assert_eq(path_new(&graph, path_4), OK, "addding fourth path didn't work");
+	cr_assert_eq(path_new(&graph, path_4), SUCCESS, "addding fourth path didn't work");
 	cr_expect_eq(graph.path_count, 4, "path_count not incremented");
 	// check threshold and order
 	i = 0;
@@ -638,138 +638,138 @@ Test(path_set, many_paths_1)
 	t_vert		*path_23;
 	int			i;
 
-	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), OK, "graph couldn't be build");
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
 	// add path_1
 	path_1 = hmap_get(graph.vertices, "B");
 	cr_assert_neq(path_1, NULL, "couldn't find vertix for path_1");
 	path_1->hops = 10;
-	cr_assert_eq(path_new(&graph, path_1), OK, "addding first path didn't work");
+	cr_assert_eq(path_new(&graph, path_1), SUCCESS, "addding first path didn't work");
 	cr_expect_eq(graph.path_count, 1, "path_count not incremented");
 	// add path_2
 	path_2 = hmap_get(graph.vertices, "C");
 	cr_assert_neq(path_2, NULL, "couldn't find vertix for path_2");
 	path_2->hops = 10;
-	cr_assert_eq(path_new(&graph, path_2), OK, "addding second path didn't work");
+	cr_assert_eq(path_new(&graph, path_2), SUCCESS, "addding second path didn't work");
 	cr_expect_eq(graph.path_count, 2, "path_count not incremented");
 	// add path_3
 	path_3 = hmap_get(graph.vertices, "D");
 	cr_assert_neq(path_3, NULL, "couldn't find vertix for path_3");
 	path_3->hops = 10;
-	cr_assert_eq(path_new(&graph, path_3), OK, "addding third path didn't work");
+	cr_assert_eq(path_new(&graph, path_3), SUCCESS, "addding third path didn't work");
 	cr_expect_eq(graph.path_count, 3, "path_count not incremented");
 	// add path_4
 	path_4 = hmap_get(graph.vertices, "E");
 	cr_assert_neq(path_4, NULL, "couldn't find vertix for path_4");
 	path_4->hops = 10;
-	cr_assert_eq(path_new(&graph, path_4), OK, "addding fourth path didn't work");
+	cr_assert_eq(path_new(&graph, path_4), SUCCESS, "addding fourth path didn't work");
 	cr_expect_eq(graph.path_count, 4, "path_count not incremented");
 	// add path_5
 	path_5 = hmap_get(graph.vertices, "F");
 	cr_assert_neq(path_5, NULL, "couldn't find vertix for path_5");
 	path_5->hops = 10;
-	cr_assert_eq(path_new(&graph, path_5), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_5), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 5, "path_count not incremented");
 	// add path_6
 	path_6 = hmap_get(graph.vertices, "G");
 	cr_assert_neq(path_6, NULL, "couldn't find vertix for path_6");
 	path_6->hops = 10;
-	cr_assert_eq(path_new(&graph, path_6), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_6), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 6, "path_count not incremented");
 	// add path_7
 	path_7 = hmap_get(graph.vertices, "H");
 	cr_assert_neq(path_7, NULL, "couldn't find vertix for path_7");
 	path_7->hops = 10;
-	cr_assert_eq(path_new(&graph, path_7), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_7), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 7, "path_count not incremented");
 	// add path_8
 	path_8 = hmap_get(graph.vertices, "I");
 	cr_assert_neq(path_8, NULL, "couldn't find vertix for path_8");
 	path_8->hops = 10;
-	cr_assert_eq(path_new(&graph, path_8), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_8), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 8, "path_count not incremented");
 	// add path_9
 	path_9 = hmap_get(graph.vertices, "J");
 	cr_assert_neq(path_9, NULL, "couldn't find vertix for path_9");
 	path_9->hops = 10;
-	cr_assert_eq(path_new(&graph, path_9), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_9), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 9, "path_count not incremented");
 	// add path_10
 	path_10 = hmap_get(graph.vertices, "K");
 	cr_assert_neq(path_10, NULL, "couldn't find vertix for path_10");
 	path_10->hops = 10;
-	cr_assert_eq(path_new(&graph, path_10), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_10), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 10, "path_count not incremented");
 	// add path_11
 	path_11 = hmap_get(graph.vertices, "M");
 	cr_assert_neq(path_11, NULL, "couldn't find vertix for path_11");
 	path_11->hops = 10;
-	cr_assert_eq(path_new(&graph, path_11), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_11), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 11, "path_count not incremented");
 	// add path_12
 	path_12 = hmap_get(graph.vertices, "N");
 	cr_assert_neq(path_12, NULL, "couldn't find vertix for path_12");
 	path_12->hops = 10;
-	cr_assert_eq(path_new(&graph, path_12), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_12), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 12, "path_count not incremented");
 	// add path_13
 	path_13 = hmap_get(graph.vertices, "O");
 	cr_assert_neq(path_13, NULL, "couldn't find vertix for path_13");
 	path_13->hops = 10;
-	cr_assert_eq(path_new(&graph, path_13), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_13), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 13, "path_count not incremented");
 	// add path_14
 	path_14 = hmap_get(graph.vertices, "P");
 	cr_assert_neq(path_14, NULL, "couldn't find vertix for path_14");
 	path_14->hops = 10;
-	cr_assert_eq(path_new(&graph, path_14), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_14), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 14, "path_count not incremented");
 	// add path_15
 	path_15 = hmap_get(graph.vertices, "Q");
 	cr_assert_neq(path_15, NULL, "couldn't find vertix for path_15");
 	path_15->hops = 10;
-	cr_assert_eq(path_new(&graph, path_15), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_15), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 15, "path_count not incremented");
 	// add path_16
 	path_16 = hmap_get(graph.vertices, "R");
 	cr_assert_neq(path_16, NULL, "couldn't find vertix for path_16");
 	path_16->hops = 10;
-	cr_assert_eq(path_new(&graph, path_16), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_16), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 16, "path_count not incremented");
 	// add path_17
 	path_17 = hmap_get(graph.vertices, "S");
 	cr_assert_neq(path_17, NULL, "couldn't find vertix for path_17");
 	path_17->hops = 10;
-	cr_assert_eq(path_new(&graph, path_17), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_17), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 17, "path_count not incremented");
 	// add path_18
 	path_18 = hmap_get(graph.vertices, "T");
 	cr_assert_neq(path_18, NULL, "couldn't find vertix for path_18");
 	path_18->hops = 10;
-	cr_assert_eq(path_new(&graph, path_18), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_18), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 18, "path_count not incremented");
 	// add path_19
 	path_19 = hmap_get(graph.vertices, "U");
 	cr_assert_neq(path_19, NULL, "couldn't find vertix for path_19");
 	path_19->hops = 10;
-	cr_assert_eq(path_new(&graph, path_19), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_19), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 19, "path_count not incremented");
 	// add path_20
 	path_20 = hmap_get(graph.vertices, "V");
 	cr_assert_neq(path_20, NULL, "couldn't find vertix for path_20");
 	path_20->hops = 10;
-	cr_assert_eq(path_new(&graph, path_20), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_20), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 20, "path_count not incremented");
 	// add path_21
 	path_21 = hmap_get(graph.vertices, "W");
 	cr_assert_neq(path_21, NULL, "couldn't find vertix for path_21");
 	path_21->hops = 10;
-	cr_assert_eq(path_new(&graph, path_21), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_21), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 21, "path_count not incremented");
 	// add path_22
 	path_22 = hmap_get(graph.vertices, "X");
 	cr_assert_neq(path_22, NULL, "couldn't find vertix for path_22");
 	path_22->hops = 10;
-	cr_assert_eq(path_new(&graph, path_22), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_22), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 22, "path_count not incremented");
 	// add path_23
 	path_23 = hmap_get(graph.vertices, "Y");
@@ -797,7 +797,7 @@ Test(path_set, many_paths_1)
 	path_21->hops = 85;
 	path_22->hops = 45;
 	path_23->hops = 40;
-	cr_assert_eq(path_new(&graph, path_23), OK, "addding path %d didn't work", graph.path_count);
+	cr_assert_eq(path_new(&graph, path_23), SUCCESS, "addding path %d didn't work", graph.path_count);
 	cr_expect_eq(graph.path_count, 23, "path_count not incremented");
 	// check threshold and order
 	i = 0;
