@@ -79,7 +79,8 @@ static void		update_flow(t_list *path)
 		if (!ft_strequ(((t_vert *)path->content)->name, "snk"))
 		{
 			edge = ((t_vert *)path->content)->connections;
-			while (edge->head != path->next->content)
+			// moana added safety check in while loop
+			while (path->next != NULL && edge->head != path->next->content)
 				edge = edge->next_conn;
 			ft_putstr(((t_vert *)edge->tail)->name); // remove
 			ft_putstr(" to "); // remove
@@ -162,7 +163,8 @@ void			edmonds_karp(t_graph *graph)
 
 	stop = 3; //remove
 	new_start = get_next_start(graph->source);
-	while (keep_searching(graph, new_start))
+	// moana added safety check because new_start must not be NULL
+	while (new_start != NULL && keep_searching(graph, new_start))
 	{
 		rooms_used_to_false(graph->vert_list);
 		// ft_putendl("Enter a_star"); // REMOVE

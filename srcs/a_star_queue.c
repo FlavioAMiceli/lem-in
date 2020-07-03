@@ -43,6 +43,9 @@ void		a_star_clear_queue(t_list **queue)
 	t_list *paths;
 	t_list *current;
 
+	// moana added safety if-statement here for preventing segfault
+	if (queue == NULL || *queue == NULL)
+		return ;
 	paths = (*queue)->content;
 	while (paths)
 	{
