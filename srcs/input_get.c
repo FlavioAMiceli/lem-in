@@ -23,7 +23,7 @@
 **	t_input_line *input_line	list item for this input line
 **
 ** return
-**	OK
+**	SUCCESS
 **	ERROR
 */
 
@@ -34,7 +34,7 @@ static int	add_link(t_input_info *input, t_input_line *input_line)
 	++(input->link_count);
 	input_line->next_link = input->links;
 	input->links = input_line;
-	return (OK);
+	return (SUCCESS);
 }
 
 /*
@@ -50,7 +50,7 @@ static int	add_link(t_input_info *input, t_input_line *input_line)
 **	char *name					the name of the room to be added
 **
 ** return
-**	OK
+**	SUCCESS
 **	ERROR
 */
 
@@ -70,7 +70,7 @@ static int	add_room(t_input_info *input, t_input_line *input_line, char *name)
 	input_line->room_name = ft_strdup(name);
 	if (input_line == NULL)
 		return (ERROR);
-	return (OK);
+	return (SUCCESS);
 }
 
 /*
@@ -87,7 +87,7 @@ static int	add_room(t_input_info *input, t_input_line *input_line, char *name)
 **	t_input_line *input_line	list item for this input line
 **
 ** return
-**	OK
+**	SUCCESS
 **	ERROR
 */
 
@@ -100,23 +100,23 @@ static int	create_input_list(t_input_info *input, char **line,
 		input->start == NULL)
 	{
 		input->start = input_line;
-		return (strarrdel_and_return(OK, &line));
+		return (strarrdel_and_return(SUCCESS, &line));
 	}
 	else if (ft_strequ(line[0], "##end") && line[1] == 0 && input->end == 0)
 	{
 		input->end = input_line;
-		return (strarrdel_and_return(OK, &line));
+		return (strarrdel_and_return(SUCCESS, &line));
 	}
 	else if (line[0][0] == '#' && !(ft_strequ(line[0], "##end") &&
 		ft_strequ(line[0], "##start") && line[1] == NULL))
-		return (strarrdel_and_return(OK, &line));
+		return (strarrdel_and_return(SUCCESS, &line));
 	else if (line[0][0] != '#' && line[1] && ft_isint(line[1]) && line[2]
-		&& ft_isint(line[2]) && add_room(input, input_line, line[0]) == OK)
-		return (strarrdel_and_return(OK, &line));
+		&& ft_isint(line[2]) && add_room(input, input_line, line[0]) == SUCCESS)
+		return (strarrdel_and_return(SUCCESS, &line));
 	else if (line[0][0] != '#' && ft_strchr(line[0], '-') != NULL
 		&& ft_strchr(ft_strchr(line[0], '-') + 1, '-') == NULL
 		&& line[1] == NULL && add_link(input, input_line) == 1)
-		return (strarrdel_and_return(OK, &line));
+		return (strarrdel_and_return(SUCCESS, &line));
 	return (strarrdel_and_return(ERROR, &line));
 }
 
@@ -134,7 +134,7 @@ static int	create_input_list(t_input_info *input, char **line,
 **	t_input_info *input	struct holding all information from input
 **
 ** return
-**	OK
+**	SUCCESS
 **	ERROR
 */
 

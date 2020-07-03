@@ -15,10 +15,6 @@
 
 # include "hashtable.h"
 
-# define TRUE 1
-# define FALSE 0
-# define OK 1
-# define ERROR 0
 # define SCORE content_size
 
 typedef struct	s_input_line

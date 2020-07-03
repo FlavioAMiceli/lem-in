@@ -24,7 +24,7 @@
 **	t_graph *graph		struct holding all information about graph
 **
 ** return
-**	OK
+**	SUCCESS
 **	ERROR
 */
 
@@ -49,7 +49,7 @@ static int	vert_new(char **input_line, t_graph *graph)
 	if (hmap_set(graph->vertices, vert->name, vert) != 0)
 		return (ERROR);
 	ft_strarrdel(&input_line);
-	return (OK);
+	return (SUCCESS);
 }
 
 /*
@@ -89,7 +89,7 @@ static void	graph_set(t_graph *graph, t_input_info *input)
 **	t_input_info *input	struct holding all information from input
 **
 ** return
-**	OK
+**	SUCCESS
 **	ERROR
 */
 
@@ -119,5 +119,5 @@ int			graph_new(t_graph *graph, t_input_info *input)
 		return (ERROR);
 	graph->paths = (t_path**)ft_memalloc(sizeof(t_path*) *
 		graph->source->conn_count + 1);
-	return (OK && graph->paths != NULL);
+	return (SUCCESS && graph->paths != NULL);
 }

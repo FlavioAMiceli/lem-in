@@ -60,7 +60,7 @@ static void	paths_sort(t_path **paths, int idx)
 **	t_vert *new_start	start vert of the new path
 **
 ** return
-**	OK
+**	SUCCESS
 **	ERROR
 */
 
@@ -75,5 +75,5 @@ int			path_new(t_graph *graph, t_vert *new_start)
 	paths_sort(graph->paths, graph->path_count);
 	graph->paths[0]->threshold = 0;
 	graph->path_count += 1;
-	return (OK);
+	return (SUCCESS);
 }
