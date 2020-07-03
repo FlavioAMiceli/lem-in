@@ -16,7 +16,7 @@ static t_list 	*new_equal_score_queue(t_list *path)
 {
 	t_list	*head;
 
-	ft_putendl("enter nesq"); //remove
+	// ft_putendl("enter nesq"); //remove
 	head = (t_list *)ft_memalloc(sizeof(t_list));
 	head->SCORE = path->SCORE;
 	head->next = NULL;
@@ -31,7 +31,7 @@ static void	add_to_front_of_sub_queue(t_list *curr, t_list *path)
 {
 	t_list	*head;
 
-	ft_putendl("enter atfosq"); //remove
+	// ft_putendl("enter atfosq"); //remove
 	head = (t_list *)ft_memalloc(sizeof(t_list));
 	head->SCORE = path->SCORE;
 	head->next = curr->content;
@@ -41,13 +41,12 @@ static void	add_to_front_of_sub_queue(t_list *curr, t_list *path)
 
 static void	insert_sub_queue(t_list *prev, t_list *path)
 {
-	t_list	*temp;
+	t_list	*curr;
 
-	ft_putendl("enter isq"); //remove
-	// Why doesn't H G src come before K G src, it has better score
-	temp = prev->next;
+	// ft_putendl("enter isq"); //remove
+	curr = prev->next;
 	prev->next = new_equal_score_queue(path);
-	prev->next->next = temp;
+	prev->next->next = curr;
 }
 
 /*
@@ -69,15 +68,24 @@ void	insert_into_queue(t_list **queue, t_list *path)
 		*queue = new_equal_score_queue(path);
 		return ;
 	}
+	// ft_putendl("Printing path(s) iq debug"); //remove
+	// print_path_iq_debug(((t_list *)curr->content)->content);
 	while (curr && curr->SCORE < path->SCORE)
 	{
 		temp = curr;
 		curr = curr->next;
+		// if (curr)
+			// print_queue(curr); // remove
 	}
 	if (curr == NULL)
 		temp->next = new_equal_score_queue(path);
 	else if (curr->SCORE == path->SCORE)
 		add_to_front_of_sub_queue(curr, path);
+	else if (curr == temp)
+	{
+		*queue = new_equal_score_queue(path);
+		(*queue)->next = temp;
+	}
 	else
 		insert_sub_queue(temp, path);
 }

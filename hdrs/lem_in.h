@@ -145,4 +145,7 @@ int				evaluate(t_list *path);
 void			free_path(t_list **path);
 t_list			*copy_path(t_list *src);
 
+void			print_path(t_list *path); //remove
+void			print_queue(t_list *queue); //remove
+
 #endif

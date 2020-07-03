@@ -13,22 +13,6 @@
 #include "lem_in.h"
 #include <stdlib.h>
 
-static void print_path_cpy(t_list *path)
-{
-	t_list	*curr;
-
-	// remove this function
-	ft_putendl("Printing augmented path:");
-	curr = path;
-	while (curr)
-	{
-		ft_putstr(((t_vert *)curr->content)->name);
-		ft_putchar(' ');
-		curr = curr->next;
-	}
-	ft_putchar('\n');
-}
-
 /*
 **	Params: edge, to find rooms that have modified flow
 **	Return:
@@ -38,7 +22,6 @@ static void		update_visited_status(t_list *path)
 {
 	int		visited;
 	t_edge	*edge;
-	t_list	*tmp;
 
 	while (path)
 	{
@@ -59,9 +42,7 @@ static void		update_visited_status(t_list *path)
 		// ft_putstr(" to ");
 		// ft_putendl(visited ? "TRUE" : "FALSE");
 		((t_vert *)path->content)->visited = visited;
-		tmp = path;
 		path = path->next;
-		free(tmp);
 	}
 }
 
@@ -82,17 +63,49 @@ static void		update_flow(t_list *path)
 			// moana added safety check in while loop
 			while (path->next != NULL && edge->head != path->next->content)
 				edge = edge->next_conn;
-			ft_putstr(((t_vert *)edge->tail)->name); // remove
-			ft_putstr(" to "); // remove
-			ft_putstr(((t_vert *)edge->head)->name); // remove
+			// ft_putstr(((t_vert *)edge->tail)->name); // remove
+			// ft_putstr(" to "); // remove
+			// ft_putstr(((t_vert *)edge->head)->name); // remove
 			edge->flow += 1;
-			ft_putstr(" flow: "); // remove
-			ft_putnbr(edge->flow); // remove
+			// ft_putstr(" flow: "); // remove
+			// ft_putnbr(edge->flow); // remove
 			edge = edge->invert;
 			edge->flow -= 1;
-			ft_putstr(" invert flow: "); // remove
-			ft_putnbr(edge->flow); // remove
-			ft_putchar('\n'); // remove
+			// ft_putstr(" invert flow: "); // remove
+			// ft_putnbr(edge->flow); // remove
+			// ft_putchar('\n'); // remove
+		}
+		path = path->next;
+	}
+}
+
+/*
+**	Params:	path, list containing vertices used
+**	Return:
+*/
+
+static void		revert_flow(t_list *path)
+{
+	t_edge	*edge;
+
+	while (path)
+	{
+		if (!ft_strequ(((t_vert *)path->content)->name, "src"))
+		{
+			edge = ((t_vert *)path->content)->connections;
+			while (edge->head != path->next->content)
+				edge = edge->next_conn;
+			// ft_putstr(((t_vert *)edge->tail)->name); // remove
+			// ft_putstr(" to "); // remove
+			// ft_putstr(((t_vert *)edge->head)->name); // remove
+			edge->flow -= 1;
+			// ft_putstr(" flow: "); // remove
+			// ft_putnbr(edge->flow); // remove
+			edge = edge->invert;
+			edge->flow += 1;
+			// ft_putstr(" invert flow: "); // remove
+			// ft_putnbr(edge->flow); // remove
+			// ft_putchar('\n'); // remove
 		}
 		path = path->next;
 	}
@@ -149,6 +162,32 @@ static t_vert	*get_next_start(t_vert *s)
 	return (next_start);
 }
 
+static int 		revert(t_graph *graph)
+{
+	(void)graph;
+	return (FALSE);
+}
+
+static void 	clear_aug_path(t_graph *graph, t_list *aug_path)
+{
+	t_list	*to_free;
+
+	if (!aug_path)
+		return ;
+	if (revert(graph))
+	{
+		revert_flow(aug_path);
+		update_visited_status(aug_path);
+		update_hops(graph->source, 0);
+	}
+	while (aug_path)
+	{
+		to_free = aug_path;
+		aug_path = aug_path->next;
+		ft_memdel((void **)&to_free);
+	}
+}
+
 /*
 **	Params:	graph, struct containing all information about the graph
 **
@@ -159,31 +198,31 @@ void			edmonds_karp(t_graph *graph)
 {
 	t_list	*aug_path;
 	t_vert	*new_start;
-	int		stop; //remove
+	// int		stop; //remove
 
-	stop = 3; //remove
+	// stop = 1; //remove
 	new_start = get_next_start(graph->source);
 	// moana added safety check because new_start must not be NULL
 	while (new_start != NULL && keep_searching(graph, new_start))
 	{
+		// ft_putendl("exit keep_searching"); // REMOVE
 		rooms_used_to_false(graph->vert_list);
 		// ft_putendl("Enter a_star"); // REMOVE
 		aug_path = a_star(graph->source, graph->sink);
 		// ft_putendl("Exit a_star"); // REMOVE
 		if (aug_path)
 		{
-			print_path_cpy(aug_path);
-			// ft_putendl("Updating_graph flow"); // REMOVE
+			print_path(aug_path);
 			update_flow(aug_path);
-			// ft_putendl("Updating_visited status"); // REMOVE
 			update_visited_status(aug_path);
-			// ft_putendl("Updating_graph hops\n\n"); // REMOVE
 			update_hops(graph->source, 0);
 		}
-		if (stop == 0) // remove
-			return ; // remove
-		stop--; // remove
+		// if (stop == 0) // remove
+		// 	return ; // remove
+		// stop--; // remove
 		// ft_putendl("get_next_start"); // REMOVE
 		new_start = get_next_start(graph->source);
+		clear_aug_path(graph, aug_path);
+		// ft_putendl("exit get_next_start"); // REMOVE
 	}
 }
