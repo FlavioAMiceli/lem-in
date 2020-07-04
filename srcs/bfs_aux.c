@@ -13,7 +13,7 @@
 #include "lem_in.h"
 #include <stdlib.h>
 
-void	bfs_clear_queue(t_list *queue)
+void			bfs_clear_queue(t_list *queue)
 {
 	t_list	*current;
 
@@ -26,7 +26,7 @@ void	bfs_clear_queue(t_list *queue)
 	}
 }
 
-void	free_path(t_list **path)
+void			free_path(t_list **path)
 {
 	t_list	*current;
 	t_list	*next;
@@ -52,7 +52,7 @@ static t_list	*copy_node(t_list *src)
 	return (node);
 }
 
-t_list	*copy_path(t_list *src)
+t_list			*copy_path(t_list *src)
 {
 	t_list	*head;
 	t_list	*current;

@@ -204,5 +204,4 @@ void				absolute_itobuf(long long nb, unsigned int base,
 void				unsigned_itobuf(long long unsigned nb, unsigned int base,
 					t_buffer *buf, int is_cap);
 
-
 #endif

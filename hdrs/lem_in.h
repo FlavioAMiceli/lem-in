@@ -111,7 +111,8 @@ void			ft_strarrdel(char ***arr);
 
 int				strdel_and_return(int ret, char **str);
 int				strarrdel_and_return(int ret, char ***strarr);
-int				strarrdel_edgedel_and_return(int ret, char ***strarr, t_edge **edge);
+int				strarrdel_edgedel_and_return(
+					int ret, char ***strarr, t_edge **edge);
 int				free_graph_input_and_return(int ret, t_graph *graph,
 				t_input_info *input);
 
@@ -145,7 +146,9 @@ int				evaluate(t_list *path);
 void			free_path(t_list **path);
 t_list			*copy_path(t_list *src);
 
-void			print_path(t_list *path); //remove
-void			print_queue(t_list *queue); //remove
+void			update_visited_status(t_list *path);
+void			update_flow(t_list *path);
+void			revert_flow(t_list *path);
+void			update_hops(t_vert *s, int hop);
 
 #endif

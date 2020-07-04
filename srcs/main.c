@@ -19,10 +19,11 @@ int		main(int argc, char **argv)
 {
 	t_graph			graph;
 	t_input_info	input;
+	int				fd;
 
 	if (argc != 2)
 		return (0);
-	int fd = open(argv[1], O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
 		ft_putendl("map doesn't exist");
