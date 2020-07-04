@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 15:09:27 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/07 12:08:16 by moana         ########   odam.nl         */
+/*   Updated: 2020/07/04 13:07:57 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ Test(input_read, valid_same_start_end)
 
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	fd = open("tests/maps/valid_same_start_end", O_RDONLY);
+	fd = open("tests/maps/valid_start_eq_end", O_RDONLY);
 	if (fd == -1)
    		ft_printf ("Error: %s\n", strerror(errno));
 	cr_assert_gt(fd, 0, "open failed, fd is %d", fd);

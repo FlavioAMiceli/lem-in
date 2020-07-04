@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/21 11:38:50 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/30 17:31:46 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 18:00:14 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	paths_sort(t_path **paths, int idx)
 **	t_vert *new_start	start vert of the new path
 **
 ** return
-**	OK
+**	SUCCESS
 **	ERROR
 */
 
@@ -75,5 +75,5 @@ int			path_new(t_graph *graph, t_vert *new_start)
 	paths_sort(graph->paths, graph->path_count);
 	graph->paths[0]->threshold = 0;
 	graph->path_count += 1;
-	return (OK);
+	return (SUCCESS);
 }

@@ -19,17 +19,27 @@
 **	Return:
 */
 
-static void	bfs_clear_queue(t_list *queue)
+static t_list *free_node(t_list **node)
 {
-	t_list	*current;
+	t_list	*next;
 
-	while (queue)
-	{
-		free_path((t_list **)(&(queue->content)));
-		current = queue->next;
-		free(queue);
-		queue = current;
-	}
+	if (node == NULL || *node == NULL)
+		return (NULL);
+	next = (*node)->next;
+	ft_memdel((void **)node);
+	*node = next;
+	return (next);
+}
+
+void		free_path(t_list **path)
+{
+	t_list	*node;
+
+	if (path == NULL || *path == NULL)
+		return ;
+	node = *path;
+	while (node)
+		node = free_node(&node);
 }
 
 /*
@@ -38,37 +48,25 @@ static void	bfs_clear_queue(t_list *queue)
 **	Return:
 */
 
-void		a_star_clear_queue(t_list *queue)
+void			a_star_clear_queue(t_list **queue)
 {
-	t_list *paths;
-	t_list *current;
+	t_list	*curr;
+	t_list	*paths;
+	t_list	*node;
 
-	paths = queue->content;
-	while (paths)
+	curr = *queue;
+	while (curr)
 	{
-		current = paths;
-		paths = paths->next;
-		bfs_clear_queue(current);
+		paths = curr->content;
+		while (paths)
+		{
+			node = paths->content;
+			while (node)
+				node = free_node(&node);
+			paths = free_node(&paths);
+		}
+		curr = free_node(&curr);
 	}
-}
-
-/*
-**	Params:	queue, ordered list of queues of reverse paths to expand.
-**				first level nodes are sorted nodes of queues with equal scores.
-**			source, vertex that represents first the first room in graph.
-**	Return:
-*/
-
-void		init_queue(t_list **queue, t_vert *source)
-{
-	t_list *head;
-
-	(*queue) = (t_list*)ft_memalloc(sizeof(t_list));
-	head = (*queue);
-	head->content = (t_list*)ft_memalloc(sizeof(t_list));
-	head->SCORE = source->distance;
-	((t_list *)head->content)->content = source;
-	((t_list *)head->content)->SCORE = source->distance;
 }
 
 /*
@@ -77,36 +75,31 @@ void		init_queue(t_list **queue, t_vert *source)
 **	Return: path found at top node of top queue.
 */
 
-// t_list		*a_star_dequeue(t_list **queue)
-// {
-// 	t_list	*equal_score_paths;
-//
-// 	equal_score_paths = ft_lstdequeue(queue);
-// 	if (queue == NULL && equal_score_paths->next)
-// 		queue = &(equal_score_paths->next);
-// 	return (equal_score_paths->content);
-// }
-
-t_list		*a_star_dequeue(t_list **queue)
+t_list			*a_star_dequeue(t_list **queue)
 {
 	t_list	*current;
 	t_list	*path;
+	t_list	*tmp;
 
-	// TODO: Check whether the correct return value is current, or current->content
 	current = *queue;
-	path = current->content;
+	path = ((t_list *)current->content)->content;
 	if (((t_list *)current->content)->next)
 	{
-		(*queue) = (((t_list *)current->content)->next);
-		(*queue)->next = current->next;
+		tmp = current->content;
+		current->content = ((t_list *)current->content)->next;
+		ft_memdel((void **)&tmp);
 	}
 	else if (current->next)
+	{
 		(*queue) = current->next;
+		ft_memdel((void **)&current->content);
+		ft_memdel((void **)&current);
+	}
 	else
 	{
 		(*queue) = NULL;
-		queue = NULL;
+		ft_memdel((void **)&current->content);
+		ft_memdel((void **)&current);
 	}
-	free(current); // Is this needed?
 	return (path);
 }

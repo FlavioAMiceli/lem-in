@@ -1,21 +1,19 @@
 # valid_normal_2
 #
-#     K-O-M
-#     |    \
-#     G-H-I-snk
-#    /  |  /
-# src-D-E-F-N
-#    \    | |
-#   U A-B-C Q
-#    \      |
-#   V-T-S-R-P
-#    /
-#   W
+#   P
+#   |
+#   Q K-O-M
+#   | |    \
+#   N G-H-I-snk
+#   |/  |  /
+# src-D-E-F
+#    \    |
+#     A-B-C
 10
 ##start
 src 2 0
 ##end
-snk 2 4
+snk 1 4
 K 0 1
 O 0 2
 M 0 3
@@ -28,15 +26,11 @@ F 2 3
 A 3 1
 B 3 2
 C 3 3
-N 3 4
-Q 4 4
-P 5 4
-R 5 3
-S 5 2
-T 5 1
-U 4 0
-V 5 0
-W 6 0
+N 1 0
+Q 0 0
+P 0 0
+R 0 1
+S 0 2
 # links
 src-G
 src-D
@@ -45,22 +39,16 @@ M-snk
 I-snk
 F-snk
 G-K
-E-H
-C-F
 K-O
 O-M
 G-H
 H-I
 D-E
 E-F
+E-H
 A-B
 B-C
-F-N
+C-F
+src-N
 N-Q
 Q-P
-P-R
-R-S
-S-T
-T-U
-T-V
-T-W

@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/15 18:11:14 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 18:49:58 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 # include "hashtable.h"
 
-# define TRUE 1
-# define FALSE 0
-# define OK 1
-# define ERROR 0
 # define SCORE content_size
 
 typedef struct	s_input_line
@@ -48,7 +44,7 @@ typedef struct	s_vert
 	int				x_coord;
 	int				y_coord;
 	int				distance;
-	unsigned int	hops;
+	int				hops;
 	int				visited;
 	int				used;
 	int				conn_count;
@@ -69,7 +65,7 @@ typedef struct	s_edge
 
 typedef struct	s_path
 {
-	int				threshold;
+	unsigned int	threshold;
 	t_vert			*start;
 }				t_path;
 
@@ -115,7 +111,8 @@ void			ft_strarrdel(char ***arr);
 
 int				strdel_and_return(int ret, char **str);
 int				strarrdel_and_return(int ret, char ***strarr);
-int				strarrdel_edgedel_and_return(int ret, char ***strarr, t_edge **edge);
+int				strarrdel_edgedel_and_return(
+					int ret, char ***strarr, t_edge **edge);
 int				free_graph_input_and_return(int ret, t_graph *graph,
 				t_input_info *input);
 
@@ -133,13 +130,14 @@ int				path_new(t_graph *graph, t_vert *new_start);
 
 unsigned int	threshold(t_path **paths, unsigned int idx,
 				unsigned int placeholder);
+void			set_thresholds(t_path **paths, unsigned int path_count);
 
 int				keep_searching(t_graph *graph, t_vert *new_start);
 
 void			edmonds_karp(t_graph *graph);
 t_list			*a_star(t_vert *source, t_vert *sink);
 t_list			*a_star_dequeue(t_list **queue);
-void			a_star_clear_queue(t_list *queue);
+void			a_star_clear_queue(t_list **queue);
 
 void			init_queue(t_list **queue, t_vert *source);
 void			insert_into_queue(t_list **queue, t_list *path);
@@ -148,6 +146,10 @@ void			rooms_used_to_false(t_vert *rooms);
 int				evaluate(t_list *path);
 void			free_path(t_list **path);
 t_list			*copy_path(t_list *src);
-int				is_reachable(t_edge *edge, t_vert *room);
+
+void			update_visited_status(t_list *path);
+void			update_flow(t_graph *graph, t_list *path);
+void			revert_flow(t_graph *graph, t_list *path);
+void			update_hops(t_vert *s, int hop);
 
 #endif

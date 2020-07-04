@@ -11,7 +11,48 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdlib.h>
+
+static int		no_back_flow(t_edge *edge, t_list *path)
+{
+	if (!path->next)
+		return (TRUE);
+	else if (edge->head != ((t_list *)path->next)->content)
+		return (TRUE);
+	return (FALSE);
+}
+
+static int		is_traversable(t_edge *edge, t_list *path, t_vert *source)
+{
+	t_edge *prev_edge;
+
+	if (edge->flow <= 0 && edge->head->used == FALSE)
+	{
+		if (edge->flow < 0)
+			return (TRUE);
+		else if (edge->tail->visited == FALSE || edge->tail == source)
+			return (TRUE);
+		else if (path->next)
+		{
+			prev_edge = ((t_vert *)path->next->content)->connections;
+			while (prev_edge->head != edge->tail)
+				prev_edge = prev_edge->next_conn;
+			if (prev_edge->flow < 0)
+				return (TRUE);
+		}
+	}
+	return (FALSE);
+}
+
+static t_list	*new_path_alloc(t_edge *edge, t_list *path)
+{
+	t_list	*new_path;
+
+	new_path = (t_list *)ft_memalloc(sizeof(t_list));
+	new_path->content = edge->head;
+	new_path->next = copy_path(path);
+	new_path->SCORE = evaluate(new_path);
+	return (new_path);
+}
 
 /*
 **	Params:	queue, ordered list of queues of reverse paths to expand.
@@ -21,37 +62,31 @@
 **	Return:	NULL if sink hasn't been reached yet,
 **			otherwise shortest path in reverse.
 */
-static t_list	*a_star_expand(t_list **queue, t_vert *sink)
+
+static t_list	*a_star_expand(t_list **queue, t_vert *sink, t_vert *source)
 {
 	t_list	*path;
 	t_list	*new_path;
 	t_edge	*edge;
 
 	path = a_star_dequeue(queue);
-	edge = ((t_vert *)(path->content))->connections;
+	edge = ((t_vert *)path->content)->connections;
 	while (edge)
 	{
-		// copy path, add each neighbour to front, insert into queue
-		ft_putstr("expanding next edge with head: ");
-		ft_putstr(((t_vert *)edge->head)->name); //remove
-		ft_putchar('\n'); //remove
-		if (is_reachable(edge, path->content))
+		if (no_back_flow(edge, path) && is_traversable(edge, path, source))
 		{
-			new_path = copy_path(path);
-			ft_lstadd(&new_path, ft_lstnew(&(edge->head), sizeof(t_vert *)));
-			new_path->SCORE = evaluate(new_path);
-			// test if sink reached
+			edge->head->used = TRUE;
+			new_path = new_path_alloc(edge, path);
 			if (edge->head == sink)
 			{
-				free(path);
+				free_path(&path);
 				return (new_path);
 			}
-			edge = edge->next_edge;
-			// insert into queue
 			insert_into_queue(queue, new_path);
 		}
+		edge = edge->next_conn;
 	}
-	free(path);
+	free_path(&path);
 	return (NULL);
 }
 
@@ -62,30 +97,24 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink)
 **	Return:	linked list of vertices
 **			that make up the shortest path from source to sink
 */
+
 t_list			*a_star(t_vert *source, t_vert *sink)
 {
 	t_list	*queue;
 	t_list	*rev_path;
+	t_list	*path;
 
 	init_queue(&queue, source);
-	while (queue)
+	while (queue && queue->content != NULL)
 	{
-		ft_putchar('\n'); //remove
-		ft_putendl("Enter a_star_expand"); //remove
-		ft_putstr("Current vert: "); //remove
-		ft_putstr(((t_vert *)((t_list *)queue->content)->content)->name); //remove
-		ft_putchar('\n'); //remove
-		ft_putstr("Score: "); //remove
-		ft_putnbr(queue->SCORE); //remove
-		ft_putchar('\n'); //remove
-		rev_path = a_star_expand(&queue, sink);
+		rev_path = a_star_expand(&queue, sink, source);
 		if (rev_path)
 		{
-			ft_putendl("rev_path found"); //remove
-			a_star_clear_queue(queue);
-			return (ft_lstrev(&rev_path));
+			a_star_clear_queue(&queue);
+			path = ft_lstrev(&rev_path);
+			free_path(&rev_path);
+			return (path);
 		}
 	}
-	ft_putendl("No path found"); //remove
 	return (NULL);
 }

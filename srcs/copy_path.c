@@ -13,56 +13,31 @@
 #include "lem_in.h"
 #include <stdlib.h>
 
-void	bfs_clear_queue(t_list *queue)
+static t_list	*copy_node(t_list *src)
 {
-	t_list	*current;
+	t_list	*node;
 
-	while (queue)
-	{
-		free_path((t_list **)&(queue->content));
-		current = queue->next;
-		free(queue);
-		queue = current;
-	}
+	node = ft_memalloc(sizeof(t_list));
+	node->content = src->content;
+	node->SCORE = src->SCORE;
+	node->next = NULL;
+	return (node);
 }
 
-void	free_path(t_list **path)
+t_list			*copy_path(t_list *src)
 {
+	t_list	*head;
 	t_list	*current;
-	t_list	*next;
+	t_list	*tail;
 
-	current = *path;
-	while (current)
-	{
-		next = current->next;
-		ft_memdel((void **)&current);
-		current = next;
-	}
-	path = NULL;
-}
-
-t_list	*copy_path(t_list *src)
-{
-	t_list	*cpy;
-	t_list	*current;
-	t_list	*cpy_end;
-
-	cpy = ft_lstnew(src->content, sizeof(t_vert *));
-	cpy->SCORE = ((t_vert *)src->content)->distance;
-	cpy_end = cpy;
+	head = copy_node(src);
+	tail = head;
 	current = src->next;
 	while (current)
 	{
-		cpy_end->next = ft_lstnew(current->content, sizeof(t_vert *));
-		cpy_end->SCORE = ((t_vert *)current->content)->distance;
-		cpy_end = cpy_end->next;
+		tail->next = copy_node(current);
+		current = current->next;
+		tail = tail->next;
 	}
-	return (cpy);
-}
-
-int		is_reachable(t_edge *edge, t_vert *room)
-{
-	if (room->visited == FALSE && room->used == FALSE && edge->flow <= 0)
-		return (TRUE);
-	return (FALSE);
+	return (head);
 }

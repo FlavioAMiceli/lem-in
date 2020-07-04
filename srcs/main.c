@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:09:39 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/15 15:53:41 by moana         ########   odam.nl         */
+/*   Updated: 2020/07/04 12:34:09 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ int		main(int argc, char **argv)
 {
 	t_graph			graph;
 	t_input_info	input;
+	int				fd;
 
 	if (argc != 2)
 		return (0);
-	int fd = open(argv[1], O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
 		ft_putendl("map doesn't exist");
@@ -38,7 +39,11 @@ int		main(int argc, char **argv)
 		ft_putendl_fd("Error", 2);
 		return (free_graph_input_and_return(0, &graph, &input));
 	}
-	distance_set(&graph, graph.sink, NULL);
-	edmonds_karp(&graph);
+	if (graph.source != graph.sink)
+	{
+		distance_set(&graph, graph.sink, NULL);
+		edmonds_karp(&graph);
+		sleep(3); //remove
+	}
 	return (free_graph_input_and_return(0, &graph, &input));
 }

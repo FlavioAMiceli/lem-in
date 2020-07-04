@@ -20,10 +20,10 @@
 ** checks if the new edge is already saved in its tail
 **
 ** params
-**	t_edge *new_edge	the struct for the new egde
+**	t_edge *new_edge	the struct for the new edge
 **
 ** return
-**	OK
+**	SUCCESS
 **	ERROR
 */
 
@@ -47,11 +47,11 @@ static int	edge_is_duplicate(t_edge *new_edge)
 ** sets all the pointers for the new edge and its invert edge
 **
 ** params
-**	t_edge *edge	the struct for the new egde
+**	t_edge *edge	the struct for the new edge
 **	t_graph *graph	struct holding all information about graph
 **
 ** return
-**	OK
+**	SUCCESS
 **	ERROR
 */
 
@@ -84,7 +84,7 @@ static void	edge_set(t_edge *edge, t_graph *graph)
 **	t_graph *graph		struct holding all information about graph
 **
 ** return
-**	OK
+**	SUCCESS
 **	ERROR
 */
 
@@ -104,7 +104,7 @@ int			edge_new(char **input_line, t_graph *graph)
 	if (edge->tail == NULL || edge->head == NULL)
 		return (strarrdel_edgedel_and_return(ERROR, &input_line, &edge));
 	if (edge->head == edge->tail || edge_is_duplicate(edge))
-		return (strarrdel_edgedel_and_return(OK, &input_line, &edge));
+		return (strarrdel_edgedel_and_return(SUCCESS, &input_line, &edge));
 	edge_set(edge, graph);
-	return (strarrdel_and_return(OK, &input_line));
+	return (strarrdel_and_return(SUCCESS, &input_line));
 }

@@ -3,4 +3,3 @@ lem-in
 *json*
 *.c~
 tests/test
-libft/*

@@ -4,7 +4,7 @@
 /*   a_star_aux.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
-/*                                                  +#+                       */
+/*                                                   +#+                      */
 /*   Created: 2020/04/10 10:52:15 by fmiceli       #+#    #+#                 */
 /*   Updated: 2020/04/10 10:52:49 by fmiceli       ########   odam.nl         */
 /*                                                                            */

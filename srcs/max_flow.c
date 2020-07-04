@@ -6,71 +6,12 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/25 18:13:13 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/05/12 11:16:58 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 18:19:19 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include <stdlib.h>
-
-/*
-**	Params: edge, to find rooms that have modified flow
-**	Return:
-*/
-
-static void		update_visited_status(t_edge *edge)
-{
-	int		visited;
-
-	visited = edge->flow != 0 ? TRUE : FALSE;
-	edge->head->visited = visited;
-	edge->tail->visited = visited;
-}
-
-/*
-**	Params:	path, list containing vertices used
-**	Return:
-*/
-
-static void		update_flow(t_list *path)
-{
-	t_edge	*edge;
-	t_list	*tmp;
-
-	while (path)
-	{
-		edge = ((t_vert *)path->content)->connections;
-		while (edge->head != path->next->content)
-			edge = edge->next_conn;
-		edge->flow += 1;
-		edge = edge->invert;
-		edge->flow -= 1;
-		update_visited_status(edge);
-		tmp = path;
-		path = path->next;
-		free(tmp);
-	}
-}
-
-/*
-**	Params: s, current vertex to update
-**			hop, number of hops to reach current vertex
-**	Return:
-*/
-
-static void		update_hops(t_vert *s, int hop)
-{
-	t_edge	*edge;
-
-	s->hops = hop;
-	edge = s->connections;
-	while (edge)
-	{
-		if (edge->flow == 1)
-			update_hops(edge->head, hop + 1);
-		edge = edge->next_conn;
-	}
-}
 
 /*
 **	Params:	s, source vertex
@@ -89,7 +30,8 @@ static t_vert	*get_next_start(t_vert *s)
 	next_start = NULL;
 	while (edge)
 	{
-		if (edge->head->visited == FALSE && edge->head->distance < min_dist)
+		if (edge->head->visited == FALSE && edge->head->distance < min_dist \
+			&& edge->head->distance > 0)
 		{
 			next_start = edge->head;
 			min_dist = edge->head->distance;
@@ -97,6 +39,25 @@ static t_vert	*get_next_start(t_vert *s)
 		edge = edge->next_conn;
 	}
 	return (next_start);
+}
+
+static int		revert(t_graph *graph)
+{
+	(void)graph;
+	return (FALSE);
+}
+
+static void		clear_aug_path(t_graph *graph, t_list *aug_path)
+{
+	if (!aug_path)
+		return ;
+	if (revert(graph))
+	{
+		revert_flow(graph, aug_path);
+		update_visited_status(aug_path);
+		update_hops(graph->sink, 0);
+	}
+	free_path(&aug_path);
 }
 
 /*
@@ -111,17 +72,21 @@ void			edmonds_karp(t_graph *graph)
 	t_vert	*new_start;
 
 	new_start = get_next_start(graph->source);
-	while (keep_searching(graph, new_start))
+	while (new_start != NULL && keep_searching(graph, new_start))
 	{
 		rooms_used_to_false(graph->vert_list);
-		ft_putendl("Enter a_star"); // REMOVE
 		aug_path = a_star(graph->source, graph->sink);
-		ft_putendl("Exit a_star"); // REMOVE
 		if (aug_path)
 		{
-			update_flow(aug_path);
-			update_hops(graph->source, 0);
+			update_flow(graph, aug_path);
+			update_visited_status(aug_path);
+			update_hops(graph->sink, 0);
+			path_new(graph, aug_path->next->content);
 		}
+		else
+			break ;
 		new_start = get_next_start(graph->source);
+		clear_aug_path(graph, aug_path);
 	}
+	set_thresholds(graph->paths, graph->path_count);
 }
