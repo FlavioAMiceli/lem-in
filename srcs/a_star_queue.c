@@ -19,17 +19,27 @@
 **	Return:
 */
 
-static void	bfs_clear_queue(t_list *queue)
+static t_list *free_node(t_list **node)
 {
-	t_list	*current;
+	t_list	*next;
 
-	while (queue)
-	{
-		free_path((t_list **)(&(queue->content)));
-		current = queue->next;
-		ft_memdel((void **)&queue);
-		queue = current;
-	}
+	if (node == NULL || *node == NULL)
+		return (NULL);
+	next = (*node)->next;
+	ft_memdel((void **)node);
+	*node = next;
+	return (next);
+}
+
+void		free_path(t_list **path)
+{
+	t_list	*node;
+
+	if (path == NULL || *path == NULL)
+		return ;
+	node = *path;
+	while (node)
+		node = free_node(&node);
 }
 
 /*
@@ -38,17 +48,24 @@ static void	bfs_clear_queue(t_list *queue)
 **	Return:
 */
 
-void		a_star_clear_queue(t_list **queue)
+void			a_star_clear_queue(t_list **queue)
 {
 	t_list	*curr;
 	t_list	*paths;
+	t_list	*node;
 
 	curr = *queue;
 	while (curr)
 	{
 		paths = curr->content;
-		bfs_clear_queue(paths);
-		curr = curr->next;
+		while (paths)
+		{
+			node = paths->content;
+			while (node)
+				node = free_node(&node);
+			paths = free_node(&paths);
+		}
+		curr = free_node(&curr);
 	}
 }
 
@@ -58,7 +75,7 @@ void		a_star_clear_queue(t_list **queue)
 **	Return: path found at top node of top queue.
 */
 
-t_list		*a_star_dequeue(t_list **queue)
+t_list			*a_star_dequeue(t_list **queue)
 {
 	t_list	*current;
 	t_list	*path;

@@ -90,6 +90,8 @@ void			edmonds_karp(t_graph *graph)
 			update_hops(graph->sink, 0);
 			path_new(graph, aug_path->next->content);
 		}
+		else
+			break ;
 		new_start = get_next_start(graph->source);
 		clear_aug_path(graph, aug_path);
 	}
