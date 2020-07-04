@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 12:53:00 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/07/04 12:53:01 by fmiceli       ########   odam.nl         */
+/*   Updated: 2020/07/04 14:24:58 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,17 @@ void	revert_flow(t_list *path)
 }
 
 /*
-**	Params: t, current vertex to update
+**	Params: snk, current vertex to update
 **			hop, number of hops to reach current vertex
 **	Return:
 */
 
-void	update_hops(t_vert *t, int hop)
+void	update_hops(t_vert *snk, int hop)
 {
 	t_edge	*edge;
 
-	s->hops = hop;
-	edge = s->connections;
+	snk->hops = hop;
+	edge = snk->connections;
 	while (edge)
 	{
 		if (edge->flow == -1)

@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/25 18:13:13 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/07/04 14:22:31 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 14:27:18 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void			edmonds_karp(t_graph *graph)
 			update_flow(aug_path);
 			update_visited_status(aug_path);
 			update_hops(graph->sink, 0);
+			path_new(graph, aug_path->next->content);
 		}
 		new_start = get_next_start(graph->source);
 		clear_aug_path(graph, aug_path);

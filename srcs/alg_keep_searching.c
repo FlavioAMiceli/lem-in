@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/21 16:18:28 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/30 17:15:16 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 14:02:52 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 int		keep_searching(t_graph *graph, t_vert *new_start)
 {
-	return (graph->path_count < graph->ant_count && graph->ant_count >
-		threshold(graph->paths, graph->path_count, new_start->distance));
+	unsigned int thresh = threshold(graph->paths, graph->path_count, new_start->distance);
+	return (!(graph->path_count >= graph->ant_count || graph->ant_count <=
+		thresh));
 }

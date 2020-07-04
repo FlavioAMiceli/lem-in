@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 12:34:33 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/30 16:23:24 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 14:08:37 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -533,6 +533,24 @@ Test(alg_threshold, idx_is_2_1)
 	graph_del(&graph);
 }
 
+Test(alg_threshold, idx_is_1_5)
+{
+	t_graph		graph;
+	int			idx;
+	int			placeholder;
+	int			threshold_expected;
+	int			threshold_calculated;
+
+	cr_assert_eq(load_map(&graph, "tests/maps/valid_path_threshold"), SUCCESS, "graph couldn't be build");
+	cr_assert_eq(add_paths(&graph), SUCCESS, "paths couldn't be loaded");
+	idx = 1;
+	graph.paths[0]->start->hops = 4;
+	placeholder = 4;
+	threshold_expected = 2;
+	threshold_calculated = threshold(graph.paths, idx, placeholder);
+	cr_expect_eq(threshold_calculated, threshold_expected, "threshold for path with idx = %d incorrect.\nthreshold_expected: %d, threshold_calculated: %d", idx, threshold_expected, threshold_calculated);
+	graph_del(&graph);
+}
 Test(alg_threshold, idx_is_1_4)
 {
 	t_graph		graph;
