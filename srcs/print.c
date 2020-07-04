@@ -6,24 +6,12 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/15 16:05:50 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/15 18:59:57 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 18:46:57 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include <stdlib.h>
-
-void	update_thresholds(t_path **paths, unsigned int path_count)
-{
-	int		idx;
-
-	idx = 0;
-	while (idx < path_count)
-	{
-		paths[idx]->threshold = threshold(paths, idx, paths[idx]->start->hops);
-		++idx;
-	}
-}
 
 void	release_ants(t_path **paths, t_print *p_info, unsigned int remaining)
 {
