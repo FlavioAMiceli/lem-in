@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/25 18:13:13 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/05/12 11:16:58 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 12:35:12 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ static t_vert	*get_next_start(t_vert *s)
 	while (edge)
 	{
 		if (edge->head->visited == FALSE && edge->head->distance < min_dist \
-			&& edge->head->distance > 0) // moana added check if new_start  vert is connected to snd at all
+			&& edge->head->distance >= 0) // moana added check if new_start  vert is connected to snd at all
 		{
 			next_start = edge->head;
 			min_dist = edge->head->distance;
@@ -217,13 +217,16 @@ void			edmonds_karp(t_graph *graph)
 			update_flow(aug_path);
 			update_visited_status(aug_path);
 			update_hops(graph->source, 0);
+			path_new(graph, aug_path->next->content);
 		}
+		else
+			break ;
 		// if (stop == 0) // remove
 		// 	return ; // remove
 		// stop--; // remove
 		// ft_putendl("get_next_start"); // REMOVE
-		new_start = get_next_start(graph->source);
 		clear_aug_path(graph, aug_path);
+		new_start = get_next_start(graph->source);
 		// ft_putendl("exit get_next_start"); // REMOVE
 	}
 }
