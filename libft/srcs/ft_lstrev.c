@@ -12,19 +12,6 @@
 
 #include "libft.h"
 
-// t_list	*ft_lstrev(t_list **alst)
-// {
-// 	t_list *curr;
-
-// 	if (!alst || !(*alst))
-// 		return (NULL);
-// 	curr = ft_lstdequeue(alst);
-// 	curr->next = NULL;
-// 	while (alst)
-// 		ft_lstadd(&curr, ft_lstdequeue(alst));
-// 	return (curr);
-// }
-
 t_list	*ft_lstrev(t_list **alst)
 {
 	t_list	*curr;

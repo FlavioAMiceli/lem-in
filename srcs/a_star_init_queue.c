@@ -41,7 +41,7 @@ static t_list	*init_queue_equal_value(t_vert *source)
 	return (head);
 }
 
-void		init_queue(t_list **queue, t_vert *source)
+void			init_queue(t_list **queue, t_vert *source)
 {
 	t_list *head;
 

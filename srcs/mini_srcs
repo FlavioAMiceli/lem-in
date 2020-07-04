@@ -32,4 +32,5 @@ MINI_SOURCES := free_and_return \
 	a_star_init_queue \
 	bfs_aux \
 	max_flow \
-	insert_into_queue
+	insert_into_queue \
+	apply_aug_path
