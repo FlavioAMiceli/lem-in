@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 12:53:00 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/07/04 14:24:58 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 16:51:16 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ void	update_visited_status(t_list *path)
 **	Return:
 */
 
-void	update_flow(t_list *path)
+void	update_flow(t_graph *graph, t_list *path)
 {
 	t_edge	*edge;
 
 	while (path)
 	{
-		if (!ft_strequ(((t_vert *)path->content)->name, "snk"))
+		if (path->content != graph->sink)
 		{
 			edge = ((t_vert *)path->content)->connections;
-			while (path->next != NULL && edge->head != path->next->content)
+			while (edge->head != path->next->content)
 				edge = edge->next_conn;
 			edge->flow += 1;
 			edge = edge->invert;
@@ -69,13 +69,13 @@ void	update_flow(t_list *path)
 **	Return:
 */
 
-void	revert_flow(t_list *path)
+void	revert_flow(t_graph *graph, t_list *path)
 {
 	t_edge	*edge;
 
 	while (path)
 	{
-		if (!ft_strequ(((t_vert *)path->content)->name, "src"))
+		if (path->content != graph->source)
 		{
 			edge = ((t_vert *)path->content)->connections;
 			while (edge->head != path->next->content)
