@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/12 20:10:09 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/04/10 10:04:53 by moana         ########   odam.nl         */
+/*   Updated: 2020/07/04 12:51:48 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Test(hashtable, new)
 
 	hmap = hmap_new(100);
 	cr_expect(hmap, "hmap_new did not return an adress.");
-	cr_expect_eq(hmap->n, 150, "hmap->n is not 3/2 times the input size. Is %d and shoudl be %d");
+	cr_expect_eq(hmap->n, 150, "hmap->n is not 3/2 times the input size. Is %d and shoudl be %d", hmap->n, 150);
 }
 
 Test(hashtable, set_and_get)
@@ -34,8 +34,8 @@ Test(hashtable, set_and_get)
 	*i = 5;
 	r = hmap_set(hmap, "Some key", i);
 	i = hmap_get(hmap, "Some key");
-	cr_expect_eq(*i, 5, "incorrect value, it is %d and it should be %d", i, 5);
-	cr_expect_eq(r, 0, "incorrect return value, it is %d and it should be %d", i, 0);
+	cr_expect_eq(*i, 5, "incorrect value, it is %d and it should be %d", *i, 5);
+	cr_expect_eq(r, 0, "incorrect return value, it is %d and it should be %d", r, 0);
 }
 
 Test(hashtable, set_overwrite)
@@ -49,13 +49,13 @@ Test(hashtable, set_overwrite)
 	i = (int*)ft_memalloc(sizeof(int*));
 	*i = 5;
 	r = hmap_set(hmap, "Some key", i);
-	cr_expect_eq(r, 0, "incorrect return value, it is %d and it should be %d", i, 0);
+	cr_expect_eq(r, 0, "incorrect return value, it is %d and it should be %d", r, 0);
 	j = (int*)ft_memalloc(sizeof(int*));
 	*j = 7;
 	r = hmap_set(hmap, "Some key", j);
 	// cr_expect_eq(i, 0, "Original value was not safely freed");
 	i = hmap_get(hmap, "Some key");
-	cr_expect_eq(*i, 7, "incorrect value, it is %d and it should be %d", i, 7);
+	cr_expect_eq(*i, 7, "incorrect value, it is %d and it should be %d", *i, 7);
 }
 
 Test(hashtable, set_on_full_hmap)

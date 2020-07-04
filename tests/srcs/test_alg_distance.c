@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/07 16:28:03 by moana         #+#    #+#                 */
-/*   Updated: 2020/04/23 16:31:24 by moana         ########   odam.nl         */
+/*   Updated: 2020/07/04 13:05:57 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,46 +243,16 @@ Test(distance_set, valid_deadend_5)
 	cr_expect_neq(vert, NULL, "couldn't find room \"%s\"", room_name);
 	cr_expect_eq(vert->distance, distance, "distance for \"%s\" is incorrect. Expected = %d, calculated = %d", room_name, distance, vert->distance);
 	room_name = "N";
-	distance = -2;
+	distance = -1;
 	vert = hmap_get(graph.vertices, room_name);
 	cr_expect_neq(vert, NULL, "couldn't find room \"%s\"", room_name);
 	cr_expect_eq(vert->distance, distance, "distance for \"%s\" is incorrect. Expected = %d, calculated = %d", room_name, distance, vert->distance);
 	room_name = "Q";
-	distance = -2;
+	distance = -1;
 	vert = hmap_get(graph.vertices, room_name);
 	cr_expect_neq(vert, NULL, "couldn't find room \"%s\"", room_name);
 	cr_expect_eq(vert->distance, distance, "distance for \"%s\" is incorrect. Expected = %d, calculated = %d", room_name, distance, vert->distance);
 	room_name = "P";
-	distance = -2;
-	vert = hmap_get(graph.vertices, room_name);
-	cr_expect_neq(vert, NULL, "couldn't find room \"%s\"", room_name);
-	cr_expect_eq(vert->distance, distance, "distance for \"%s\" is incorrect. Expected = %d, calculated = %d", room_name, distance, vert->distance);
-	room_name = "R";
-	distance = -2;
-	vert = hmap_get(graph.vertices, room_name);
-	cr_expect_neq(vert, NULL, "couldn't find room \"%s\"", room_name);
-	cr_expect_eq(vert->distance, distance, "distance for \"%s\" is incorrect. Expected = %d, calculated = %d", room_name, distance, vert->distance);
-	room_name = "S";
-	distance = -2;
-	vert = hmap_get(graph.vertices, room_name);
-	cr_expect_neq(vert, NULL, "couldn't find room \"%s\"", room_name);
-	cr_expect_eq(vert->distance, distance, "distance for \"%s\" is incorrect. Expected = %d, calculated = %d", room_name, distance, vert->distance);
-	room_name = "T";
-	distance = -2;
-	vert = hmap_get(graph.vertices, room_name);
-	cr_expect_neq(vert, NULL, "couldn't find room \"%s\"", room_name);
-	cr_expect_eq(vert->distance, distance, "distance for \"%s\" is incorrect. Expected = %d, calculated = %d", room_name, distance, vert->distance);
-	room_name = "U";
-	distance = -1;
-	vert = hmap_get(graph.vertices, room_name);
-	cr_expect_neq(vert, NULL, "couldn't find room \"%s\"", room_name);
-	cr_expect_eq(vert->distance, distance, "distance for \"%s\" is incorrect. Expected = %d, calculated = %d", room_name, distance, vert->distance);
-	room_name = "V";
-	distance = -1;
-	vert = hmap_get(graph.vertices, room_name);
-	cr_expect_neq(vert, NULL, "couldn't find room \"%s\"", room_name);
-	cr_expect_eq(vert->distance, distance, "distance for \"%s\" is incorrect. Expected = %d, calculated = %d", room_name, distance, vert->distance);
-	room_name = "W";
 	distance = -1;
 	vert = hmap_get(graph.vertices, room_name);
 	cr_expect_neq(vert, NULL, "couldn't find room \"%s\"", room_name);
