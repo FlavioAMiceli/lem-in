@@ -5,7 +5,7 @@
 #   Q K-O-M
 #   | |    \
 #   N G-H-I-snk
-#   |/  |  /
+#   |/     /
 # src-D-E-F
 #    \    |
 #     A-B-C
@@ -39,16 +39,15 @@ M-snk
 I-snk
 F-snk
 G-K
+C-F
 K-O
 O-M
 G-H
 H-I
 D-E
 E-F
-E-H
 A-B
 B-C
-C-F
 src-N
 N-Q
 Q-P
