@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/04 18:07:09 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 18:19:04 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int				path_new(t_graph *graph, t_vert *new_start);
 
 unsigned int	threshold(t_path **paths, unsigned int idx,
 				unsigned int placeholder);
-void			set_thresholds(t_path **paths);
+void			set_thresholds(t_path **paths, unsigned int path_count);
 
 int				keep_searching(t_graph *graph, t_vert *new_start);
 
