@@ -89,12 +89,12 @@ void	revert_flow(t_list *path)
 }
 
 /*
-**	Params: s, current vertex to update
+**	Params: t, current vertex to update
 **			hop, number of hops to reach current vertex
 **	Return:
 */
 
-void	update_hops(t_vert *s, int hop)
+void	update_hops(t_vert *t, int hop)
 {
 	t_edge	*edge;
 
@@ -102,7 +102,7 @@ void	update_hops(t_vert *s, int hop)
 	edge = s->connections;
 	while (edge)
 	{
-		if (edge->flow == 1)
+		if (edge->flow == -1)
 			update_hops(edge->head, hop + 1);
 		edge = edge->next_conn;
 	}

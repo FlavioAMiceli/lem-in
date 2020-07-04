@@ -57,7 +57,7 @@ static void		clear_aug_path(t_graph *graph, t_list *aug_path)
 	{
 		revert_flow(aug_path);
 		update_visited_status(aug_path);
-		update_hops(graph->source, 0);
+		update_hops(graph->sink, 0);
 	}
 	while (aug_path)
 	{
@@ -87,7 +87,7 @@ void			edmonds_karp(t_graph *graph)
 		{
 			update_flow(aug_path);
 			update_visited_status(aug_path);
-			update_hops(graph->source, 0);
+			update_hops(graph->sink, 0);
 		}
 		new_start = get_next_start(graph->source);
 		clear_aug_path(graph, aug_path);
