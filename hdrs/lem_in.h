@@ -144,7 +144,7 @@ void			insert_into_queue(t_list **queue, t_list *path);
 
 void			rooms_used_to_false(t_vert *rooms);
 int				evaluate(t_list *path);
-void			free_path(t_list **path);
+void			free_path(t_list *path);
 t_list			*copy_path(t_list *src);
 
 void			update_visited_status(t_list *path);

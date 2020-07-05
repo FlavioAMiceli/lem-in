@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   bfs_aux.c                                          :+:    :+:            */
+/*   copy_path.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/02 06:39:13 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/05/12 11:16:24 by mmarcell      ########   odam.nl         */
+/*   Created: 2020/07/05 12:34:35 by fmiceli       #+#    #+#                 */
+/*   Updated: 2020/07/05 12:34:35 by fmiceli       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdlib.h>
 
 static t_list	*copy_node(t_list *src)
 {

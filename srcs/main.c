@@ -20,6 +20,7 @@ int		main(int argc, char **argv)
 	t_graph			graph;
 	t_input_info	input;
 	int				fd;
+	int				ret;
 
 	if (argc != 2)
 		return (0);
@@ -45,5 +46,6 @@ int		main(int argc, char **argv)
 		edmonds_karp(&graph);
 		sleep(3); //remove
 	}
-	return (free_graph_input_and_return(0, &graph, &input));
+	ret = free_graph_input_and_return(0, &graph, &input);
+	return (ret);
 }

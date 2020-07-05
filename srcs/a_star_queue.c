@@ -12,6 +12,8 @@
 
 #include "lem_in.h"
 #include <stdlib.h>
+#include <fcntl.h>			//REMOVE
+#include <unistd.h>			//REMOVE
 
 /*
 **	Params:	queue, ordered list of queues of reverse paths to expand.
@@ -19,27 +21,32 @@
 **	Return:
 */
 
-static t_list *free_node(t_list **node)
+static void	free_equal_score_paths(t_list *eq_s_p)
 {
 	t_list	*next;
 
-	if (node == NULL || *node == NULL)
-		return (NULL);
-	next = (*node)->next;
-	ft_memdel((void **)node);
-	*node = next;
-	return (next);
+	while (eq_s_p)
+	{
+		current = eq_s_p;
+		eq_s_p = eq_s_p->next;
+		free_path(current->content);
+		free(current);
+		current = NULL;
+	}
 }
 
-void		free_path(t_list **path)
+void		free_path(t_list *path)
 {
-	t_list	*node;
+	t_list	*current;
+	t_list	*next;
 
-	if (path == NULL || *path == NULL)
-		return ;
-	node = *path;
-	while (node)
-		node = free_node(&node);
+	current = path;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
 }
 
 /*
@@ -51,21 +58,18 @@ void		free_path(t_list **path)
 void			a_star_clear_queue(t_list **queue)
 {
 	t_list	*curr;
-	t_list	*paths;
-	t_list	*node;
+	t_list	*tmp;
+	t_list	*equal_score_paths;
 
 	curr = *queue;
 	while (curr)
 	{
-		paths = curr->content;
-		while (paths)
-		{
-			node = paths->content;
-			while (node)
-				node = free_node(&node);
-			paths = free_node(&paths);
-		}
-		curr = free_node(&curr);
+		equal_score_paths = curr->content;
+		free_equal_score_paths(equal_score_paths);
+		tmp = curr;
+		curr = curr->next;
+		free(tmp);
+		tmp = NULL;
 	}
 }
 
@@ -78,28 +82,30 @@ void			a_star_clear_queue(t_list **queue)
 t_list			*a_star_dequeue(t_list **queue)
 {
 	t_list	*current;
+	t_list	*equal_score;
 	t_list	*path;
 	t_list	*tmp;
 
 	current = *queue;
-	path = ((t_list *)current->content)->content;
-	if (((t_list *)current->content)->next)
+	equal_score = current->content;
+	path = equal_score->content;
+	if (equal_score->next)
 	{
-		tmp = current->content;
-		current->content = ((t_list *)current->content)->next;
-		ft_memdel((void **)&tmp);
-	}
-	else if (current->next)
-	{
-		(*queue) = current->next;
-		ft_memdel((void **)&current->content);
-		ft_memdel((void **)&current);
+		tmp = equal_score;
+		(*queue)->content = equal_score->next;
+		free(tmp);
+		tmp = NULL;
 	}
 	else
 	{
-		(*queue) = NULL;
-		ft_memdel((void **)&current->content);
-		ft_memdel((void **)&current);
+		if (current->next)
+			(*queue) = current->next;
+		else
+			(*queue) = NULL;
+		free(equal_score);
+		free(current);
+		equal_score = NULL;
+		current = NULL;
 	}
 	return (path);
 }
