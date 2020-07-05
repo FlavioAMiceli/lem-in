@@ -44,10 +44,13 @@ void	path_del(t_graph *graph)
 	while (i < graph->path_count && graph->paths[i])
 	{
 		ft_bzero(graph->paths[i], sizeof(t_path));
-		ft_memdel((void**)&(graph->paths[i]));
+		// ft_memdel((void**)&(graph->paths[i]));
+		free(graph->paths[i]);
+		graph->paths[i] = NULL;
 		i++;
 	}
-	ft_memdel((void**)&(graph->paths));
+	free(graph->paths);
+	graph->paths = NULL;
 }
 
 void	graph_del(t_graph *graph)
