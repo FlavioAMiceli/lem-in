@@ -42,7 +42,6 @@ void		free_path(t_list **path)
 	while (current)
 	{
 		next = current->next;
-		// ft_memdel((void **)&current);
 		free(current);
 		current = next;
 	}
@@ -58,6 +57,7 @@ void		free_path(t_list **path)
 void		a_star_clear_queue(t_list **queue)
 {
 	t_list	*curr;
+	t_list	*tmp;
 	t_list	*equal_score_paths;
 
 	curr = *queue;
@@ -65,7 +65,10 @@ void		a_star_clear_queue(t_list **queue)
 	{
 		equal_score_paths = curr->content;
 		free_equal_score_paths(equal_score_paths);
+		tmp = curr;
 		curr = curr->next;
+		free(tmp);
+		tmp = NULL;
 	}
 }
 
