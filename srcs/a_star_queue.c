@@ -19,17 +19,32 @@
 **	Return:
 */
 
-static void	bfs_clear_queue(t_list *queue)
+static void	free_equal_score_paths(t_list *eq_s_p)
 {
 	t_list	*current;
 
-	while (queue)
+	while (eq_s_p)
 	{
-		free_path((t_list **)(&(queue->content)));
-		current = queue->next;
-		ft_memdel((void **)&queue);
-		queue = current;
+		free_path((t_list **)(&(eq_s_p->content)));
+		current = eq_s_p->next;
+		// ft_memdel((void **)&eq_s_p);
+		eq_s_p = current;
 	}
+}
+
+void		free_path(t_list **path)
+{
+	t_list	*current;
+	t_list	*next;
+
+	current = *path;
+	while (current)
+	{
+		next = current->next;
+		ft_memdel((void **)&current);
+		current = next;
+	}
+	path = NULL;
 }
 
 /*
@@ -41,13 +56,13 @@ static void	bfs_clear_queue(t_list *queue)
 void		a_star_clear_queue(t_list **queue)
 {
 	t_list	*curr;
-	t_list	*paths;
+	t_list	*equal_score_paths;
 
 	curr = *queue;
 	while (curr)
 	{
-		paths = curr->content;
-		bfs_clear_queue(paths);
+		equal_score_paths = curr->content;
+		free_equal_score_paths(equal_score_paths);
 		curr = curr->next;
 	}
 }
@@ -61,27 +76,26 @@ void		a_star_clear_queue(t_list **queue)
 t_list		*a_star_dequeue(t_list **queue)
 {
 	t_list	*current;
+	t_list	*equal_score;
 	t_list	*path;
 	t_list	*tmp;
 
 	current = *queue;
-	path = ((t_list *)current->content)->content;
-	if (((t_list *)current->content)->next)
+	equal_score = current->content;
+	path = equal_score->content;
+	if (equal_score->next)
 	{
-		tmp = current->content;
-		current->content = ((t_list *)current->content)->next;
+		tmp = equal_score;
+		equal_score = equal_score->next;
 		ft_memdel((void **)&tmp);
-	}
-	else if (current->next)
-	{
-		(*queue) = current->next;
-		ft_memdel((void **)&current->content);
-		ft_memdel((void **)&current);
 	}
 	else
 	{
-		(*queue) = NULL;
-		ft_memdel((void **)&current->content);
+		if (current->next)
+			(*queue) = current->next;
+		else
+			(*queue) = NULL;
+		ft_memdel((void **)&equal_score);
 		ft_memdel((void **)&current);
 	}
 	return (path);

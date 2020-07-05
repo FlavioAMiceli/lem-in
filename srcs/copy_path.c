@@ -1,45 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   bfs_aux.c                                          :+:    :+:            */
+/*   copy_path.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/02 06:39:13 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/05/12 11:16:24 by mmarcell      ########   odam.nl         */
+/*   Created: 2020/07/05 12:34:35 by fmiceli       #+#    #+#                 */
+/*   Updated: 2020/07/05 12:34:35 by fmiceli       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdlib.h>
-
-void			bfs_clear_queue(t_list *queue)
-{
-	t_list	*current;
-
-	while (queue)
-	{
-		free_path((t_list **)&(queue->content));
-		current = queue->next;
-		free(queue);
-		queue = current;
-	}
-}
-
-void			free_path(t_list **path)
-{
-	t_list	*current;
-	t_list	*next;
-
-	current = *path;
-	while (current)
-	{
-		next = current->next;
-		ft_memdel((void **)&current);
-		current = next;
-	}
-	path = NULL;
-}
 
 static t_list	*copy_node(t_list *src)
 {

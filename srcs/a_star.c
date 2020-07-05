@@ -79,14 +79,14 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink, t_vert *source)
 			new_path = new_path_alloc(edge, path);
 			if (edge->head == sink)
 			{
-				ft_memdel((void **)&path);
+				free_path(&path);
 				return (new_path);
 			}
 			insert_into_queue(queue, new_path);
 		}
 		edge = edge->next_conn;
 	}
-	ft_memdel((void **)&path);
+	free_path(&path);
 	return (NULL);
 }
 

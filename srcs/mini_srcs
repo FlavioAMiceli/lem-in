@@ -30,7 +30,7 @@ MINI_SOURCES := free_and_return \
 	a_star_aux \
 	a_star_queue \
 	a_star_init_queue \
-	bfs_aux \
+	copy_path \
 	max_flow \
 	insert_into_queue \
 	apply_aug_path
