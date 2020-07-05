@@ -12,6 +12,8 @@
 
 #include "lem_in.h"
 #include <stdlib.h>
+#include <fcntl.h>			//REMOVE
+#include <unistd.h>			//REMOVE
 
 /*
 **	Params:	queue, ordered list of queues of reverse paths to expand.
@@ -27,7 +29,6 @@ static void	free_equal_score_paths(t_list *eq_s_p)
 	{
 		free_path((t_list **)(&(eq_s_p->content)));
 		current = eq_s_p->next;
-		// ft_memdel((void **)&eq_s_p);
 		eq_s_p = current;
 	}
 }
@@ -41,7 +42,8 @@ void		free_path(t_list **path)
 	while (current)
 	{
 		next = current->next;
-		ft_memdel((void **)&current);
+		// ft_memdel((void **)&current);
+		free(current);
 		current = next;
 	}
 	path = NULL;
@@ -86,8 +88,9 @@ t_list		*a_star_dequeue(t_list **queue)
 	if (equal_score->next)
 	{
 		tmp = equal_score;
-		equal_score = equal_score->next;
-		ft_memdel((void **)&tmp);
+		(*queue)->content = equal_score->next;
+		free(tmp);
+		tmp = NULL;
 	}
 	else
 	{
@@ -95,8 +98,10 @@ t_list		*a_star_dequeue(t_list **queue)
 			(*queue) = current->next;
 		else
 			(*queue) = NULL;
-		ft_memdel((void **)&equal_score);
-		ft_memdel((void **)&current);
+		free(equal_score);
+		free(current);
+		equal_score = NULL;
+		current = NULL;
 	}
 	return (path);
 }

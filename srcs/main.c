@@ -42,8 +42,9 @@ int		main(int argc, char **argv)
 	if (graph.source != graph.sink)
 	{
 		distance_set(&graph, graph.sink, NULL);
+		sleep(2); //remove
 		edmonds_karp(&graph);
-		sleep(3); //remove
+		sleep(2); //remove
 	}
 	return (free_graph_input_and_return(0, &graph, &input));
 }

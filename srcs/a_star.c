@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <fcntl.h>			//REMOVE
+#include <unistd.h>			//REMOVE
+#include <stdlib.h>			//REMOVE
 
 static int		no_back_flow(t_edge *edge, t_list *path)
 {

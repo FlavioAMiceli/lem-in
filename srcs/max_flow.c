@@ -63,7 +63,7 @@ static void		clear_aug_path(t_graph *graph, t_list *aug_path)
 	{
 		to_free = aug_path;
 		aug_path = aug_path->next;
-		ft_memdel((void **)&to_free);
+		free(to_free);
 	}
 }
 
