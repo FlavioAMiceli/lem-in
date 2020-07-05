@@ -12,6 +12,8 @@
 
 #include "lem_in.h"
 #include <stdlib.h>
+#include <fcntl.h>			//REMOVE
+#include <unistd.h>			//REMOVE
 
 /*
 **	Params:	s, source vertex

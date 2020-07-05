@@ -82,14 +82,14 @@ static t_list	*a_star_expand(t_list **queue, t_vert *sink, t_vert *source)
 			new_path = new_path_alloc(edge, path);
 			if (edge->head == sink)
 			{
-				free_path(&path);
+				free_path(path);
 				return (new_path);
 			}
 			insert_into_queue(queue, new_path);
 		}
 		edge = edge->next_conn;
 	}
-	free_path(&path);
+	free_path(path);
 	return (NULL);
 }
 
@@ -110,9 +110,17 @@ t_list			*a_star(t_vert *source, t_vert *sink)
 	while (queue && queue->content != NULL)
 	{
 		rev_path = a_star_expand(&queue, sink, source);
+		// ft_putendl("a_star expand"); //remove
+		// sleep(3); //remove
 		if (rev_path)
 		{
+			// sleep(1);
+			// ft_putendl("pre clear queue"); //remove
+			// sleep(3); //remove
+			// ft_putendl("clearing queue"); //remove
 			a_star_clear_queue(&queue);
+			// ft_putendl("post clear queue"); //remove
+			// sleep(3); //remove
 			return (ft_lstrev(&rev_path));
 		}
 	}

@@ -27,25 +27,26 @@ static void	free_equal_score_paths(t_list *eq_s_p)
 
 	while (eq_s_p)
 	{
-		free_path((t_list **)(&(eq_s_p->content)));
-		current = eq_s_p->next;
-		eq_s_p = current;
+		current = eq_s_p;
+		eq_s_p = eq_s_p->next;
+		free_path(current->content);
+		free(current);
+		current = NULL;
 	}
 }
 
-void		free_path(t_list **path)
+void		free_path(t_list *path)
 {
 	t_list	*current;
 	t_list	*next;
 
-	current = *path;
+	current = path;
 	while (current)
 	{
 		next = current->next;
 		free(current);
 		current = next;
 	}
-	path = NULL;
 }
 
 /*
