@@ -6,7 +6,7 @@
 /*   By: moana <moana@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/20 17:44:40 by moana         #+#    #+#                 */
-/*   Updated: 2020/07/04 18:06:46 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 14:33:54 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,4 @@ unsigned int	threshold(t_path **paths, unsigned int idx,
 		++i;
 	}
 	return (threshold + count);
-}
-
-void		set_thresholds(t_path **paths)
-{
-	int		idx;
-
-	idx = 0;
-	while (paths[idx] != NULL)
-	{
-		paths[idx]->threshold = threshold(paths, idx, paths[idx]->start->hops);
-		++idx;
-	}
 }

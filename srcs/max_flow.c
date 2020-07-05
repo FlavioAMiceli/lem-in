@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/25 18:13:13 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/07/04 18:06:35 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 16:01:36 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void		clear_aug_path(t_graph *graph, t_list *aug_path)
 		return ;
 	if (revert(graph))
 	{
-		revert_flow(graph, aug_path);
+		revert_flow(aug_path);
 		update_visited_status(aug_path);
 		update_hops(graph->sink, 0);
 	}
@@ -85,7 +85,7 @@ void			edmonds_karp(t_graph *graph)
 		aug_path = a_star(graph->source, graph->sink);
 		if (aug_path)
 		{
-			update_flow(graph, aug_path);
+			update_flow(aug_path);
 			update_visited_status(aug_path);
 			update_hops(graph->sink, 0);
 			path_new(graph, aug_path->next->content);
@@ -95,5 +95,4 @@ void			edmonds_karp(t_graph *graph)
 		new_start = get_next_start(graph->source);
 		clear_aug_path(graph, aug_path);
 	}
-	set_thresholds(graph->paths);
 }

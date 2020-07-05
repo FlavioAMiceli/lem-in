@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/04 18:07:09 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/04 14:31:18 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct	s_edge
 
 typedef struct	s_path
 {
-	unsigned int	threshold;
+	int				threshold;
 	t_vert			*start;
 }				t_path;
 
@@ -130,7 +130,6 @@ int				path_new(t_graph *graph, t_vert *new_start);
 
 unsigned int	threshold(t_path **paths, unsigned int idx,
 				unsigned int placeholder);
-void			set_thresholds(t_path **paths);
 
 int				keep_searching(t_graph *graph, t_vert *new_start);
 
@@ -148,8 +147,8 @@ void			free_path(t_list **path);
 t_list			*copy_path(t_list *src);
 
 void			update_visited_status(t_list *path);
-void			update_flow(t_graph *graph, t_list *path);
-void			revert_flow(t_graph *graph, t_list *path);
+void			update_flow(t_list *path);
+void			revert_flow(t_list *path);
 void			update_hops(t_vert *s, int hop);
 
 #endif
