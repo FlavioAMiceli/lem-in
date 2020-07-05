@@ -23,7 +23,7 @@
 
 static void	free_equal_score_paths(t_list *eq_s_p)
 {
-	t_list	*next;
+	t_list	*current;
 
 	while (eq_s_p)
 	{

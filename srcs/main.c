@@ -44,7 +44,6 @@ int		main(int argc, char **argv)
 	{
 		distance_set(&graph, graph.sink, NULL);
 		edmonds_karp(&graph);
-		sleep(3); //remove
 	}
 	ret = free_graph_input_and_return(0, &graph, &input);
 	return (ret);

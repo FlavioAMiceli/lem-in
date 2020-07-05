@@ -105,7 +105,6 @@ t_list			*a_star(t_vert *source, t_vert *sink)
 {
 	t_list	*queue;
 	t_list	*rev_path;
-	t_list	*path;
 
 	init_queue(&queue, source);
 	while (queue && queue->content != NULL)

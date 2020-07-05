@@ -51,6 +51,8 @@ static int		revert(t_graph *graph)
 
 static void		clear_aug_path(t_graph *graph, t_list *aug_path)
 {
+	t_list	*to_free;
+
 	if (!aug_path)
 		return ;
 	if (revert(graph))
