@@ -57,7 +57,7 @@ unsigned int	threshold(t_path **paths, unsigned int idx,
 	return (threshold + count);
 }
 
-void		set_thresholds(t_path **paths, unsigned int path_count)
+void			set_thresholds(t_path **paths, unsigned int path_count)
 {
 	unsigned int	idx;
 

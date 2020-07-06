@@ -19,7 +19,7 @@
 **	Return:
 */
 
-static t_list *free_node(t_list **node)
+static t_list	*free_node(t_list **node)
 {
 	t_list	*next;
 
@@ -31,7 +31,7 @@ static t_list *free_node(t_list **node)
 	return (next);
 }
 
-void		free_path(t_list **path)
+void			free_path(t_list **path)
 {
 	t_list	*node;
 
