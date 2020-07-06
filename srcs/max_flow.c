@@ -49,6 +49,8 @@ static int		revert(t_graph *graph)
 
 static void		clear_aug_path(t_graph *graph, t_list *aug_path)
 {
+	t_list	*to_free;
+
 	if (!aug_path)
 		return ;
 	if (revert(graph))
@@ -57,7 +59,12 @@ static void		clear_aug_path(t_graph *graph, t_list *aug_path)
 		update_visited_status(aug_path);
 		update_hops(graph->sink, 0);
 	}
-	free_path(&aug_path);
+	while (aug_path)
+	{
+		to_free = aug_path;
+		aug_path = aug_path->next;
+		free(to_free);
+	}
 }
 
 /*
