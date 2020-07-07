@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include <stdlib.h>
 
 static void	free_ant(t_ant **ant)
 {
@@ -22,9 +23,53 @@ static void	free_ant(t_ant **ant)
 	*ant = NULL;
 }
 
+static void	remove_ants(t_print_info *print)
+{
+	t_ant	*current;
+	t_ant	*arrived;
+	t_ant	*next_ant;
+
+	while (print->first_ant != NULL && print->first_ant->current_vert == NULL)
+	{
+		arrived = print->first_ant;
+		print->first_ant = print->first_ant->next;
+		++(print->ants_arrived);
+		free_ant(&arrived);
+	}
+	current = print->first_ant;
+	while (current != NULL && current->next != NULL)
+	{
+		next_ant = current->next;
+		while (next_ant->current_vert == NULL)
+		{
+			arrived = next_ant;
+			next_ant = next_ant->next;
+			++(print->ants_arrived);
+			free_ant(&arrived);
+		}
+		current = next_ant;
+	}
+	print->last_ant = current;
+}
+
 static void	move_ants(t_print_info *print)
 {
-	
+	t_ant	*current;
+	t_edge	*next_edge;
+
+	current = print->first_ant;
+	while (current != NULL)
+	{
+		next_edge = current->current_vert->connections;
+		while (next_edge != NULL)
+		{
+			if (next_edge->flow == 1)
+				break ;
+			next_edge = next_edge->next_conn;
+		}
+		current->current_vert = next_edge ? next_edge->head : NULL;
+		current = current->next;
+	}
 }
 
 static void	release_ants(t_path **paths, unsigned int path_count, \
@@ -43,7 +88,7 @@ static void	release_ants(t_path **paths, unsigned int path_count, \
 			if (new_ant == NULL)
 				return ;
 			++(print->ants_send);
-			new_ant->name = ft_atoi(print->ants_send);
+			new_ant->name = ft_itoa(print->ants_send);
 			new_ant->current_vert = paths[idx]->start;
 			print->first_ant = print->first_ant ? print->first_ant : new_ant;
 			if (print->last_ant != NULL)
@@ -68,12 +113,13 @@ void	print_result(t_graph *graph)
 		ant = print.first_ant;
 		while (ant != NULL)
 		{
-			ft_printf("L%s-%s", ant->name, ant->current_vert);
+			ft_printf("L%s-%s", ant->name, ant->current_vert->name);
 			if (ant->next != NULL)
-				write(1, " ", 1);
+				ft_putchar(' ');
 			ant = ant->next;
 		}
-		write(1, "\n", 1);
+		ft_putchar('\n');
 		move_ants(&print);
+		remove_ants(&print);
 	}
 }
