@@ -40,16 +40,17 @@ static void	remove_ants(t_print_info *print)
 	while (current != NULL && current->next != NULL)
 	{
 		next_ant = current->next;
-		while (next_ant->current_vert == NULL)
+		while (next_ant != NULL && next_ant->current_vert == NULL)
 		{
 			arrived = next_ant;
+			current->next = next_ant->next;
 			next_ant = next_ant->next;
 			++(print->ants_arrived);
 			free_ant(&arrived);
 		}
-		current = next_ant;
+		print->last_ant = current->next ? current->next : current;
+		current = current->next;
 	}
-	print->last_ant = current;
 }
 
 static void	move_ants(t_print_info *print)
@@ -78,24 +79,24 @@ static void	release_ants(t_path **paths, unsigned int path_count, \
 	unsigned int	idx;
 	t_ant			*new_ant;
 
-	idx = 0;
-	while (idx < path_count)
+	idx = path_count;
+	while (idx > 0)
 	{
 		if (print->ants_total > print->ants_send \
-			&& print->ants_total - print->ants_send >= paths[idx]->threshold)
+			&& print->ants_total - print->ants_send >= paths[idx - 1]->threshold)
 		{
 			new_ant = (t_ant*)ft_memalloc(sizeof(t_ant));
 			if (new_ant == NULL)
 				return ;
 			++(print->ants_send);
 			new_ant->name = ft_itoa(print->ants_send);
-			new_ant->current_vert = paths[idx]->start;
+			new_ant->current_vert = paths[idx - 1]->start;
 			print->first_ant = print->first_ant ? print->first_ant : new_ant;
 			if (print->last_ant != NULL)
 				print->last_ant->next = new_ant;
 			print->last_ant = new_ant;
 		}
-		++idx;
+		--idx;
 	}
 }
 

@@ -25,7 +25,7 @@ static void	print_input(t_input_line *input_line)
 }
 
 
-// main where map is passed as argument (for testing purposes)
+/* // main where map is passed as argument (for testing purposes)
 
 int		main(int argc, char **argv)
 {
@@ -60,9 +60,10 @@ int		main(int argc, char **argv)
 	}
 	return (free_graph_input_and_return(0, &graph, &input));
 }
+ */
 
 // official main
-/* 
+
 int		main(int argc, char **argv)
 {
 	t_graph			graph;
@@ -86,8 +87,6 @@ int		main(int argc, char **argv)
 		distance_set(&graph, graph.sink, NULL);
 		edmonds_karp(&graph);
 		print_result(&graph);
-		sleep(3); //remove
 	}
 	return (free_graph_input_and_return(0, &graph, &input));
 }
- */
