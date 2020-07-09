@@ -25,7 +25,8 @@ static void	print_input(t_input_line *input_line)
 }
 
 
-/* // main where map is passed as argument (for testing purposes)
+/* // main where map is passed as argument (for debugger)
+// no -l function in this version
 
 int		main(int argc, char **argv)
 {
