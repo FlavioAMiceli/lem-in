@@ -90,6 +90,5 @@ int		main(int argc, char **argv)
 		edmonds_karp(&graph);
 		print_result(&graph);
 	}
-	ret = free_graph_input_and_return(0, &graph, &input);
-	return (ret);
+	return (free_graph_input_and_return(0, &graph, &input));
 }
