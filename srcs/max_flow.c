@@ -82,11 +82,11 @@ void			edmonds_karp(t_graph *graph)
 			update_visited_status(aug_path);
 			update_hops(graph->sink, 0);
 			path_new(graph, aug_path->next->content);
+			set_thresholds(graph->paths, graph->path_count);
 		}
 		else
 			break ;
 		new_start = get_next_start(graph->source);
 		clear_aug_path(graph, aug_path);
 	}
-	set_thresholds(graph->paths, graph->path_count);
 }
