@@ -18,7 +18,7 @@ int		path_rating(t_path **paths, unsigned int path_count, \
 {
 	while (path_count > 0)
 	{
-		if (paths[path_count]->threshold > ant_total)
+		if (paths[path_count - 1]->threshold > ant_total)
 			return (ERROR);
 		--path_count;
 	}
