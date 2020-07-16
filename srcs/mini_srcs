@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/28 18:56:22 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/30 17:36:43 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/07/05 16:58:25 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ MINI_SOURCES := free_and_return \
 	alg_distance \
 	alg_threshold \
 	alg_keep_searching \
+	alg_path_rating \
 	path_set \
 	a_star \
 	a_star_aux \
@@ -33,4 +34,5 @@ MINI_SOURCES := free_and_return \
 	copy_path \
 	max_flow \
 	insert_into_queue \
-	apply_aug_path
+	apply_aug_path \
+	print

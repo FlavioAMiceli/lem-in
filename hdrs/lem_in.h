@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/04 18:19:04 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/05 18:46:30 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,14 @@ typedef struct	s_ant
 	struct s_ant	*next;
 }				t_ant;
 
-typedef struct	s_ant_list
+typedef struct	s_print_info
 {
+	unsigned int	ants_total;
+	unsigned int	ants_send;
+	unsigned int	ants_arrived;
 	t_ant			*first_ant;
 	t_ant			*last_ant;
-}				t_ant_list;
+}				t_print_info;
 
 int				strdel_and_return(int ret, char **str);
 int				strarrdel_and_return(int ret, char ***strarr);
@@ -151,5 +154,7 @@ void			update_visited_status(t_list *path);
 void			update_flow(t_graph *graph, t_list *path);
 void			revert_flow(t_graph *graph, t_list *path);
 void			update_hops(t_vert *s, int hop);
+
+void			print_result(t_graph *graph);
 
 #endif
