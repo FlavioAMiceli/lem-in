@@ -208,6 +208,7 @@ static int		add_paths(t_graph *graph)
 Test(alg_threshold, idx_is_23_4)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -249,6 +250,7 @@ Test(alg_threshold, idx_is_23_4)
 Test(alg_threshold, idx_is_23_3)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -290,6 +292,7 @@ Test(alg_threshold, idx_is_23_3)
 Test(alg_threshold, idx_is_23_2)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -331,6 +334,7 @@ Test(alg_threshold, idx_is_23_2)
 Test(alg_threshold, idx_is_23_1)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -372,6 +376,7 @@ Test(alg_threshold, idx_is_23_1)
 Test(alg_threshold, idx_is_3_4)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -393,6 +398,7 @@ Test(alg_threshold, idx_is_3_4)
 Test(alg_threshold, idx_is_3_3)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -414,6 +420,7 @@ Test(alg_threshold, idx_is_3_3)
 Test(alg_threshold, idx_is_3_2)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -435,6 +442,7 @@ Test(alg_threshold, idx_is_3_2)
 Test(alg_threshold, idx_is_3_1)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -456,6 +464,7 @@ Test(alg_threshold, idx_is_3_1)
 Test(alg_threshold, idx_is_2_4)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -476,6 +485,7 @@ Test(alg_threshold, idx_is_2_4)
 Test(alg_threshold, idx_is_2_3)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -496,6 +506,7 @@ Test(alg_threshold, idx_is_2_3)
 Test(alg_threshold, idx_is_2_2)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -516,6 +527,7 @@ Test(alg_threshold, idx_is_2_2)
 Test(alg_threshold, idx_is_2_1)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -536,6 +548,7 @@ Test(alg_threshold, idx_is_2_1)
 Test(alg_threshold, idx_is_1_5)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -554,6 +567,7 @@ Test(alg_threshold, idx_is_1_5)
 Test(alg_threshold, idx_is_1_4)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -573,6 +587,7 @@ Test(alg_threshold, idx_is_1_4)
 Test(alg_threshold, idx_is_1_3)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -592,6 +607,7 @@ Test(alg_threshold, idx_is_1_3)
 Test(alg_threshold, idx_is_1_2)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -611,6 +627,7 @@ Test(alg_threshold, idx_is_1_2)
 Test(alg_threshold, idx_is_1_1)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -630,6 +647,7 @@ Test(alg_threshold, idx_is_1_1)
 Test(alg_threshold, idx_is_0_3)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -648,6 +666,7 @@ Test(alg_threshold, idx_is_0_3)
 Test(alg_threshold, idx_is_0_2)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
@@ -666,6 +685,7 @@ Test(alg_threshold, idx_is_0_2)
 Test(alg_threshold, idx_is_0_1)
 {
 	t_graph		graph;
+	ft_bzero(&graph, sizeof(t_graph));
 	int			idx;
 	int			placeholder;
 	int			threshold_expected;
