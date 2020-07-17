@@ -16,4 +16,5 @@ TESTS_MINI_SOURCES := test_ft_isint test_input_get \
 	test_alg_distance \
 	test_alg_threshold  \
 	test_path_set \
+	test_alg_get_steps \
 	test_max_flow

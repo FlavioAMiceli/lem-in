@@ -130,6 +130,8 @@ t_input_line	*input_line_add(t_input_info *input, char *line);
 
 void			distance_set(t_graph *graph, t_vert *vert, t_vert *prev_vert);
 int				path_new(t_graph *graph, t_vert *new_start);
+int				get_steps(t_path **paths, unsigned int path_count, \
+				unsigned int ant_total);
 
 unsigned int	threshold(t_path **paths, unsigned int idx,
 				unsigned int placeholder);

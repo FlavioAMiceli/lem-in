@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   alg_path_rating.c                                  :+:    :+:            */
+/*   alg_get_steps.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -13,14 +13,27 @@
 #include "lem_in.h"
 #include "libft.h"
 
-int		path_rating(t_path **paths, unsigned int path_count, \
+int		get_steps(t_path **paths, unsigned int path_count, \
 		unsigned int ant_total)
 {
-	while (path_count > 0)
+	unsigned int	steps;
+	unsigned int	ants_arrived;
+	unsigned int	idx;
+
+	if (path_count == 0)
+		return (-1);
+	ants_arrived = 0;
+	steps = 0;
+	while (ants_arrived < ant_total)
 	{
-		if (paths[path_count - 1]->threshold > ant_total)
-			return (ERROR);
-		--path_count;
+		idx = 0;
+		++steps;
+		while (idx < path_count \
+			&& (unsigned int)paths[idx]->start->hops < steps)
+		{
+			++ants_arrived;
+			++idx;
+		}
 	}
-	return (SUCCESS);
+	return (steps);
 }
