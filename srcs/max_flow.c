@@ -41,24 +41,27 @@ static t_vert	*get_next_start(t_vert *s)
 	return (next_start);
 }
 
-static int		revert(t_graph *graph)
+static int		revert(t_graph *graph, int steps_old)
 {
-	// make sure to deduct one from graph->path_count and mark the reverted aug_path so edmonds_karp doesn't get stuck in an infinite loop
-	(void)graph;
+	if (steps_old != -1 &&
+		steps_old <= get_steps(graph->paths, graph->path_count,
+		graph->ant_count))
+		return (TRUE);
 	return (FALSE);
 }
 
-static void		clear_aug_path(t_graph *graph, t_list *aug_path)
+static void		clear_aug_path(t_graph *graph, t_list *aug_path, int steps_old)
 {
 	t_list	*to_free;
 
 	if (!aug_path)
 		return ;
-	if (revert(graph))
+	if (revert(graph, steps_old))
 	{
 		revert_flow(graph, aug_path);
 		update_visited_status(aug_path);
 		update_hops(graph->sink, 0);
+		graph->path_count = graph->path_count - 1;
 	}
 	while (aug_path)
 	{
@@ -86,27 +89,21 @@ void			edmonds_karp(t_graph *graph)
 {
 	t_list	*aug_path;
 	t_vert	*new_start;
-	// int		steps_old;
+	int		steps_old;
 
 	new_start = get_next_start(graph->source);
 	while (new_start != NULL && keep_searching(graph, new_start))
 	{
-		// steps_old = get_steps(graph->paths, graph->path_count,
-		// 	graph->ant_count);
+		steps_old = get_steps(graph->paths, graph->path_count,
+			graph->ant_count);
 		rooms_used_to_false(graph->vert_list);
 		aug_path = a_star(graph->source, graph->sink);
 		if (aug_path)
-		{
 			add_aug_path(graph, aug_path);
-			// if (steps_old != -1 && 
-				// steps_old <= get_steps(graph->paths, graph->path_count, 
-			// 	graph->ant_count))
-			// 	revert(graph, aug_path);
-		}
 		else
 			break ;
 		new_start = get_next_start(graph->source);
-		clear_aug_path(graph, aug_path);
+		clear_aug_path(graph, aug_path, steps_old);
 	}
 	set_thresholds(graph->paths, graph->path_count);
 }
