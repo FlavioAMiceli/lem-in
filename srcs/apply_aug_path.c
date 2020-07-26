@@ -75,7 +75,7 @@ void	revert_flow(t_graph *graph, t_list *path)
 
 	while (path)
 	{
-		if (path->content != graph->source)
+		if (path->content != graph->sink)
 		{
 			edge = ((t_vert *)path->content)->connections;
 			while (edge->head != path->next->content)
