@@ -1,0 +1,18 @@
+$> ./lem-in tests/maps/valid_super_3 | ./verifier
+ERROR at line 11880: ant 15 moves to an occupied room
+L1-Fpe6 L2-Ub_4 L3-Zbm1 L4-Qck4 L6-Xzg8 L7-Sye2 L8-Eyt8 L9-Hbt0 L10-Vrx8 L11-Mde0 L12-Ali4 L13-Szm4 L14-Qmz2 L15-Wkg0 L16-Buo8 L17-Nyt9 L18-Whn7 L19-Xvy6 L20-Oyp5
+
+$> ./lem-in tests/maps/valid_super_10 | ./verifier
+ERROR at line 8790: ant 13 moves to an occupied room
+L1-Ce_5 L2-Gzx9 L3-Zzj8 L4-Oig6 L6-Kex0 L7-Zav1 L8-Wxl8 L9-Nkm6 L10-Dru0 L11-Onb3 L12-Mxa3 L13-Egv2 L14-Nrj3 L15-Naq0 L16-Jkp0
+
+$> ./lem-in tests/maps/valid_big_2 | ./verifier
+ERROR at line 9336: ant 10 moves to an occupied room
+L1-R__6 L3-Zyd4 L4-Wax7 L5-Ejp4 L6-Cfg0 L7-Uik1 L8-Ydd9 L9-Kux3 L10-Z_p9 L11-Wwp0 L12-Wpj6 L13-Fkt3 L14-Jen7 L15-Yml8 L16-Gpb4
+
+$> ./lem-in tests/maps/hard1.map | ./verifie
+~~~~~~~~~~~~ inf loop ~~~~~~~~~~~~~
+
+$> /lem-in tests/maps/hard3.map | ./verifier
+ERROR at line 8672: ant 13 moves to an occupied room
+L2-Hub3 L3-Qhy2 L4-Tc_6 L5-Ubq7 L6-Oep6 L7-Dbs9 L8-Hzt6 L9-Yub5 L10-Ent8 L11-Wju2 L12-Jim1 L13-Qvb6 L14-Tre0 L15-Oio6 L16-Jal1 L17-Zqe6 L18-Bxk6 L19-Enh6 L20-Mg_9 L21-Zig3 L22-Uus4 L23-Sln2 L24-Xh_1

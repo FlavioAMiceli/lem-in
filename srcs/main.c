@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:09:39 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/05 18:19:31 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/26 22:21:08 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ static void	print_input(t_input_line *input_line)
 		ft_putendl(input_line->line);
 		input_line = input_line->next_line;
 	}
+	ft_putchar('\n');
 }
 
 
-/* // main where map is passed as argument (for debugger)
+// main where map is passed as argument (for debugger)
 // no -l function in this version
 
 int		main(int argc, char **argv)
@@ -33,7 +34,7 @@ int		main(int argc, char **argv)
 	t_graph			graph;
 	t_input_info	input;
 	int				fd;
-	int				ret;
+	// int				ret;
 
 	if (argc != 2)
 		return (0);
@@ -62,9 +63,9 @@ int		main(int argc, char **argv)
 	}
 	return (free_graph_input_and_return(0, &graph, &input));
 }
- */
 
-// official main
+
+/* // official main
 
 int		main(int argc, char **argv)
 {
@@ -92,3 +93,4 @@ int		main(int argc, char **argv)
 	}
 	return (free_graph_input_and_return(0, &graph, &input));
 }
+ */
