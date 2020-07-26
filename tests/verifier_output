@@ -10,7 +10,7 @@ $> ./lem-in tests/maps/valid_big_2 | ./verifier
 ERROR at line 9336: ant 10 moves to an occupied room
 L1-R__6 L3-Zyd4 L4-Wax7 L5-Ejp4 L6-Cfg0 L7-Uik1 L8-Ydd9 L9-Kux3 L10-Z_p9 L11-Wwp0 L12-Wpj6 L13-Fkt3 L14-Jen7 L15-Yml8 L16-Gpb4
 
-$> ./lem-in tests/maps/hard1.map | ./verifie
+$> ./lem-in tests/maps/hard1.map | ./verifier
 ~~~~~~~~~~~~ inf loop ~~~~~~~~~~~~~
 
 $> /lem-in tests/maps/hard3.map | ./verifier
