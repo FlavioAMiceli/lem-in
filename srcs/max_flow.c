@@ -47,6 +47,7 @@ static int		revert(t_graph *graph, t_list *aug_path, int steps_old)
 		steps_old <= get_steps(graph->paths, graph->path_count,
 		graph->ant_count))
 	{
+		delete_hops(graph->source);
 		revert_flow(graph, aug_path);
 		update_visited_status(aug_path);
 		update_hops(graph->sink, 0);

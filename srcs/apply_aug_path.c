@@ -88,6 +88,20 @@ void	revert_flow(t_graph *graph, t_list *path)
 	}
 }
 
+void	delete_hops(t_vert *src)
+{
+	t_edge	*edge;
+
+	src->hops = -1;
+	edge = src->connections;
+	while (edge)
+	{
+		if (edge->flow == 1)
+			delete_hops(edge->head);
+		edge = edge->next_conn;
+	}
+}
+
 /*
 **	Params: snk, current vertex to update
 **			hop, number of hops to reach current vertex

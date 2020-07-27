@@ -156,6 +156,7 @@ void			update_visited_status(t_list *path);
 void			update_flow(t_graph *graph, t_list *path);
 void			revert_flow(t_graph *graph, t_list *path);
 void			update_hops(t_vert *s, int hop);
+void			delete_hops(t_vert *s);
 
 void			print_result(t_graph *graph);
 
