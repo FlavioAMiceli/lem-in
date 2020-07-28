@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:06:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/05 18:46:30 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/28 17:23:09 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void			graph_del(t_graph *graph);
 void			vert_del(t_vert **vert);
 void			edge_del(t_edge **edge);
 void			path_del(t_graph *graph);
+void			ant_del(t_ant **ant);
 
 void			input_del(t_input_info *input);
 int				input_read(t_input_info *input);

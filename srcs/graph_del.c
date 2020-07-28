@@ -6,13 +6,23 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:46:04 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/30 15:22:59 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/28 17:22:37 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
 #include <stdlib.h>
+
+void	ant_del(t_ant **ant)
+{
+	if (ant == NULL || *ant == NULL)
+		return ;
+	ft_strdel(&((*ant)->name));
+	ft_bzero(*ant, sizeof(t_ant));
+	free(*ant);
+	*ant = NULL;
+}
 
 void	vert_del(t_vert **vert)
 {
