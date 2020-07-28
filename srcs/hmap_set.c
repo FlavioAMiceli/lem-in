@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "hashtable.h"
+#include <stdio.h> //remove!
 
 static int	store_value(t_hmap *hmap, t_slot **slot, char *key, void *value)
 {
@@ -37,10 +38,12 @@ static int	store_value(t_hmap *hmap, t_slot **slot, char *key, void *value)
 int			hmap_set(t_hmap *hmap, char *key, void *value)
 {
 	unsigned long	hash;
+	unsigned int	checked;
 	int				i;
 
 	hash = hmap_hash(key, hmap->n);
 	i = hash % hmap->n;
+	checked = 0;
 	if (key == NULL)
 		return (-1);
 	while (hmap->slots[i] != NULL &&
@@ -48,6 +51,8 @@ int			hmap_set(t_hmap *hmap, char *key, void *value)
 	{
 		i = (((5 * i) + 1) + hash) % hmap->n;
 		hash >>= PERTURB_SHIFT;
+		if (hash == 0)
+			checked++;
 	}
 	if (hmap->slots[i] == NULL)
 		return (store_value(hmap, &(hmap->slots[i]), key, value));

@@ -13,6 +13,16 @@
 #include "hashtable.h"
 #include <stdlib.h>
 
+static unsigned int find_pow2(int n)
+{
+	int m;
+
+	m = 1;
+	while (m < n)
+		m <<= 1;
+	return (m);
+}
+
 /*
 **	params:	number of expected keys, pointer to deletion function for values.
 **	return:	Pointer to newly allocated hmap struct.
@@ -27,7 +37,7 @@ t_hmap	*hmap_new(int n)
 	hmap = (t_hmap*)ft_memalloc(sizeof(t_hmap));
 	if (!hmap)
 		return (NULL);
-	hmap->n = (n * 5) / 2;
+	hmap->n = find_pow2((n * 3) / 2);
 	hmap->slots = (t_slot**)ft_memalloc(sizeof(t_slot*) * (hmap->n));
 	if (!(hmap->slots))
 	{
