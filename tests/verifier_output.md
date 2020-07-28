@@ -1,22 +1,8 @@
 # verifier output
 
-## output errors
+## error output
 
-$> ./lem-in tests/maps/valid_super_3 | ./verifier
-74
-
-$> ./lem-in tests/maps/valid_super_10 | ./verifier
-72
-
-$> ./lem-in tests/maps/valid_big_2 | ./verifier
-83
-
-$> ./lem-in tests/maps/hard1.map | ./verifier
-~~~~~~~~~~~~ inf loop ~~~~~~~~~~~~~
-
-$> ./lem-in tests/maps/hard3.map | ./verifier
-ERROR at line 8672: ant 13 moves to an occupied room
-L2-Hub3 L3-Qhy2 L4-Tc_6 L5-Ubq7 L6-Oep6 L7-Dbs9 L8-Hzt6 L9-Yub5 L10-Ent8 L11-Wju2 L12-Jim1 L13-Qvb6 L14-Tre0 L15-Oio6 L16-Jal1 L17-Zqe6 L18-Bxk6 L19-Enh6 L20-Mg_9 L21-Zig3 L22-Uus4 L23-Sln2 L24-Xh_1
+all fixed :)
 
 ## correct output for different maps
 
