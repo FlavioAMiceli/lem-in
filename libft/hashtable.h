@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/03 21:33:05 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/03/03 21:33:06 by fmiceli       ########   odam.nl         */
+/*   Updated: 2020/07/28 17:48:34 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ typedef struct		s_dict
 	int				dict_len;
 }					t_dict;
 
-t_dict	*dict_new(int n);
-void 	dict_del(t_dict *dict, void (*del)(void *));
+t_dict				*dict_new(int n);
+t_dict				*dict_new(int n);
+void				dict_del(t_dict *dict, void (*del)(void *));
 
-void	dict_set(t_dict *dict, char *key, void *value);
-void 	*dict_get(t_dict *dict, char *key);
+void				dict_set(t_dict *dict, char *key, void *value);
+void				*dict_get(t_dict *dict, char *key);
 
-int		ft_hash(char *key, int dict_len);
-int		ft_probe(t_dict *dict, char *key, int hash);
+int					ft_hash(char *key, int dict_len);
+int					ft_probe(t_dict *dict, char *key, int hash);
 
 #endif
