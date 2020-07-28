@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:30:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/30 17:38:08 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/28 18:34:07 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 
 static int	add_link(t_input_info *input, t_input_line *input_line)
 {
-	if (input->rooms == NULL || input->ant_no == -1)
+	if (input->rooms == NULL || input->ant_no == -1 || input_line->line[0] == '-'
+		|| input_line->line[ft_strlen(input_line->line) - 1] == '-')
 		return (ERROR);
 	++(input->link_count);
 	input_line->next_link = input->links;
