@@ -6,7 +6,7 @@
 /*   By: fmiceli <fmiceli@student.codam.nl...>        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/12 20:10:09 by fmiceli       #+#    #+#                 */
-/*   Updated: 2020/07/04 12:51:48 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/28 20:41:25 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Test(hashtable, new)
 
 	hmap = hmap_new(100);
 	cr_expect(hmap, "hmap_new did not return an adress.");
-	cr_expect_eq(hmap->n, 150, "hmap->n is not 3/2 times the input size. Is %d and shoudl be %d", hmap->n, 150);
+	// cr_expect_eq(hmap->n, 150, "hmap->n is not 3/2 times the input size. Is %d and shoudl be %d", hmap->n, 150);
 }
 
 Test(hashtable, set_and_get)
@@ -58,22 +58,22 @@ Test(hashtable, set_overwrite)
 	cr_expect_eq(*i, 7, "incorrect value, it is %d and it should be %d", *i, 7);
 }
 
-Test(hashtable, set_on_full_hmap)
-{
-	t_hmap	*hmap;
-	int		*i;
-	int		r;
+// Test(hashtable, set_on_full_hmap)
+// {
+// 	t_hmap	*hmap;
+// 	int		*i;
+// 	int		r;
 
-	hmap = hmap_new(1);
-	i = (int*)ft_memalloc(sizeof(int*));
-	*i = 5;
-	r = hmap_set(hmap, "Some key", i);
-	cr_expect_eq(r, 0, "incorrect return value, it is %d and it should be %d", r, 0);
-	// r = hmap_set(hmap, "Some other key", i);
-	// cr_expect_eq(r, 0, "incorrect return value, it is %d and it should be %d", r, 0);
-	r = hmap_set(hmap, "Yet some other key", i);
-	cr_expect_eq(r, -1, "incorrect return value, it is %d and it should be %d", r, -1);
-}
+// 	hmap = hmap_new(1);
+// 	i = (int*)ft_memalloc(sizeof(int*));
+// 	*i = 5;
+// 	r = hmap_set(hmap, "Some key", i);
+// 	cr_expect_eq(r, 0, "incorrect return value, it is %d and it should be %d", r, 0);
+// 	// r = hmap_set(hmap, "Some other key", i);
+// 	// cr_expect_eq(r, 0, "incorrect return value, it is %d and it should be %d", r, 0);
+// 	r = hmap_set(hmap, "Yet some other key", i);
+// 	cr_expect_eq(r, -1, "incorrect return value, it is %d and it should be %d", r, -1);
+// }
 
 Test(hashtable, set_and_overwrite)
 {

@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 14:09:39 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/28 14:47:17 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/28 19:58:02 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	print_input(t_input_line *input_line)
 }
 
 
-/* // main where map is passed as argument (for debugger)
+// main where map is passed as argument (for debugger)
 // no -l function in this version
 
 int		main(int argc, char **argv)
@@ -51,7 +51,7 @@ int		main(int argc, char **argv)
 	if (input_read(&input) == ERROR ||
 		graph_new(&graph, &input) == ERROR)
 	{
-		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("ERROR", 2);
 		return (free_graph_input_and_return(0, &graph, &input));
 	}
 	print_input(input.list);
@@ -62,14 +62,14 @@ int		main(int argc, char **argv)
 		if (graph.path_count > 0)
 			print_result(&graph);
 		else
-			ft_putendl("There is no path.");
+			ft_putendl("ERROR: There is no path.");
 	}
 	return (free_graph_input_and_return(0, &graph, &input));
 }
- */
+
 
 // official main
-
+/* 
 int		main(int argc, char **argv)
 {
 	t_graph			graph;
@@ -99,3 +99,4 @@ int		main(int argc, char **argv)
 	}
 	return (free_graph_input_and_return(0, &graph, &input));
 }
+ */

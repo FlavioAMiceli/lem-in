@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:30:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/30 17:38:08 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/28 20:26:19 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 
 static int	add_link(t_input_info *input, t_input_line *input_line)
 {
-	if (input->rooms == NULL || input->ant_no == -1)
+	if (input->rooms == NULL || input->ant_no == -1 || input_line->line[0] == '-'
+		|| input_line->line[ft_strlen(input_line->line) - 1] == '-')
 		return (ERROR);
 	++(input->link_count);
 	input_line->next_link = input->links;
@@ -75,6 +76,39 @@ static int	add_room(t_input_info *input, t_input_line *input_line, char *name)
 
 /*
 ** -------------------------------------------------------------------------- **
+** - sets primers for the next room to be the start or end of the graph
+** - returns error if there are multiple start or end primers
+**
+** params
+**	t_input_info *input			struct holding all information from input
+**	char **line					the line of input split at ' '
+**	t_input_line *input_line	list item for this input line
+**
+** return
+**	SUCCESS
+**	ERROR
+*/
+
+static int	add_start_end(t_input_info *input, char **line,
+			t_input_line *input_line)
+{
+	if (ft_strequ(line[0], "##start") && line[1] == NULL \
+		&& input->start == NULL)
+	{
+		input->start = input_line;
+		return (strarrdel_and_return(SUCCESS, &line));
+	}
+	else if (ft_strequ(line[0], "##end") && line[1] == NULL \
+		&& input->end == NULL)
+	{
+		input->end = input_line;
+		return (strarrdel_and_return(SUCCESS, &line));
+	}
+	return (strarrdel_and_return(ERROR, &line));
+}
+
+/*
+** -------------------------------------------------------------------------- **
 ** - appends every line of input to the input struct
 ** - marks if the following room is a start or end room
 ** - checks if the read line contains information for a room or a link calls
@@ -96,19 +130,22 @@ static int	create_input_list(t_input_info *input, char **line,
 {
 	if (line == NULL || *line == NULL || line[0][0] == 'L')
 		return (strarrdel_and_return(ERROR, &line));
-	else if (ft_strequ(line[0], "##start") && line[1] == NULL &&
-		input->start == NULL)
-	{
-		input->start = input_line;
-		return (strarrdel_and_return(SUCCESS, &line));
-	}
-	else if (ft_strequ(line[0], "##end") && line[1] == 0 && input->end == 0)
-	{
-		input->end = input_line;
-		return (strarrdel_and_return(SUCCESS, &line));
-	}
-	else if (line[0][0] == '#' && !(ft_strequ(line[0], "##end") &&
-		ft_strequ(line[0], "##start") && line[1] == NULL))
+	// else if (ft_strequ(line[0], "##start") && line[1] == NULL \
+	// 	&& input->start == NULL)
+	// {
+	// 	input->start = input_line;
+	// 	return (strarrdel_and_return(SUCCESS, &line));
+	// }
+	// else if (ft_strequ(line[0], "##end") && line[1] == NULL \
+	// 	&& input->end == NULL)
+	// {
+	// 	input->end = input_line;
+	// 	return (strarrdel_and_return(SUCCESS, &line));
+	// }
+	else if (ft_strequ(line[0], "##start") || ft_strequ(line[0], "##end"))
+		return (add_start_end(input, line, input_line));
+	else if (line[0][0] == '#'/*  && !(ft_strequ(line[0], "##end") &&
+		ft_strequ(line[0], "##start") && line[1] == NULL) */)
 		return (strarrdel_and_return(SUCCESS, &line));
 	else if (line[0][0] != '#' && line[1] && ft_isint(line[1]) && line[2]
 		&& ft_isint(line[2]) && add_room(input, input_line, line[0]) == SUCCESS)
