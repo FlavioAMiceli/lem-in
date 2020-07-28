@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/05 16:46:37 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/28 17:41:08 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/28 18:18:37 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	remove_first_ants_in_list(t_print_info *print)
 		arrived = print->first_ant;
 		print->first_ant = print->first_ant->next;
 		++(print->ants_arrived);
+		if (arrived == print->last_ant)
+			print->last_ant = NULL;
 		ant_del(&arrived);
 	}
 }
