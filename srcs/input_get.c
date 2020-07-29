@@ -29,7 +29,8 @@
 
 static int	add_link(t_input_info *input, t_input_line *input_line)
 {
-	if (input->rooms == NULL || input->ant_no == -1 || input_line->line[0] == '-'
+	if (input->rooms == NULL || input->ant_no == -1 \
+		|| input_line->line[0] == '-' \
 		|| input_line->line[ft_strlen(input_line->line) - 1] == '-')
 		return (ERROR);
 	++(input->link_count);
@@ -130,24 +131,9 @@ static int	create_input_list(t_input_info *input, char **line,
 {
 	if (line == NULL || *line == NULL || line[0][0] == 'L')
 		return (strarrdel_and_return(ERROR, &line));
-	/*
-	else if (ft_strequ(line[0], "##start") && line[1] == NULL \
-		&& input->start == NULL)
-	{
-		input->start = input_line;
-		return (strarrdel_and_return(SUCCESS, &line));
-	}
-	else if (ft_strequ(line[0], "##end") && line[1] == NULL \
-		&& input->end == NULL)
-	{
-		input->end = input_line;
-		return (strarrdel_and_return(SUCCESS, &line));
-	}
-	*/
 	else if (ft_strequ(line[0], "##start") || ft_strequ(line[0], "##end"))
 		return (add_start_end(input, line, input_line));
-	else if (line[0][0] == '#'/*  && !(ft_strequ(line[0], "##end") &&
-		ft_strequ(line[0], "##start") && line[1] == NULL) */)
+	else if (line[0][0] == '#')
 		return (strarrdel_and_return(SUCCESS, &line));
 	else if (line[0][0] != '#' && line[1] && ft_isint(line[1]) && line[2]
 		&& ft_isint(line[2]) && add_room(input, input_line, line[0]) == SUCCESS)
