@@ -19,7 +19,7 @@
 **	Return: Unvisited vertex connected to source with lowest distance to sink
 */
 
-static t_vert	*get_next_start(t_vert *s)
+static t_vert	*get_next_start(t_vert *s, t_vert *t)
 {
 	t_vert	*next_start;
 	t_edge	*edge;
@@ -28,11 +28,10 @@ static t_vert	*get_next_start(t_vert *s)
 	edge = s->connections;
 	min_dist = FT_INT_MAX;
 	next_start = NULL;
-	ft_putendl("Check why gns doesn't allow direct connections to sink"); //remove
 	while (edge)
 	{
 		if (edge->head->visited == FALSE && edge->head->distance < min_dist \
-			&& edge->head->distance > 0)
+			&& (edge->head->distance > 0 || edge->head == t))
 		{
 			next_start = edge->head;
 			min_dist = edge->head->distance;
@@ -93,7 +92,7 @@ void			edmonds_karp(t_graph *graph)
 	int		reverted;
 	int		steps_old;
 
-	new_start = get_next_start(graph->source);
+	new_start = get_next_start(graph->source, graph->sink);
 	reverted = FALSE;
 	while (new_start != NULL && !reverted && keep_searching(graph, new_start))
 	{
@@ -108,7 +107,7 @@ void			edmonds_karp(t_graph *graph)
 		}
 		else
 			break ;
-		new_start = get_next_start(graph->source);
+		new_start = get_next_start(graph->source, graph->sink);
 		clear_aug_path(aug_path);
 	}
 	set_thresholds(graph->paths, graph->path_count);

@@ -38,7 +38,6 @@ t_hmap	*hmap_new(int n)
 	if (!hmap)
 		return (NULL);
 	hmap->n = find_pow2((n * 3) / 2);
-	// hmap->n = (n * 3) / 2;
 	hmap->slots = (t_slot**)ft_memalloc(sizeof(t_slot*) * (hmap->n));
 	if (!(hmap->slots))
 	{
