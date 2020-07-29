@@ -19,7 +19,7 @@ a map has the following structure:
 	the_rooms
 	the_links
 
-comments are escaped with `#`. The source is marked by `##start` and sink is marked by `##end`. <br>
+comments are escaped with `#`. The source of the graph is marked by `##start` and sink is marked by `##end`. <br>
 Here an example:
 
 	$> cat example.map
