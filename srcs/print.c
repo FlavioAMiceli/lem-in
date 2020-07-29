@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/05 16:46:37 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/28 17:26:37 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/28 18:18:37 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	remove_first_ants_in_list(t_print_info *print)
 		arrived = print->first_ant;
 		print->first_ant = print->first_ant->next;
 		++(print->ants_arrived);
+		if (arrived == print->last_ant)
+			print->last_ant = NULL;
 		ant_del(&arrived);
 	}
 }
@@ -33,13 +35,6 @@ static void	remove_ants(t_print_info *print)
 	t_ant	*next_ant;
 
 	remove_first_ants_in_list(print);
-	// while (print->first_ant != NULL && print->first_ant->current_vert == NULL)
-	// {
-	// 	arrived = print->first_ant;
-	// 	print->first_ant = print->first_ant->next;
-	// 	++(print->ants_arrived);
-	// 	ant_del(&arrived);
-	// }
 	current = print->first_ant;
 	while (current != NULL && current->next != NULL)
 	{
@@ -105,7 +100,7 @@ static void	release_ants(t_path **paths, unsigned int path_count, \
 	}
 }
 
-void	print_result(t_graph *graph)
+void		print_result(t_graph *graph)
 {
 	t_print_info	print;
 	t_ant			*ant;
