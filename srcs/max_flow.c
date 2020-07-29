@@ -28,6 +28,7 @@ static t_vert	*get_next_start(t_vert *s)
 	edge = s->connections;
 	min_dist = FT_INT_MAX;
 	next_start = NULL;
+	ft_putendl("Check why gns doesn't allow direct connections to sink"); //remove
 	while (edge)
 	{
 		if (edge->head->visited == FALSE && edge->head->distance < min_dist \

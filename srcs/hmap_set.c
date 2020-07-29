@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "hashtable.h"
-#include <stdio.h> //remove!
 
 static int	store_value(t_hmap *hmap, t_slot **slot, char *key, void *value)
 {
