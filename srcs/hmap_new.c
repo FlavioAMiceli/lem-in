@@ -13,7 +13,7 @@
 #include "hashtable.h"
 #include <stdlib.h>
 
-static unsigned int find_pow2(int n)
+static unsigned int	find_pow2(int n)
 {
 	int m;
 
@@ -28,7 +28,7 @@ static unsigned int find_pow2(int n)
 **	return:	Pointer to newly allocated hmap struct.
 */
 
-t_hmap	*hmap_new(int n)
+t_hmap				*hmap_new(int n)
 {
 	t_hmap	*hmap;
 

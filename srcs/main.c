@@ -69,7 +69,7 @@ static void	print_input(t_input_line *input_line)
 
 
 // official main
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_graph			graph;
 	t_input_info	input;
@@ -79,8 +79,7 @@ int		main(int argc, char **argv)
 	ft_bzero(&graph, sizeof(graph));
 	ft_bzero(&input, sizeof(input));
 	input.ant_no = -1;
-	if (input_read(&input) == ERROR ||
-		graph_new(&graph, &input) == ERROR)
+	if (input_read(&input) == ERROR || graph_new(&graph, &input) == ERROR)
 	{
 		ft_putendl_fd("Error", 2);
 		return (free_graph_input_and_return(0, &graph, &input));
