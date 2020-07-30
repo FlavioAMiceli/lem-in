@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/05 15:17:41 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/30 11:11:48 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ char				*ft_strstr(const char *hay, const char *needle);
 char				*ft_strsub(const char *s, unsigned int start, size_t len);
 char				*ft_strtrim(const char *s);
 char				*ft_strrev(char *s);
+int					ft_strcheck_sep(char *str, char sep);
 
 long long int		ft_absolute(long long int nbr);
 unsigned int		ft_absolute_doublelen(long double ld, unsigned int prcs);

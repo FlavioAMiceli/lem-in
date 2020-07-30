@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 16:46:03 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/06/09 17:23:04 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/07/30 11:17:46 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ FILES := ft_putchar.c ft_putchar_fd.c \
 	ft_strclr.c \
 	ft_strsub.c \
 	ft_strsplit.c \
+	ft_strcheck_sep.c \
 	ft_strtrim.c \
 	ft_strjoin.c \
 	ft_strcat.c ft_strncat.c ft_strlcat.c \
