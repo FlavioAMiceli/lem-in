@@ -1,3 +1,4 @@
+.gitignore
 lem-in
 *.o
 *json*

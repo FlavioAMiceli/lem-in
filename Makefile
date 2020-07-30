@@ -16,7 +16,7 @@ NAME := lem-in
 
 OBJS := $(MINI_SOURCES:%=objs/%.o) objs/main.o
 
-CFLAGS := -Wall -Wextra -Werror -g
+CFLAGS := -Wall -Wextra -Werror
 
 LIBFT_PATH := libft
 LIBFT := $(LIBFT_PATH)/libft.a
@@ -59,9 +59,6 @@ lfclean: lclean
 re: fclean all
 
 lre: lfclean all
-
-test: $(LIBFT) $(OBJS) $(HDRS)
-	@make -C tests
 
 FORCE:
 
