@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/04 15:09:27 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/28 21:11:30 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/30 13:12:45 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,66 @@
 ////////////////////////////////////////////////////////////////////////////////
 //	INVALID		INVALID		INVALID		INVALID		INVALID		INVALID		  //
 ////////////////////////////////////////////////////////////////////////////////
+
+Test(input_read, invalid_too_many_spaces_4)
+{
+	int				fd;
+	t_input_info	input;
+	char			*map = "tests/maps/invalid_too_many_spaces_4";
+
+	ft_bzero(&input, sizeof(input));
+	input.ant_no = -1;
+	fd = open(map, O_RDONLY);
+	cr_assert_gt(fd, 0, "couldn't open %s", map);
+	dup2(fd, 0);
+	cr_expect_eq(input_read(&input), ERROR, "reading map %s doesn't return error", map);
+	input_del(&input);
+}
+
+Test(input_read, invalid_too_many_spaces_3)
+{
+	int				fd;
+	t_input_info	input;
+	char			*map = "tests/maps/invalid_too_many_spaces_3";
+
+	ft_bzero(&input, sizeof(input));
+	input.ant_no = -1;
+	fd = open(map, O_RDONLY);
+	cr_assert_gt(fd, 0, "couldn't open %s", map);
+	dup2(fd, 0);
+	cr_expect_eq(input_read(&input), ERROR, "reading map %s doesn't return error", map);
+	input_del(&input);
+}
+
+Test(input_read, invalid_too_many_spaces_2)
+{
+	int				fd;
+	t_input_info	input;
+	char			*map = "tests/maps/invalid_too_many_spaces_2";
+
+	ft_bzero(&input, sizeof(input));
+	input.ant_no = -1;
+	fd = open(map, O_RDONLY);
+	cr_assert_gt(fd, 0, "couldn't open %s", map);
+	dup2(fd, 0);
+	cr_expect_eq(input_read(&input), ERROR, "reading map %s doesn't return error", map);
+	input_del(&input);
+}
+
+Test(input_read, invalid_too_many_spaces_1)
+{
+	int				fd;
+	t_input_info	input;
+	char			*map = "tests/maps/invalid_too_many_spaces_1";
+
+	ft_bzero(&input, sizeof(input));
+	input.ant_no = -1;
+	fd = open(map, O_RDONLY);
+	cr_assert_gt(fd, 0, "couldn't open %s", map);
+	dup2(fd, 0);
+	cr_expect_eq(input_read(&input), ERROR, "reading map %s doesn't return error", map);
+	input_del(&input);
+}
 
 Test(input_read, invalid_empty)
 {
