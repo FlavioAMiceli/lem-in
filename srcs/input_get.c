@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 16:30:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/28 20:26:19 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/30 13:20:54 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ static int	create_input_list(t_input_info *input, char **line,
 		return (strarrdel_and_return(ERROR, &line));
 	else if (ft_strequ(line[0], "##start") || ft_strequ(line[0], "##end"))
 		return (add_start_end(input, line, input_line));
-	else if (line[0][0] == '#')
+	else if (line[0][0] == '#')// && line[0][1] != '#')
 		return (strarrdel_and_return(SUCCESS, &line));
 	else if (line[0][0] != '#' && line[1] && ft_isint(line[1]) && line[2]
 		&& ft_isint(line[2]) && add_room(input, input_line, line[0]) == SUCCESS)
@@ -174,11 +174,11 @@ int			input_read(t_input_info *input)
 		return (ERROR);
 	while (ret != 0)
 	{
-		if (ret == -1)
+		if (ret == -1 || (line[0] != '#' && ft_strcheck_sep(line, ' ') == 0))
 			return (ERROR);
 		input_line = input_line_add(input, line);
-		if (ft_isint(line) && input->ant_no == -1 && input->rooms == NULL
-			&& input->links == NULL)
+		if (ft_isint(line) && ft_isdigit(line[0]) && input->ant_no == -1 \
+			&& input->rooms == NULL && input->links == NULL)
 			input->ant_no = ft_atoi(line);
 		else
 		{
