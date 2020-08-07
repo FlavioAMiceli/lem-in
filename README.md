@@ -63,7 +63,7 @@ Here an example:
 
 the output will have the following structure  (`-l` option suppresses the input map from being printed to the stdout):
 
-	./lem-in -l < tests/maps/valid_normal_2
+	$> ./lem-in -l < tests/maps/valid_normal_2
 	L1-G L2-D
 	L1-H L2-E L3-D
 	L1-I L2-F L3-E
