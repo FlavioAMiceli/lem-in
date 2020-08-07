@@ -63,7 +63,7 @@ Here an example:
 
 the output will have the following structure  (`-l` option suppresses the input map from being printed to the stdout):
 
-	$> ./lem-in -l < tests/maps/valid_normal_2
+	$> ./lem-in -l < example.map
 	L1-G L2-D
 	L1-H L2-E L3-D
 	L1-I L2-F L3-E
@@ -71,4 +71,4 @@ the output will have the following structure  (`-l` option suppresses the input 
 	L3-snk
 
 to be read as follows: <br>
-L'ant_no'-'current_vertex'. One line represents one step. So in the first step ant `1` moves to room `G` and ant `2` moves to room `D`. In the second step ant `1` continues to room `H`, ant `2` to `E` and ant `3` moves to room `D`. After step 5 all ants have arrived in `snk`.
+L[ant_no]-[current_vertex]. One line represents one step. So in the first step ant `1` moves to room `G` and ant `2` moves to room `D`. In the second step ant `1` continues to room `H`, ant `2` to `E` and ant `3` moves to room `D`. After step 5 all ants have arrived in `snk`.
